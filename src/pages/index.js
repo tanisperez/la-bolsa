@@ -3,10 +3,10 @@ import Image from 'next/image'
 
 import 'bootstrap/dist/css/bootstrap.css'
 
-const Home = () => {
+const LaBolsa = () => {
     return (
         <h1>La Bolsa</h1>
     )
 }
 
-export default Home
+export default LaBolsa
