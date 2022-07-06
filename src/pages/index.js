@@ -1,12 +1,11 @@
-import Head from 'next/head'
-import Image from 'next/image'
-
-import 'bootstrap/dist/css/bootstrap.css'
+import Container from 'react-bootstrap/Container';
 
 const LaBolsa = () => {
     return (
-        <h1>La Bolsa</h1>
-    )
+        <Container>            
+            <h1>La Bolsa</h1>
+        </Container>
+    );
 }
 
 export default LaBolsa
