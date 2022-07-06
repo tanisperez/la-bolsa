@@ -5,7 +5,7 @@ import Market from '@components/market/Market';
 const LaBolsa = () => {
     return (
         <Container>            
-            <h1>La Bolsa</h1>
+            <img src="la-bolsa.png" alt="La Bolsa logo" width="600" height="300"/>
             <Market/>
         </Container>
     );
