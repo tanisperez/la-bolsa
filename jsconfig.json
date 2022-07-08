@@ -3,12 +3,15 @@
         "target": "es2017",
         "jsx": "react",
         "allowSyntheticDefaultImports": true,
+        "checkJs": true,
         "baseUrl": ".",
+        "moduleResolution": "node",
         "paths": {
-            "~/*": ["./src/*"],
             "root/*": ["./*"],
+            "~/*": ["./src/*"],
             "public/*": ["public*"],
-            "@components/*": ["./src/components/*"]
+            "@components/*": ["src/components/*"],
+            "@pages/*": ["src/pages/*"]
         }
     },
     "exclude": ["node_modules", "dist", ".next", ".cache", "bundles", "out"],

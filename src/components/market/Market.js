@@ -3,7 +3,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
 import './Market.module.css';
-import Drink from '../drink/Drink';
+import Drink from '@components/drink/Drink';
 
 const Market = () => {
     return (
