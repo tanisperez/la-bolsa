@@ -32,6 +32,6 @@ const Market = () => {
             </Row>
         </div>
     );
-}
+};
 
 export default Market;
