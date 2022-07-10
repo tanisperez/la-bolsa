@@ -1,9 +1,5 @@
 import React from 'react';
-import Table from 'react-bootstrap/Table';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
-import { Col } from 'react-bootstrap';
+import { Container, Row, Col, Table, Button } from 'react-bootstrap';
 
 const Admin = () => {
     return (
