@@ -1,6 +1,8 @@
 import React from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import Image from 'next/image';
+
 import PropTypes from 'prop-types';
 
 import styles from './Drink.module.css';
@@ -36,7 +38,7 @@ const Drink = ({alias, name, price, lastPrice}) => {
                     </Row>
                 </Col>
                 <Col md="auto" className={styles.drinkGraph}>
-                    <img src="market-graph-down.png" alt="Gráfica de precio" width="90" height="60" />
+                    <Image src="/market-graph-down.png" alt="Gráfica de precio" width={90} height={60}/>
                 </Col>
                 <Col md={2} className="p-0">
                     <Row className="m-0">
