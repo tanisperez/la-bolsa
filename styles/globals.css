@@ -24,3 +24,12 @@ a {
 .logo-container img {
     border-radius: 10px;
 }
+
+.admin-navbar {
+    align-items: center;
+}
+
+.admin-navbar h1 {
+    padding: 1.5rem 0;
+    color: white;
+}
