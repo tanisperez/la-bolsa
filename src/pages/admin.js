@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Table, Button } from 'react-bootstrap';
+import { Pencil, XLg } from 'react-bootstrap-icons';
 
 const Admin = () => {
     return (
@@ -21,6 +22,8 @@ const Admin = () => {
                             <th>Nombre de la bebida</th>
                             <th>Precio mínimo</th>
                             <th>Precio máximo</th>
+                            <th className="edit-drink"></th>
+                            <th className="delete-drink"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -30,6 +33,8 @@ const Admin = () => {
                             <td>Brugal</td>
                             <td>4.50</td>
                             <td>6.00</td>
+                            <td><Pencil size={20}/></td>
+                            <td><XLg size={20}/></td>
                         </tr>
                         <tr>
                             <td>2</td>
@@ -37,6 +42,8 @@ const Admin = () => {
                             <td>Arehucas</td>
                             <td>4.00</td>
                             <td>5.50</td>
+                            <td><Pencil size={20}/></td>
+                            <td><XLg size={20}/></td>
                         </tr>
                         <tr>
                             <td>3</td>
@@ -44,6 +51,8 @@ const Admin = () => {
                             <td>Santa Teresa</td>
                             <td>5.00</td>
                             <td>6.00</td>
+                            <td><Pencil size={20}/></td>
+                            <td><XLg size={20}/></td>
                         </tr>
                         <tr>
                             <td>4</td>
@@ -51,6 +60,8 @@ const Admin = () => {
                             <td>Absolut</td>
                             <td>5.00</td>
                             <td>6.00</td>
+                            <td><Pencil size={20}/></td>
+                            <td><XLg size={20}/></td>
                         </tr>
                     </tbody>
                 </Table>
