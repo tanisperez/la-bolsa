@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col, Table, Button } from 'react-bootstrap';
 import { Pencil, XLg } from 'react-bootstrap-icons';
+import AddDrink from '../components/admin/add-drink/AddDrink';
 
 const Admin = () => {
+    const [addDrinkShow, setAddDrinkShow] = useState(false);
+
     return (
         <Container className="admin-page">
             <Row className="admin-navbar">
@@ -10,7 +13,7 @@ const Admin = () => {
                     <h1>Página de administración</h1>
                 </Col>
                 <Col md="auto" className="px-0">
-                    <Button className="add-drink">Añadir bebida</Button>
+                    <Button className="add-drink" onClick={() => setAddDrinkShow(true)}>Añadir bebida</Button>
                 </Col>
             </Row>
             <Row>
@@ -66,6 +69,7 @@ const Admin = () => {
                     </tbody>
                 </Table>
             </Row>
+            <AddDrink show={addDrinkShow} onHide={() => setAddDrinkShow(false)}/>
         </Container>
     );
 }
