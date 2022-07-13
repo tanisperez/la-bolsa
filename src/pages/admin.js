@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Table, Button } from 'react-bootstrap';
 import { Pencil, XLg } from 'react-bootstrap-icons';
+
 import AddDrink from '../components/admin/add-drink/AddDrink';
+import drinkService from '@services/drink/DrinkService';
 
 const Admin = () => {
+    const [drinks, setDrinks] = useState([]);
     const [addDrinkShow, setAddDrinkShow] = useState(false);
+
+    useEffect(() => {
+        let result = drinkService.getDrinks();
+        setDrinks(result);
+    }, []);
 
     return (
         <Container className="admin-page">
@@ -30,47 +38,25 @@ const Admin = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>BRUG</td>
-                            <td>Brugal</td>
-                            <td>4.50</td>
-                            <td>6.00</td>
-                            <td><Pencil size={20}/></td>
-                            <td><XLg size={20}/></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>AREH</td>
-                            <td>Arehucas</td>
-                            <td>4.00</td>
-                            <td>5.50</td>
-                            <td><Pencil size={20}/></td>
-                            <td><XLg size={20}/></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>STER</td>
-                            <td>Santa Teresa</td>
-                            <td>5.00</td>
-                            <td>6.00</td>
-                            <td><Pencil size={20}/></td>
-                            <td><XLg size={20}/></td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>ABS</td>
-                            <td>Absolut</td>
-                            <td>5.00</td>
-                            <td>6.00</td>
-                            <td><Pencil size={20}/></td>
-                            <td><XLg size={20}/></td>
-                        </tr>
+                        { 
+                            drinks.map(drink => (
+                                // eslint-disable-next-line react/jsx-key
+                                <tr>
+                                    <td>{drink.id}</td>
+                                    <td>{drink.alias}</td>
+                                    <td>{drink.name}</td>
+                                    <td>{drink.minPrice}</td>
+                                    <td>{drink.maxPrice}</td>
+                                    <td><Pencil size={20}/></td>
+                                    <td><XLg size={20}/></td>
+                                </tr>
+                            )) 
+                        }
                     </tbody>
                 </Table>
             </Row>
             <AddDrink show={addDrinkShow} onHide={() => setAddDrinkShow(false)}/>
-        </Container>
+        </Container >
     );
 }
 
