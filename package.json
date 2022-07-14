@@ -6,7 +6,8 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "create-db": "node src/utils/create-db.js"
     },
     "dependencies": {
         "bootstrap": "5.1.3",
