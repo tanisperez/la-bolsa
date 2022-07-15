@@ -3,15 +3,16 @@ import { Container, Row, Col, Table, Button } from 'react-bootstrap';
 import { Pencil, XLg } from 'react-bootstrap-icons';
 
 import AddDrink from '../components/admin/add-drink/AddDrink';
-import drinkService from '@services/drink/DrinkService';
+import drinkClient from '@clients/drink/DrinkClient';
 
 const Admin = () => {
     const [drinks, setDrinks] = useState([]);
     const [addDrinkShow, setAddDrinkShow] = useState(false);
 
     useEffect(() => {
-        let result = drinkService.getDrinks();
-        setDrinks(result);
+        drinkClient.getDrinks()
+            .then((result) => setDrinks(result))
+            .then((error) => console.log(error));
     }, []);
 
     return (

@@ -12,6 +12,7 @@
             "public/*": ["public*"],
             "@components/*": ["src/components/*"],
             "@services/*": ["src/services/*"],
+            "@clients/*": ["src/clients/*"],
             "@pages/*": ["src/pages/*"]
         }
     },
