@@ -4,6 +4,16 @@ class DrinkClient {
         const drinks = await result.json();
         return drinks;
     }
+
+    async addDrink(drink) {
+        return fetch('/api/drinks', {
+            method: 'POST',
+            body: JSON.stringify(drink),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+    }
 }
 
 const drinkClient = new DrinkClient();

@@ -6,7 +6,7 @@ class DrinkService {
         this.db = new SQLite3.Database('public/labolsa.db');
     }
 
-    select(query) {
+    #select(query) {
         return new Promise((resolve, reject) => {
             this.db.all(query, (error, rows) => {
                 if (error) {
@@ -19,7 +19,7 @@ class DrinkService {
     }
 
     async getDrinks() {
-        const rows = await this.select("SELECT drink_id, alias, name, min_price, max_price FROM drink")
+        const rows = await this.#select("SELECT drink_id, alias, name, min_price, max_price FROM drink")
         return rows.map(row => {
             return {
                 drink_id: row.drink_id,
@@ -29,6 +29,17 @@ class DrinkService {
                 max_price: row.max_price
             };
         });
+    }
+
+    addDrink(drink) {
+        this.db.run(`INSERT INTO drink(alias, name, min_price, max_price) VALUES(?, ?, ?, ?, ?)`, 
+            [drink.alias, drink.name, drink.min_price, drink.max_price], 
+            (error) => {
+                if (error) {
+                    console.log(error);
+                }
+            }
+        );
     }
 };
 
