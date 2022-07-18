@@ -19,6 +19,12 @@ async function getDrinks(response) {
 }
 
 async function addDrink(request, response) {
-    console.log(request.body);
-    response.status('201').send('');
+    const drink = request.body;
+    console.log('Add drink: ' + JSON.stringify(drink));
+
+    drink.drink_id = await drinkService.addDrink(drink);
+    console.log('Drink added: ' + JSON.stringify(drink));
+
+    response.status('201')
+        .json(drink);
 }

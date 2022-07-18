@@ -1,18 +1,20 @@
 class DrinkClient {
     async getDrinks() {
-        const result = await fetch('/api/drinks');
-        const drinks = await result.json();
+        const response = await fetch('/api/drinks');
+        const drinks = await response.json();
         return drinks;
     }
 
     async addDrink(drink) {
-        return fetch('/api/drinks', {
+        const response = await fetch('/api/drinks', {
             method: 'POST',
             body: JSON.stringify(drink),
             headers: {
                 'Content-Type': 'application/json'
             }
         });
+        const addedDrink = await response.json();
+        return addedDrink;
     }
 }
 

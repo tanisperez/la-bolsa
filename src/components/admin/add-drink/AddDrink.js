@@ -37,8 +37,8 @@ const AddDrink = (props) => {
             max_price: maxPrice
         };
         drinkClient.addDrink(drink)
-            .then((response) => console.log('Drink added ' + response))
-            .then((error) => console.log(error));
+            .then((result) => console.log('Drink added: ' + JSON.stringify(result)))
+            .catch((error) => console.log(error));
     };
 
     return (

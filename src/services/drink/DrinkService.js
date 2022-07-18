@@ -18,6 +18,18 @@ class DrinkService {
         });
     }
 
+    #insert(query, values) {
+        return new Promise((resolve, reject) => {
+            this.db.run(query, values, function (error) {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(this.lastID);
+                }
+            });
+        });
+    }
+
     async getDrinks() {
         const rows = await this.#select("SELECT drink_id, alias, name, min_price, max_price FROM drink")
         return rows.map(row => {
@@ -31,15 +43,10 @@ class DrinkService {
         });
     }
 
-    addDrink(drink) {
-        this.db.run(`INSERT INTO drink(alias, name, min_price, max_price) VALUES(?, ?, ?, ?, ?)`, 
-            [drink.alias, drink.name, drink.min_price, drink.max_price], 
-            (error) => {
-                if (error) {
-                    console.log(error);
-                }
-            }
-        );
+    async addDrink(drink) {
+        const drinkId = await this.#insert("INSERT INTO drink(alias, name, min_price, max_price) VALUES(?, ?, ?, ?)", 
+            [drink.alias, drink.name, drink.min_price, drink.max_price]);
+        return drinkId;
     }
 };
 
