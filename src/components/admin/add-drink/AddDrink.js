@@ -1,14 +1,29 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Button, Form, InputGroup, Modal } from 'react-bootstrap';
 
 import drinkClient from '@clients//drink/DrinkClient';
 
 const AddDrink = (props) => {
     const onHide = props.onHide;
+    const form = useRef(null);
+    const [validated, setValidated] = useState(false);
     const [drinkAlias, setDrinkAlias] = useState("");
     const [drinkName, setDrinkName] = useState("");
     const [minPrice, setMinPrice] = useState(0.0);
     const [maxPrice, setMaxPrice] = useState(0.0);
+
+    const clearState = () => {
+        setValidated(false);
+        setDrinkAlias("");
+        setDrinkName("");
+        setMinPrice(0.0);
+        setMaxPrice(0.0);
+    };
+
+    const handleHide = (refresh) => {
+        clearState();
+        onHide(refresh);
+    };
 
     const handleDrinkAliasChange = (event) => {
         const upperDrinkAlias = event.target.value.toUpperCase();
@@ -30,48 +45,66 @@ const AddDrink = (props) => {
         setMaxPrice(maxPrice);
     };
 
-    const addNewDrink = () => {
-        const drink = {
-            alias: drinkAlias,
-            name: drinkName,
-            min_price: minPrice,
-            max_price: maxPrice
-        };
-        drinkClient.addDrink(drink)
+    const addNewDrink = (event) => {
+        if (form.current.checkValidity() === false) {
+            setValidated(true);
+            event.preventDefault();
+            event.stopPropagation();
+        } else {
+            const drink = {
+                alias: drinkAlias,
+                name: drinkName,
+                min_price: minPrice,
+                max_price: maxPrice
+            };
+            drinkClient.addDrink(drink)
             .then((result) => {
-                console.log('Drink added: ' + JSON.stringify(result))
-                onHide(true);
+                console.log('Drink added: ' + JSON.stringify(result));
+                handleHide(true);
             })
             .catch((error) => console.log(error));
+        }
     };
 
     return (
-        <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+        <Modal show={props.show} onHide={handleHide} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
             <Modal.Header closeButton>
                 <Modal.Title>Añadir una nueva bebida</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form>
+                <Form ref={form} noValidate validated={validated}>
                     <Form.Group className="mb-3" controlId="formDrinkAlias">
                         <Form.Label>Alias de la bebida en la Bolsa</Form.Label>
-                        <Form.Control type="email" placeholder="BRUG, ABS, STER..." maxLength={4} value={drinkAlias} onChange={handleDrinkAliasChange}/>
+                        <Form.Control type="text" placeholder="BRUG, ABS, STER..." required minLength={3} maxLength={4} value={drinkAlias} onChange={handleDrinkAliasChange} />
+                        <Form.Control.Feedback type="invalid">
+                            Introduce un alias de la bebida de 3 o 4 caracteres.
+                        </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formDrinkName">
                         <Form.Label>Nombre de la bebida</Form.Label>
-                        <Form.Control type="text" maxLength={20} placeholder="Brugal, Arehucas, Santa Teresa" onChange={handleDrinkNameChange}/>
+                        <Form.Control type="text" required minLength={4} maxLength={20} placeholder="Brugal, Arehucas, Santa Teresa" onChange={handleDrinkNameChange} />
+                        <Form.Control.Feedback type="invalid">
+                            Introduce el nombre de la bebida.
+                        </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formMinDrinkPrice">
                         <Form.Label>Precio mínimo</Form.Label>
                         <InputGroup>
-                            <Form.Control type="number" min={1} placeholder="4.50" onChange={handleMinPriceChange}/>
+                            <Form.Control type="number" required min={1} placeholder="4.50" onChange={handleMinPriceChange} />
                             <InputGroup.Text>€</InputGroup.Text>
+                            <Form.Control.Feedback type="invalid">
+                                Introduce un precio mínimo mayor de 1.
+                            </Form.Control.Feedback>
                         </InputGroup>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formMaxDrinkPrice" onChange={handleMaxPriceChange}>
                         <Form.Label>Precio máximo</Form.Label>
                         <InputGroup>
-                            <Form.Control type="number" min={1} placeholder="6.00" />
+                            <Form.Control type="number" required min={1} placeholder="6.00" />
                             <InputGroup.Text>€</InputGroup.Text>
+                            <Form.Control.Feedback type="invalid">
+                                Introduce un precio máximo.
+                            </Form.Control.Feedback>
                         </InputGroup>
                     </Form.Group>
                 </Form>
