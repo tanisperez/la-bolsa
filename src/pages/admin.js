@@ -12,7 +12,7 @@ const Admin = () => {
     useEffect(() => {
         drinkClient.getDrinks()
             .then((result) => setDrinks(result))
-            .then((error) => console.log(error));
+            .catch((error) => console.log(error));
     }, []);
 
     return (
