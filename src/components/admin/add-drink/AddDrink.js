@@ -59,14 +59,14 @@ const AddDrink = (props) => {
                     <Form.Group className="mb-3" controlId="formMinDrinkPrice">
                         <Form.Label>Precio mínimo</Form.Label>
                         <InputGroup>
-                            <Form.Control type="number" placeholder="4.50" onChange={handleMinPriceChange}/>
+                            <Form.Control type="number" min={1} placeholder="4.50" onChange={handleMinPriceChange}/>
                             <InputGroup.Text>€</InputGroup.Text>
                         </InputGroup>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formMaxDrinkPrice" onChange={handleMaxPriceChange}>
                         <Form.Label>Precio máximo</Form.Label>
                         <InputGroup>
-                            <Form.Control type="number" placeholder="6.00" />
+                            <Form.Control type="number" min={1} placeholder="6.00" />
                             <InputGroup.Text>€</InputGroup.Text>
                         </InputGroup>
                     </Form.Group>
