@@ -9,10 +9,22 @@ const Admin = () => {
     const [drinks, setDrinks] = useState([]);
     const [addDrinkShow, setAddDrinkShow] = useState(false);
 
-    useEffect(() => {
+    const loadDrinks = () => {
         drinkClient.getDrinks()
             .then((result) => setDrinks(result))
             .catch((error) => console.log(error));
+    };
+
+    const onHideAddDrinkModal = ((refresh) => {
+        const refreshDrinks = refresh || false;
+        setAddDrinkShow(false);
+        if (refreshDrinks) {
+            loadDrinks();
+        }
+    });
+
+    useEffect(() => {
+        loadDrinks();
     }, []);
 
     return (
@@ -56,7 +68,7 @@ const Admin = () => {
                     </tbody>
                 </Table>
             </Row>
-            <AddDrink show={addDrinkShow} onHide={() => setAddDrinkShow(false)}/>
+            <AddDrink show={addDrinkShow} onHide={onHideAddDrinkModal}/>
         </Container >
     );
 }

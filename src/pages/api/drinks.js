@@ -20,7 +20,7 @@ async function getDrinks(response) {
 
 async function addDrink(request, response) {
     const drink = request.body;
-    console.log('Add drink: ' + JSON.stringify(drink));
+    console.log('Add drink request: ' + JSON.stringify(drink));
 
     drink.drink_id = await drinkService.addDrink(drink);
     console.log('Drink added: ' + JSON.stringify(drink));

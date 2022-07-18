@@ -4,6 +4,7 @@ import { Button, Form, InputGroup, Modal } from 'react-bootstrap';
 import drinkClient from '@clients//drink/DrinkClient';
 
 const AddDrink = (props) => {
+    const onHide = props.onHide;
     const [drinkAlias, setDrinkAlias] = useState("");
     const [drinkName, setDrinkName] = useState("");
     const [minPrice, setMinPrice] = useState(0.0);
@@ -37,7 +38,10 @@ const AddDrink = (props) => {
             max_price: maxPrice
         };
         drinkClient.addDrink(drink)
-            .then((result) => console.log('Drink added: ' + JSON.stringify(result)))
+            .then((result) => {
+                console.log('Drink added: ' + JSON.stringify(result))
+                onHide(true);
+            })
             .catch((error) => console.log(error));
     };
 
