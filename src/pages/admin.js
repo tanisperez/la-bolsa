@@ -42,7 +42,7 @@ const Admin = () => {
                         { 
                             drinks.map(drink => (
                                 // eslint-disable-next-line react/jsx-key
-                                <tr>
+                                <tr key={drink.drink_id}>
                                     <td>{drink.drink_id}</td>
                                     <td>{drink.alias}</td>
                                     <td>{drink.name}</td>
