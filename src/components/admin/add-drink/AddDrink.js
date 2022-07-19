@@ -1,23 +1,50 @@
-import React, { useRef, useState } from 'react';
-import { Button, Form, InputGroup, Modal } from 'react-bootstrap';
+import React, { useEffect, useRef, useState } from 'react';
+import { Alert, Button, Form, InputGroup, Modal } from 'react-bootstrap';
 
 import drinkClient from '@clients//drink/DrinkClient';
 
 const AddDrink = (props) => {
     const onHide = props.onHide;
     const form = useRef(null);
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
     const [validated, setValidated] = useState(false);
     const [drinkAlias, setDrinkAlias] = useState("");
     const [drinkName, setDrinkName] = useState("");
-    const [minPrice, setMinPrice] = useState(0.0);
-    const [maxPrice, setMaxPrice] = useState(0.0);
+    const [minPrice, setMinPrice] = useState(undefined);
+    const [maxPrice, setMaxPrice] = useState(undefined);
+
+    useEffect(() => {
+        const validation = validatePrices(minPrice, maxPrice);
+        if (!validation.isValid) {
+            setAlertMessage(validation.error);
+        }
+        setShowAlert(!validation.isValid);
+    }, [minPrice, maxPrice]);
+
+    const validatePrices = (minPrice, maxPrice) => {
+        let error = "";
+        if (minPrice && minPrice <= 0) {
+            error = "El precio mínimo no puede ser menor o igual que 0€";
+        } else if (maxPrice && maxPrice <= 0) {
+            error = "El precio máximo no puede ser menor o igual que 0€";
+        } else if ((maxPrice && minPrice) && maxPrice <= minPrice) {
+            error = "El precio máximo debe ser mayor que el precio mínimo";
+        }
+        return {
+            "isValid": error === "",
+            "error": error
+        }
+    };
 
     const clearState = () => {
         setValidated(false);
+        setShowAlert(false);
+        setAlertMessage("");
         setDrinkAlias("");
         setDrinkName("");
-        setMinPrice(0.0);
-        setMaxPrice(0.0);
+        setMinPrice(undefined);
+        setMaxPrice(undefined);
     };
 
     const handleHide = (refresh) => {
@@ -36,12 +63,12 @@ const AddDrink = (props) => {
     };
 
     const handleMinPriceChange = (event) => {
-        const minPrice = event.target.value;
+        const minPrice = parseFloat(event.target.value);
         setMinPrice(minPrice);
     };
 
     const handleMaxPriceChange = (event) => {
-        const maxPrice = event.target.value;
+        const maxPrice = parseFloat(event.target.value);
         setMaxPrice(maxPrice);
     };
 
@@ -50,7 +77,7 @@ const AddDrink = (props) => {
             setValidated(true);
             event.preventDefault();
             event.stopPropagation();
-        } else {
+        } else if (!showAlert) {
             const drink = {
                 alias: drinkAlias,
                 name: drinkName,
@@ -58,11 +85,11 @@ const AddDrink = (props) => {
                 max_price: maxPrice
             };
             drinkClient.addDrink(drink)
-            .then((result) => {
-                console.log('Drink added: ' + JSON.stringify(result));
-                handleHide(true);
-            })
-            .catch((error) => console.log(error));
+                .then((result) => {
+                    console.log('Drink added: ' + JSON.stringify(result));
+                    handleHide(true);
+                })
+                .catch((error) => console.log(error));
         }
     };
 
@@ -72,17 +99,20 @@ const AddDrink = (props) => {
                 <Modal.Title>Añadir una nueva bebida</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+                <Alert show={showAlert} key="danger" variant="danger">
+                    {alertMessage}
+                </Alert>
                 <Form ref={form} noValidate validated={validated}>
                     <Form.Group className="mb-3" controlId="formDrinkAlias">
                         <Form.Label>Alias de la bebida en la Bolsa</Form.Label>
-                        <Form.Control type="text" placeholder="BRUG, ABS, STER..." required minLength={3} maxLength={4} value={drinkAlias} onChange={handleDrinkAliasChange} />
+                        <Form.Control type="text" placeholder="BRUG, ABS, STER..." required minLength={2} maxLength={4} value={drinkAlias} onChange={handleDrinkAliasChange} />
                         <Form.Control.Feedback type="invalid">
-                            Introduce un alias de la bebida de 3 o 4 caracteres.
+                            Introduce un alias para la bebida de 2 a 4 caracteres.
                         </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formDrinkName">
                         <Form.Label>Nombre de la bebida</Form.Label>
-                        <Form.Control type="text" required minLength={4} maxLength={20} placeholder="Brugal, Arehucas, Santa Teresa" onChange={handleDrinkNameChange} />
+                        <Form.Control type="text" required minLength={2} maxLength={20} placeholder="Brugal, Arehucas, Santa Teresa" onChange={handleDrinkNameChange} />
                         <Form.Control.Feedback type="invalid">
                             Introduce el nombre de la bebida.
                         </Form.Control.Feedback>
@@ -93,7 +123,7 @@ const AddDrink = (props) => {
                             <Form.Control type="number" required min={1} placeholder="4.50" onChange={handleMinPriceChange} />
                             <InputGroup.Text>€</InputGroup.Text>
                             <Form.Control.Feedback type="invalid">
-                                Introduce un precio mínimo mayor de 1.
+                                Introduce un precio mínimo mayor que 1€.
                             </Form.Control.Feedback>
                         </InputGroup>
                     </Form.Group>
@@ -103,7 +133,7 @@ const AddDrink = (props) => {
                             <Form.Control type="number" required min={1} placeholder="6.00" />
                             <InputGroup.Text>€</InputGroup.Text>
                             <Form.Control.Feedback type="invalid">
-                                Introduce un precio máximo.
+                                Introduce un precio máximo mayor que el precio mínimo.
                             </Form.Control.Feedback>
                         </InputGroup>
                     </Form.Group>
