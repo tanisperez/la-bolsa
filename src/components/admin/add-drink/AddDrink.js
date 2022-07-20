@@ -120,7 +120,7 @@ const AddDrink = (props) => {
                     <Form.Group className="mb-3" controlId="formMinDrinkPrice">
                         <Form.Label>Precio mínimo</Form.Label>
                         <InputGroup>
-                            <Form.Control type="number" required min={1} placeholder="4.50" onChange={handleMinPriceChange} />
+                            <Form.Control type="number" required min={1} placeholder="4,5" step={0.5} onChange={handleMinPriceChange} />
                             <InputGroup.Text>€</InputGroup.Text>
                             <Form.Control.Feedback type="invalid">
                                 Introduce un precio mínimo mayor que 1€.
@@ -130,7 +130,7 @@ const AddDrink = (props) => {
                     <Form.Group className="mb-3" controlId="formMaxDrinkPrice" onChange={handleMaxPriceChange}>
                         <Form.Label>Precio máximo</Form.Label>
                         <InputGroup>
-                            <Form.Control type="number" required min={1} placeholder="6.00" />
+                            <Form.Control type="number" required min={1} placeholder="6,0" step={0.5}/>
                             <InputGroup.Text>€</InputGroup.Text>
                             <Form.Control.Feedback type="invalid">
                                 Introduce un precio máximo mayor que el precio mínimo.
