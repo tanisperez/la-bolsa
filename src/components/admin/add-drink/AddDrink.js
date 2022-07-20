@@ -114,7 +114,7 @@ const AddDrink = (props) => {
                         <Form.Label>Nombre de la bebida</Form.Label>
                         <Form.Control type="text" required minLength={2} maxLength={20} placeholder="Brugal, Arehucas, Santa Teresa" onChange={handleDrinkNameChange} />
                         <Form.Control.Feedback type="invalid">
-                            Introduce el nombre de la bebida.
+                            Introduce un nombre para la bebida de 2 a 20 caracteres.
                         </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formMinDrinkPrice">
@@ -123,7 +123,7 @@ const AddDrink = (props) => {
                             <Form.Control type="number" required min={1} placeholder="4,5" step={0.5} onChange={handleMinPriceChange} />
                             <InputGroup.Text>€</InputGroup.Text>
                             <Form.Control.Feedback type="invalid">
-                                Introduce un precio mínimo mayor que 1€.
+                                Introduce un precio mínimo mayor que 1€ y múltiplo de 0,5€.
                             </Form.Control.Feedback>
                         </InputGroup>
                     </Form.Group>
@@ -133,7 +133,7 @@ const AddDrink = (props) => {
                             <Form.Control type="number" required min={1} placeholder="6,0" step={0.5}/>
                             <InputGroup.Text>€</InputGroup.Text>
                             <Form.Control.Feedback type="invalid">
-                                Introduce un precio máximo mayor que el precio mínimo.
+                                Introduce un precio máximo mayor que el precio mínimo y múltiplo de 0,5€.
                             </Form.Control.Feedback>
                         </InputGroup>
                     </Form.Group>
