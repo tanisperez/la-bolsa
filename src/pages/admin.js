@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Table, Button } from 'react-bootstrap';
 import { Pencil, XLg } from 'react-bootstrap-icons';
 
-import AddDrink from '../components/admin/add-drink/AddDrink';
 import drinkClient from '@clients/drink/DrinkClient';
+import AddDrink from '@components/admin/add-drink/AddDrink';
+import EditDrink from '@components/admin/edit-drink/EditDrink';
 
 const Admin = () => {
     const [drinks, setDrinks] = useState([]);
     const [addDrinkShow, setAddDrinkShow] = useState(false);
+    const [editDrinkShow, setEditDrinkShow] = useState(false);
+    const [editDrink, setEditDrink] = useState(undefined);
 
     const loadDrinks = () => {
         drinkClient.getDrinks()
@@ -22,6 +25,20 @@ const Admin = () => {
             loadDrinks();
         }
     });
+
+    const onHideEditDrinkModal = ((refresh) => {
+        const refreshDrinks = refresh || false;
+        setEditDrinkShow(false);
+        if (refreshDrinks) {
+            loadDrinks();
+        }
+    });
+
+    const openEditDrinkModal = (drinkId) => {
+        const drink = drinks.find((drink) => drink.drink_id == drinkId);
+        setEditDrink(drink);
+        setEditDrinkShow(true);
+    };
 
     useEffect(() => {
         loadDrinks();
@@ -60,7 +77,7 @@ const Admin = () => {
                                     <td>{drink.name}</td>
                                     <td>{drink.min_price}</td>
                                     <td>{drink.max_price}</td>
-                                    <td><Pencil size={20}/></td>
+                                    <td><Pencil size={20} onClick={() => openEditDrinkModal(drink.drink_id)}/></td>
                                     <td><XLg size={20}/></td>
                                 </tr>
                             )) 
@@ -69,6 +86,7 @@ const Admin = () => {
                 </Table>
             </Row>
             <AddDrink show={addDrinkShow} onHide={onHideAddDrinkModal}/>
+            <EditDrink show={editDrinkShow} onHide={onHideEditDrinkModal} drink={editDrink}/>
         </Container >
     );
 }
