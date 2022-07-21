@@ -89,16 +89,15 @@ const EditDrink = (props) => {
             event.stopPropagation();
         } else if (!showAlert) {
             const modifiedDrink = {
-                id: drink.id,
+                drink_id: drink.drink_id,
                 alias: drinkAlias,
                 name: drinkName,
                 min_price: minPrice,
                 max_price: maxPrice
             };
-            alert(JSON.stringify(modifiedDrink));
-            drinkClient.addDrink(modifiedDrink)
+            drinkClient.editDrink(modifiedDrink)
                 .then((result) => {
-                    console.log('Drink added: ' + JSON.stringify(result));
+                    console.log('Drink modified: ' + JSON.stringify(result));
                     handleHide(true);
                 })
                 .catch((error) => console.log(error));

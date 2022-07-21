@@ -18,7 +18,7 @@ class DrinkService {
         });
     }
 
-    #insert(query, values) {
+    #executeQuery(query, values) {
         return new Promise((resolve, reject) => {
             this.db.run(query, values, function (error) {
                 if (error) {
@@ -44,9 +44,24 @@ class DrinkService {
     }
 
     async addDrink(drink) {
-        const drinkId = await this.#insert("INSERT INTO drink(alias, name, min_price, max_price) VALUES(?, ?, ?, ?)", 
+        const drinkId = await this.#executeQuery("INSERT INTO drink(alias, name, min_price, max_price) VALUES(?, ?, ?, ?)", 
             [drink.alias, drink.name, drink.min_price, drink.max_price]);
         return drinkId;
+    }
+
+    async editDrink(drink) {
+        console.log(JSON.stringify(drink));
+        await this.#executeQuery(`
+            UPDATE drink
+            SET
+                alias = ?,
+                name = ?,
+                min_price = ?,
+                max_price = ?
+            WHERE
+                drink_id = ?`, 
+            [drink.alias, drink.name, drink.min_price, drink.max_price, drink.drink_id]);
+        return drink;
     }
 };
 
