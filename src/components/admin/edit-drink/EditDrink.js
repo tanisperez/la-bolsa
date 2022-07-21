@@ -10,10 +10,10 @@ const EditDrink = (props) => {
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
     const [validated, setValidated] = useState(false);
-    const [drinkAlias, setDrinkAlias] = useState("");
-    const [drinkName, setDrinkName] = useState("");
-    const [minPrice, setMinPrice] = useState(undefined);
-    const [maxPrice, setMaxPrice] = useState(undefined);
+    const [drinkAlias, setDrinkAlias] = useState(drink?.alias);
+    const [drinkName, setDrinkName] = useState(drink?.name);
+    const [minPrice, setMinPrice] = useState(drink?.min_price);
+    const [maxPrice, setMaxPrice] = useState(drink?.max_price);
 
     useEffect(() => {
         const validation = validatePrices(minPrice, maxPrice);
@@ -73,7 +73,7 @@ const EditDrink = (props) => {
         setMaxPrice(maxPrice);
     };
 
-    const addNewDrink = (event) => {
+    const editDrink = (event) => {
         if (form.current.checkValidity() === false) {
             setValidated(true);
             event.preventDefault();
@@ -85,12 +85,13 @@ const EditDrink = (props) => {
                 min_price: minPrice,
                 max_price: maxPrice
             };
-            drinkClient.addDrink(drink)
+            alert(JSON.stringify(drink));
+            /*drinkClient.addDrink(drink)
                 .then((result) => {
                     console.log('Drink added: ' + JSON.stringify(result));
                     handleHide(true);
                 })
-                .catch((error) => console.log(error));
+                .catch((error) => console.log(error));*/
         }
     };
 
@@ -141,7 +142,7 @@ const EditDrink = (props) => {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={addNewDrink}>Añadir bebida</Button>
+                <Button onClick={editDrink}>Guardar cambios</Button>
             </Modal.Footer>
         </Modal>
     );
