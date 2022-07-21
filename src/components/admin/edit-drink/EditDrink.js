@@ -10,10 +10,19 @@ const EditDrink = (props) => {
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
     const [validated, setValidated] = useState(false);
-    const [drinkAlias, setDrinkAlias] = useState(drink?.alias);
-    const [drinkName, setDrinkName] = useState(drink?.name);
-    const [minPrice, setMinPrice] = useState(drink?.min_price);
-    const [maxPrice, setMaxPrice] = useState(drink?.max_price);
+    const [drinkAlias, setDrinkAlias] = useState("");
+    const [drinkName, setDrinkName] = useState("");
+    const [minPrice, setMinPrice] = useState(undefined);
+    const [maxPrice, setMaxPrice] = useState(undefined);
+
+    useEffect(() => {
+        if (drink) {
+            setDrinkAlias(drink.alias);
+            setDrinkName(drink.name);
+            setMinPrice(drink.min_price);
+            setMaxPrice(drink.max_price);
+        }
+    }, [drink]);
 
     useEffect(() => {
         const validation = validatePrices(minPrice, maxPrice);
@@ -79,19 +88,20 @@ const EditDrink = (props) => {
             event.preventDefault();
             event.stopPropagation();
         } else if (!showAlert) {
-            const drink = {
+            const modifiedDrink = {
+                id: drink.id,
                 alias: drinkAlias,
                 name: drinkName,
                 min_price: minPrice,
                 max_price: maxPrice
             };
-            alert(JSON.stringify(drink));
-            /*drinkClient.addDrink(drink)
+            alert(JSON.stringify(modifiedDrink));
+            drinkClient.addDrink(modifiedDrink)
                 .then((result) => {
                     console.log('Drink added: ' + JSON.stringify(result));
                     handleHide(true);
                 })
-                .catch((error) => console.log(error));*/
+                .catch((error) => console.log(error));
         }
     };
 
