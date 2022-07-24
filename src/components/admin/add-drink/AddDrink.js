@@ -89,7 +89,7 @@ const AddDrink = (props) => {
                     console.log('Drink added: ' + JSON.stringify(result));
                     handleHide(true);
                 })
-                .catch((error) => console.log(error));
+                .catch((error) => console.error(error));
         }
     };
 
