@@ -5,17 +5,21 @@ import { Pencil, XLg } from 'react-bootstrap-icons';
 import drinkClient from '@clients/drink/DrinkClient';
 import AddDrink from '@components/admin/add-drink/AddDrink';
 import EditDrink from '@components/admin/edit-drink/EditDrink';
+import MessageDialog from '@components/message-dialog/MessageDialog';
 
 const Admin = () => {
     const [drinks, setDrinks] = useState([]);
     const [addDrinkShow, setAddDrinkShow] = useState(false);
     const [editDrinkShow, setEditDrinkShow] = useState(false);
     const [editDrink, setEditDrink] = useState(undefined);
+    const [deleteDrinkMessage, setDeleteDrinkMessage] = useState({
+        show: false
+    });
 
     const loadDrinks = () => {
         drinkClient.getDrinks()
             .then((result) => setDrinks(result))
-            .catch((error) => console.log(error));
+            .catch((error) => console.error(error));
     };
 
     const onHideAddDrinkModal = ((refresh) => {
@@ -34,10 +38,30 @@ const Admin = () => {
         }
     });
 
+    const onDeleteDrink = (() => {
+
+    });
+
+    const onHideDeleteDrinkModal = ((refresh) => {
+
+    });
+
     const openEditDrinkModal = (drinkId) => {
         const drink = drinks.find((drink) => drink.drink_id == drinkId);
         setEditDrink(drink);
         setEditDrinkShow(true);
+    };
+
+    const openDeleteDrinkModal = (drinkId) => {
+        const drink = drinks.find((drink) => drink.drink_id == drinkId);
+        const message = {
+            show: true,
+            title: "Eliminar una bebida",
+            body: `¿Deseas eliminar ${drink.name}?`,
+            acceptButtonTitle: "Eliminar",
+            cancelButtonTitle: "Canclear"
+        }
+        setDeleteDrinkMessage(message);
     };
 
     useEffect(() => {
@@ -78,7 +102,7 @@ const Admin = () => {
                                     <td>{drink.min_price}</td>
                                     <td>{drink.max_price}</td>
                                     <td><Pencil size={20} onClick={() => openEditDrinkModal(drink.drink_id)}/></td>
-                                    <td><XLg size={20}/></td>
+                                    <td><XLg size={20} onClick={() => openDeleteDrinkModal(drink.drink_id)}/></td>
                                 </tr>
                             )) 
                         }
@@ -87,6 +111,7 @@ const Admin = () => {
             </Row>
             <AddDrink show={addDrinkShow} onHide={onHideAddDrinkModal}/>
             <EditDrink show={editDrinkShow} onHide={onHideEditDrinkModal} drink={editDrink}/>
+            <MessageDialog message={deleteDrinkMessage} onAccept={onDeleteDrink}/>
         </Container >
     );
 }
