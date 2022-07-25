@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Image from 'next/image';
 
-import Market from '@components/market/Market';
+import Market from '@components/Market/Market';
 
 const LaBolsa = () => {
     return (
