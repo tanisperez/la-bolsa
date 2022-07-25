@@ -27,10 +27,10 @@ const MessageDialog = ({message, onAccept}) => {
             <Modal.Body>{message?.body}</Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={onHide}>
-                    {message?.cancelButtonTitle}
+                    {message?.buttons.cancelTitle}
                 </Button>
                 <Button variant="primary" onClick={() => onAcceptClick(message?.data)}>
-                    {message?.acceptButtonTitle}
+                    {message?.buttons.acceptTitle}
                 </Button>
             </Modal.Footer>
         </Modal >
@@ -41,10 +41,12 @@ MessageDialog.propTypes = {
     message: PropTypes.shape ({
         show: PropTypes.bool.isRequired,
         title: PropTypes.string,
+        buttons: PropTypes.shape({
+            cancelTitle: PropTypes.string.isRequired,
+            acceptTitle: PropTypes.string.isRequired
+        }),
         body: PropTypes.string,
-        data: PropTypes.object,
-        cancelButtonTitle: PropTypes.string.isRequired,
-        acceptButtonTitle: PropTypes.string.isRequired
+        data: PropTypes.object
     }),
     onAccept: PropTypes.func.isRequired
 }

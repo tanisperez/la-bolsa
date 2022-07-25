@@ -15,8 +15,10 @@ const Admin = () => {
     const [deleteDrinkMessage, setDeleteDrinkMessage] = useState({
         show: false,
         title: "Eliminar una bebida",
-        acceptButtonTitle: "Eliminar",
-        cancelButtonTitle: "Canclear"
+        buttons: {
+            cancelTitle: "Cancelar",
+            acceptTitle: "Eliminar"
+        }
     });
 
     const loadDrinks = () => {
@@ -55,13 +57,13 @@ const Admin = () => {
 
     const openDeleteDrinkModal = (drinkId) => {
         const drink = drinks.find((drink) => drink.drink_id == drinkId);
+        const { title, buttons } = deleteDrinkMessage;
         const message = {
             show: true,
-            title: "Eliminar una bebida",
+            title: title,
+            buttons: buttons,
             body: `¿Deseas eliminar ${drink.name}?`,
-            data: drink,
-            acceptButtonTitle: "Eliminar",
-            cancelButtonTitle: "Canclear"
+            data: drink
         }
         setDeleteDrinkMessage(message);
     };
