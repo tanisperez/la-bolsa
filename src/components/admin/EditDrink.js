@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Alert, Button, Form, InputGroup, Modal } from 'react-bootstrap';
 
-import drinkClient from '@clients//drink/DrinkClient';
+import drinkClient from '@clients/DrinkClient';
 
 const EditDrink = (props) => {
     const onHide = props.onHide;

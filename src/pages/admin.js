@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Table, Button } from 'react-bootstrap';
 import { Pencil, XLg } from 'react-bootstrap-icons';
 
-import drinkClient from '@clients/drink/DrinkClient';
+import drinkClient from '@clients/DrinkClient';
 import AddDrink from '@components/Admin/AddDrink';
 import EditDrink from '@components/Admin/EditDrink';
 import MessageDialog from '@components/MessageDialog/MessageDialog';
