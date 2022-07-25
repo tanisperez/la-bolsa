@@ -13,7 +13,10 @@ const Admin = () => {
     const [editDrinkShow, setEditDrinkShow] = useState(false);
     const [editDrink, setEditDrink] = useState(undefined);
     const [deleteDrinkMessage, setDeleteDrinkMessage] = useState({
-        show: false
+        show: false,
+        title: "Eliminar una bebida",
+        acceptButtonTitle: "Eliminar",
+        cancelButtonTitle: "Canclear"
     });
 
     const loadDrinks = () => {

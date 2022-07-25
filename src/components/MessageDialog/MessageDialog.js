@@ -40,8 +40,8 @@ const MessageDialog = ({message, onAccept}) => {
 MessageDialog.propTypes = {
     message: PropTypes.shape ({
         show: PropTypes.bool.isRequired,
-        title: PropTypes.string.isRequired,
-        body: PropTypes.string.isRequired,
+        title: PropTypes.string,
+        body: PropTypes.string,
         data: PropTypes.object,
         cancelButtonTitle: PropTypes.string.isRequired,
         acceptButtonTitle: PropTypes.string.isRequired
