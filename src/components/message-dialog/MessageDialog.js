@@ -14,9 +14,10 @@ const MessageDialog = ({message, onAccept}) => {
         setShowModal(false);
     });
 
-    const deleteDrink = (event) => {
-        alert('borrar bebida');
-    };
+    const onAcceptClick = ((data) => {
+        setShowModal(false);
+        onAccept(data);
+    });
 
     return (
         <Modal show={showModal} onHide={onHide} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
@@ -28,7 +29,7 @@ const MessageDialog = ({message, onAccept}) => {
                 <Button variant="secondary" onClick={onHide}>
                     {message?.cancelButtonTitle}
                 </Button>
-                <Button variant="primary" onClick={deleteDrink}>
+                <Button variant="primary" onClick={() => onAcceptClick(message?.data)}>
                     {message?.acceptButtonTitle}
                 </Button>
             </Modal.Footer>
@@ -41,6 +42,7 @@ MessageDialog.propTypes = {
         show: PropTypes.bool.isRequired,
         title: PropTypes.string.isRequired,
         body: PropTypes.string.isRequired,
+        data: PropTypes.object,
         cancelButtonTitle: PropTypes.string.isRequired,
         acceptButtonTitle: PropTypes.string.isRequired
     }),

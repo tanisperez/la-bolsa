@@ -18,7 +18,7 @@ class DrinkClient {
     }
 
     async editDrink(drink) {
-        const response = await fetch(`/api/drinks/${drink.id}`, {
+        const response = await fetch(`/api/drinks/${drink.drink_id}`, {
             method: 'PUT',
             body: JSON.stringify(drink),
             headers: {
@@ -27,6 +27,16 @@ class DrinkClient {
         });
         const addedDrink = await response.json();
         return addedDrink;
+    }
+
+    async deleteDrink(drink_id) {
+        const response = await fetch(`/api/drinks/${drink_id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        await response.json();
     }
 }
 

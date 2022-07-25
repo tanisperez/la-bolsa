@@ -38,12 +38,10 @@ const Admin = () => {
         }
     });
 
-    const onDeleteDrink = (() => {
-
-    });
-
-    const onHideDeleteDrinkModal = ((refresh) => {
-
+    const onDeleteDrink = ((data) => {
+        drinkClient.deleteDrink(data.drink_id)
+            .then(() => loadDrinks())
+            .catch((error) => console.error(error));
     });
 
     const openEditDrinkModal = (drinkId) => {
@@ -58,6 +56,7 @@ const Admin = () => {
             show: true,
             title: "Eliminar una bebida",
             body: `¿Deseas eliminar ${drink.name}?`,
+            data: drink,
             acceptButtonTitle: "Eliminar",
             cancelButtonTitle: "Canclear"
         }

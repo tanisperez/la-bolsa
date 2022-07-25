@@ -63,6 +63,14 @@ class DrinkService {
             [drink.alias, drink.name, drink.min_price, drink.max_price, drink.drink_id]);
         return drink;
     }
+
+    async deleteDrink(drinkId) {
+        await this.#executeQuery(`
+            DELETE FROM drink
+            WHERE
+                drink_id = ?`, [drinkId]);
+        return drinkId;
+    }
 };
 
 const drinkService = new DrinkService();
