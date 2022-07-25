@@ -3,8 +3,8 @@ import { Container, Row, Col, Table, Button } from 'react-bootstrap';
 import { Pencil, XLg } from 'react-bootstrap-icons';
 
 import drinkClient from '@clients/drink/DrinkClient';
-import AddDrink from '@components/admin/add-drink/AddDrink';
-import EditDrink from '@components/admin/edit-drink/EditDrink';
+import AddDrink from '@components/admin/AddDrink';
+import EditDrink from '@components/admin/EditDrink';
 import MessageDialog from '@components/MessageDialog/MessageDialog';
 
 const Admin = () => {
