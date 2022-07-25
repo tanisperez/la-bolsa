@@ -1,4 +1,4 @@
-import drinkService from '@services/drink/DrinkService'
+import drinkService from '@services/DrinkService'
 
 export default async function handler(request, response) {
     switch (request.method) {
