@@ -6,46 +6,28 @@ import MessageDialog from "./MessageDialog";
 describe('MessageDialog', () => {
     test('render hidden', () => {
         const message = {
-            show: false,
+            show: true,
             title: "Eliminar una bebida",
-            acceptButtonTitle: "Eliminar",
-            cancelButtonTitle: "Canclear"
+            buttons: {
+                cancelTitle: "Cancelar",
+                acceptTitle: "Eliminar"
+            }
         };
-        const onAccept = (() => {});
-        const messageDialog = render(<MessageDialog message={message} onAccept={onAccept}/>);
+        const onAccept = ((data) => {});
 
-        const result = true;
+        const { getByText } = render(<MessageDialog message={message} onAccept={onAccept}/>);
+        
+        const title = getByText("Eliminar una bebida");
+        expect(title.innerHTML).toBe("Eliminar una bebida");
 
-        expect(result).toBe(true);
+        expect(title).toBeInTheDocument();
     });
 
     test('render visible', () => {
-        const message = {
-            show: false,
-            title: "Eliminar una bebida",
-            acceptButtonTitle: "Eliminar",
-            cancelButtonTitle: "Canclear"
-        };
-        const onAccept = (() => {});
-        const messageDialog = render(<MessageDialog message={message} onAccept={onAccept}/>);
 
-        const result = true;
-
-        expect(result).toBe(true);
     });
 
     test('switch from hidden to visible', () => {
-        const message = {
-            show: false,
-            title: "Eliminar una bebida",
-            acceptButtonTitle: "Eliminar",
-            cancelButtonTitle: "Canclear"
-        };
-        const onAccept = (() => {});
-        const messageDialog = render(<MessageDialog message={message} onAccept={onAccept}/>);
 
-        const result = true;
-
-        expect(result).toBe(true);
     });
 });

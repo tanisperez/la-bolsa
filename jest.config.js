@@ -3,5 +3,8 @@ module.exports = {
     transform: {
         '^.+\\.(js|jsx|ts|tsx|mjs)$': 'babel-jest',
     },
-    "testEnvironment": "jsdom"
+    testEnvironment: "jsdom",
+    setupFilesAfterEnv: [
+        "<rootDir>/src/setup.test.js"
+    ]
 }
