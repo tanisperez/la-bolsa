@@ -22,15 +22,15 @@ const MessageDialog = ({message, onAccept}) => {
     return (
         <Modal show={showModal} onHide={onHide} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
             <Modal.Header closeButton>
-                <Modal.Title>{message?.title}</Modal.Title>
+                <Modal.Title>{message.title}</Modal.Title>
             </Modal.Header>
             <Modal.Body>{message?.body}</Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={onHide}>
-                    {message?.buttons.cancelTitle}
+                    {message.buttons.cancelTitle}
                 </Button>
                 <Button variant="primary" onClick={() => onAcceptClick(message?.data)}>
-                    {message?.buttons.acceptTitle}
+                    {message.buttons.acceptTitle}
                 </Button>
             </Modal.Footer>
         </Modal >

@@ -1,33 +1,69 @@
 import React from 'react';
-import {render, fireEvent, waitFor, screen} from '@testing-library/react';
+import {render, fireEvent, waitFor, screen, queryByText} from '@testing-library/react';
 
 import MessageDialog from "./MessageDialog";
 
 describe('MessageDialog', () => {
     test('render hidden', () => {
         const message = {
-            show: true,
+            show: false,
             title: "Eliminar una bebida",
             buttons: {
                 cancelTitle: "Cancelar",
                 acceptTitle: "Eliminar"
             }
         };
-        const onAccept = ((data) => {});
 
-        const { getByText } = render(<MessageDialog message={message} onAccept={onAccept}/>);
-        
-        const title = getByText("Eliminar una bebida");
-        expect(title.innerHTML).toBe("Eliminar una bebida");
+        render(<MessageDialog message={message} onAccept={((data) => {})}/>);
 
-        expect(title).toBeInTheDocument();
+        expect(screen.queryByText(message.title)).not.toBeInTheDocument();
     });
 
     test('render visible', () => {
+        const message = {
+            show: true,
+            title: "Eliminar una bebida",
+            buttons: {
+                cancelTitle: "Cancelar",
+                acceptTitle: "Eliminar"
+            },
+            body: "¿Deseas eliminar Absolut?"
+        };
 
+        render(<MessageDialog message={message} onAccept={((data) => {})}/>);
+
+        expect(screen.queryByText(message.title)).toBeInTheDocument();
+        expect(screen.queryByText(message.buttons.cancelTitle)).toBeInTheDocument();
+        expect(screen.queryByText(message.buttons.acceptTitle)).toBeInTheDocument();
+        expect(screen.queryByText(message.body)).toBeInTheDocument();
     });
 
     test('switch from hidden to visible', () => {
+        const hiddenMessage = {
+            show: false,
+            title: "Eliminar una bebida",
+            buttons: {
+                cancelTitle: "Cancelar",
+                acceptTitle: "Eliminar"
+            }
+        };
 
+        const { rerender } = render(<MessageDialog message={hiddenMessage} onAccept={((data) => {})}/>);
+        expect(screen.queryByText(hiddenMessage.title)).not.toBeInTheDocument();
+
+        const message = {
+            show: true,
+            title: "Eliminar una bebida",
+            buttons: {
+                cancelTitle: "Cancelar",
+                acceptTitle: "Eliminar"
+            },
+            body: "¿Deseas eliminar Absolut?"
+        };
+        rerender(<MessageDialog message={message} onAccept={((data) => {})}/>);
+        expect(screen.queryByText(message.title)).toBeInTheDocument();
+        expect(screen.queryByText(message.buttons.cancelTitle)).toBeInTheDocument();
+        expect(screen.queryByText(message.buttons.acceptTitle)).toBeInTheDocument();
+        expect(screen.queryByText(message.body)).toBeInTheDocument();
     });
 });
