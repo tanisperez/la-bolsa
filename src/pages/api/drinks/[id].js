@@ -25,7 +25,7 @@ async function editDrink(request, response) {
 
 async function deleteDrink(request, response) {
     const url = request.url;
-    const drinkId = url.substring(url.lastIndexOf("/") + 1);
+    const drinkId = url.substring(url.lastIndexOf('/') + 1);
     console.log(`Delete drink id: ${drinkId}`);
 
     const deletedDrinkId = await drinkService.deleteDrink(drinkId);

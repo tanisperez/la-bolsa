@@ -23,26 +23,26 @@ const AddDrink = (props) => {
     }, [minPrice, maxPrice]);
 
     const validatePrices = (minPrice, maxPrice) => {
-        let error = "";
+        let error = '';
         if (minPrice && minPrice <= 0) {
-            error = "El precio mínimo no puede ser menor o igual que 0€";
+            error = 'El precio mínimo no puede ser menor o igual que 0€';
         } else if (maxPrice && maxPrice <= 0) {
-            error = "El precio máximo no puede ser menor o igual que 0€";
+            error = 'El precio máximo no puede ser menor o igual que 0€';
         } else if ((maxPrice && minPrice) && maxPrice <= minPrice) {
-            error = "El precio máximo debe ser mayor que el precio mínimo";
+            error = 'El precio máximo debe ser mayor que el precio mínimo';
         }
         return {
-            "isValid": error === "",
-            "error": error
+            'isValid': error === '',
+            'error': error
         }
     };
 
     const clearState = () => {
         setValidated(false);
         setShowAlert(false);
-        setAlertMessage("");
-        setDrinkAlias("");
-        setDrinkName("");
+        setAlertMessage('');
+        setDrinkAlias('');
+        setDrinkName('');
         setMinPrice(undefined);
         setMaxPrice(undefined);
     };
