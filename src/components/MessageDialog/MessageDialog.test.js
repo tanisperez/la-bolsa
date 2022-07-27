@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, fireEvent, waitFor, screen, queryByText} from '@testing-library/react';
+import {render, fireEvent, waitFor, screen} from '@testing-library/react';
 
 import MessageDialog from './MessageDialog';
 
