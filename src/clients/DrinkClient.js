@@ -40,5 +40,4 @@ class DrinkClient {
     }
 }
 
-const drinkClient = new DrinkClient();
-export default drinkClient;
+export default new DrinkClient();
