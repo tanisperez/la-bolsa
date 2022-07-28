@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
 import './Market.module.css';
+
+import MarketClient from '@clients/MarketClient';
 import Drink from '@components/Drink/Drink';
 
 const Market = () => {
+    const [drinks, setDrinks] = useState([]);
+
+    useEffect(() => {
+        const marketClient = new MarketClient();
+        marketClient.getMarket()
+            .then((result) => setDrinks(result))
+            .catch((error) => console.error(error));
+    });
+
     return (
         <div>
             <Row className="mt-4 mb-4">
