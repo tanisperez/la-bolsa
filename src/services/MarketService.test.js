@@ -13,10 +13,12 @@ describe('MarketService', () => {
         expect(maxSteps).toBe(expectedSteps);
     });
 
-    it('get initial random price', () => {
-        const minPrice = 4.5;
-        const maxPrice = 6;
-
+    it.each([
+        [4.5, 5.5],
+        [4, 5.5],
+        [5, 6],
+        [3.5, 7.5]
+    ])('get initial random price between %d and %d', (minPrice, maxPrice) => {
         const randomPrice = marketService.getInitialRandomPrice(minPrice, maxPrice);
 
         expect(randomPrice).toBeLessThanOrEqual(maxPrice);

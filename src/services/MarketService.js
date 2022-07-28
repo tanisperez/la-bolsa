@@ -1,5 +1,7 @@
 import drinkService from '@services/DrinkService'
 
+const PRICE_STEP = 0.5;
+
 class MarketService {
 
     constructor(drinkService) {
@@ -32,15 +34,15 @@ class MarketService {
         }
     }
 
-    getInitialRandomPrice(minPrice, maxPrice, step = 0.5) {
-        const maxSteps = this.getMaxStepsForPrices(minPrice, maxPrice, step);
+    getInitialRandomPrice(minPrice, maxPrice) {
+        const maxSteps = this.getMaxStepsForPrices(minPrice, maxPrice);
         const randomStep = Math.floor(Math.random() * maxSteps);
-        return minPrice + (randomStep * step);
+        return minPrice + (randomStep * PRICE_STEP);
     }
     
-    getMaxStepsForPrices(minPrice, maxPrice, step = 0.5) {
+    getMaxStepsForPrices(minPrice, maxPrice) {
         let count = 0;
-        for (let i = minPrice; i<= maxPrice; i += step) {
+        for (let i = minPrice; i<= maxPrice; i += PRICE_STEP) {
             count++;
         }
         return count;
