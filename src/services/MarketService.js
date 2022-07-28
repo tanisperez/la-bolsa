@@ -32,11 +32,10 @@ class MarketService {
         }
     }
 
-    getInitialRandomPrice(minPrice, maxPrice) {
-        const min = minPrice * 10;
-        const max = maxPrice * 10;
-        const randomPrice = Math.floor(Math.random() * (max - min + 1) + min);
-        return randomPrice / 10;
+    getInitialRandomPrice(minPrice, maxPrice, step = 0.5) {
+        const maxSteps = this.getMaxStepsForPrices(minPrice, maxPrice, step);
+        const randomStep = Math.floor(Math.random() * maxSteps);
+        return minPrice + (randomStep * step);
     }
     
     getMaxStepsForPrices(minPrice, maxPrice, step = 0.5) {

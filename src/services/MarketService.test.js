@@ -12,4 +12,14 @@ describe('MarketService', () => {
 
         expect(maxSteps).toBe(expectedSteps);
     });
+
+    it('get initial random price', () => {
+        const minPrice = 4.5;
+        const maxPrice = 6;
+
+        const randomPrice = marketService.getInitialRandomPrice(minPrice, maxPrice);
+
+        expect(randomPrice).toBeLessThanOrEqual(maxPrice);
+        expect(randomPrice).toBeGreaterThanOrEqual(minPrice);
+    });
 });
