@@ -15,6 +15,7 @@ class MarketService {
             this.initMarket();
         }
         for (let drink of this.market) {
+            this.getNewDrinkPrice(drink);
             console.log(drink);
         }
         console.log('Update market prices');
@@ -22,7 +23,7 @@ class MarketService {
 
     async getMarket() {
         if (this.market.length == 0) {
-            this.initMarket();
+            await this.initMarket();
         }
         return this.market;
     }
@@ -31,6 +32,7 @@ class MarketService {
         this.market = await this.drinkService.getDrinks();
         for (let drink of this.market) {
             drink['price'] = this.getInitialRandomPrice(drink.min_price, drink.max_price);
+            drink['previous_price'] = drink['price'];
         }
     }
 
@@ -46,6 +48,24 @@ class MarketService {
             count++;
         }
         return count;
+    }
+
+    getNewDrinkPrice(drink) {
+        drink.previous_price = drink.price;
+        if (drink.price == drink.max_price) {
+            drink.price -= PRICE_STEP;
+        } else if (drink.price == drink.min_price) {
+            drink.price += PRICE_STEP;
+        } else if (this.isRandomUp()) {
+            drink.price += PRICE_STEP;
+        } else {
+            drink.price -= PRICE_STEP;
+        }
+    }
+
+    isRandomUp() {
+        const randomUp = Math.floor(Math.random() * 2);
+        return randomUp == 1;
     }
 }
 
