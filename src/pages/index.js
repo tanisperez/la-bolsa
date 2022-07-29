@@ -1,15 +1,16 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
+import { Container, Row, Col } from 'react-bootstrap';
 import Image from 'next/image';
 
 import Market from '@components/Market/Market';
 
 const LaBolsa = () => {
     return (
-        <Container>
-            <Row className="logo-container">
-                <Image src="/la-bolsa.png" alt="La Bolsa" width={532} height={285} />
+        <Container fluid="md">
+            <Row>
+                <Col className="logo-container">
+                    <Image src="/la-bolsa.png" alt="La Bolsa" width={532} height={285} />
+                </Col>
             </Row>
             <Row>
                 <Market />
