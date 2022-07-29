@@ -9,7 +9,7 @@ const LaBolsa = () => {
     return (
         <Container>
             <Row className="logo-container">
-                <Image src="/la-bolsa.png" alt="La Bolsa" width={600} height={300} />
+                <Image src="/la-bolsa.png" alt="La Bolsa" width={532} height={285} />
             </Row>
             <Row>
                 <Market />
