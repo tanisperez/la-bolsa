@@ -20,7 +20,7 @@ class MarketService {
         console.log('Actualización de precios');
         for (let drink of this.market) {
             this.updateDrinkPrice(drink);
-            console.log(`{id_bebida: ${drink.drink_id}, nombre: '${drink.name}', precio_minimo: ${drink.min_price}, precio_maximo: ${drink.max_price}, precio_actual: ${drink.price}, precio_anterior: ${drink.previous_price}}`);
+            console.log(`{id_bebida: ${drink.drink_id}, nombre: '${drink.name}', precio_minimo: ${drink.min_price}, precio_maximo: ${drink.max_price}, precio_actual: ${drink.price}, precio_anterior: ${drink.last_price}}`);
         }
     }
 
@@ -36,7 +36,7 @@ class MarketService {
         console.log('Generación inicial de precios');
         for (let drink of this.market) {
             drink['price'] = this.getInitialRandomPrice(drink.min_price, drink.max_price);
-            drink['previous_price'] = drink['price'];
+            drink['last_price'] = drink['price'];
             console.log(`{id_bebida: ${drink.drink_id}, nombre: '${drink.name}', precio_minimo: ${drink.min_price}, precio_maximo: ${drink.max_price}, precio_actual: ${drink.price}}`);
         }
     }
@@ -56,7 +56,7 @@ class MarketService {
     }
 
     updateDrinkPrice(drink) {
-        drink.previous_price = drink.price;
+        drink.last_price = drink.price;
         if (drink.price == drink.max_price) {
             drink.price -= PRICE_STEP;
         } else if (drink.price == drink.min_price) {

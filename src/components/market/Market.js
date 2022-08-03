@@ -13,12 +13,9 @@ const Market = () => {
     useEffect(() => {
         const marketClient = new MarketClient();
         marketClient.getMarket()
-            .then((result) => { 
-                console.log(result);
-                setDrinks(result)
-            })
+            .then((result) => setDrinks(result))
             .catch((error) => console.error(error));
-    });
+    }, []);
 
     return (
         <div>
@@ -26,7 +23,7 @@ const Market = () => {
                 {
                     drinks.map(drink => 
                         <Col key={drink.drink_id}>
-                            <Drink key={drink.drink_id} alias={drink.alias} name={drink.name} price={drink.price} lastPrice={drink.previous_price} />
+                            <Drink key={drink.drink_id} alias={drink.alias} name={drink.name} price={drink.price} lastPrice={drink.last_price} />
                         </Col>
                     )
                 }

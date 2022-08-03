@@ -10,7 +10,7 @@ import styles from './Drink.module.css';
 const Drink = ({alias, name, price, lastPrice}) => {
 
     const getPriceChangeClass = (price, lastPrice) => {
-        if (lastPrice === undefined) {
+        if (lastPrice === price) {
             return styles.drinkNoLastPrice;
         }
         if (price > lastPrice) {
