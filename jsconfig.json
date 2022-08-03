@@ -13,6 +13,7 @@
             "@components/*": ["src/components/*"],
             "@services/*": ["src/services/*"],
             "@clients/*": ["src/clients/*"],
+            "@config/*": ["src/config/*"],
             "@pages/*": ["src/pages/*"]
         }
     },

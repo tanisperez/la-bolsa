@@ -1,8 +1,5 @@
 import drinkService from '@services/DrinkService'
-
-const PRICE_STEP = 0.5;
-const MARKET_REFRESH_PRICES_IN_MINUTES = 20;
-const MARKET_REFRESH_PRICES = MARKET_REFRESH_PRICES_IN_MINUTES * 60 * 1000;
+import { PRICE_STEP, MARKET_REFRESH_PRICES_IN_MINUTES, MARKET_REFRESH_PRICES_IN_MILLIS } from '@config/LaBolsa';
 
 class MarketService {
 
@@ -10,7 +7,7 @@ class MarketService {
         this.market = [];
         this.drinkService = drinkService;
         console.log(`La actualización de precios se producirá cada ${MARKET_REFRESH_PRICES_IN_MINUTES} minutos`);
-        setInterval(this.updateMarketPrices.bind(this), MARKET_REFRESH_PRICES);
+        setInterval(this.updateMarketPrices.bind(this), MARKET_REFRESH_PRICES_IN_MILLIS);
     }
 
     async updateMarketPrices() {
