@@ -13,33 +13,23 @@ const Market = () => {
     useEffect(() => {
         const marketClient = new MarketClient();
         marketClient.getMarket()
-            .then((result) => setDrinks(result))
+            .then((result) => { 
+                console.log(result);
+                setDrinks(result)
+            })
             .catch((error) => console.error(error));
     });
 
     return (
         <div>
-            <Row className="mt-4 mb-4">
-                <Col>
-                    <Drink alias={'BRUG'} name={'Brugal'} price={5.50} lastPrice={6.00} />
-                </Col>
-                <Col>
-                    <Drink alias={'AREH'} name={'Arehucas'} price={5.00} lastPrice={4.50} />
-                </Col>
-                <Col>
-                    <Drink alias={'STER'} name={'Santa Teresa'} price={6.00} />
-                </Col>
-            </Row>
-            <Row className="mt-4 mb-4">
-                <Col>
-                    <Drink alias={'ABS'} name={'Absolut'} price={5.50} />
-                </Col>
-                <Col>
-                    <Drink alias={'PIND'} name={'Puerto de Indias'} price={6.00} lastPrice={5.50} />
-                </Col>
-                <Col>
-                    <Drink alias={'NORD'} name={'Nordés'} price={6.50} lastPrice={6.00} />
-                </Col>
+            <Row className="mt-4 mb-4" xs={1} md={3}>
+                {
+                    drinks.map(drink => 
+                        <Col key={drink.drink_id}>
+                            <Drink key={drink.drink_id} alias={drink.alias} name={drink.name} price={drink.price} lastPrice={drink.previous_price} />
+                        </Col>
+                    )
+                }
             </Row>
         </div>
     );
