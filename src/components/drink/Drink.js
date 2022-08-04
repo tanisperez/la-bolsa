@@ -28,9 +28,10 @@ const Drink = ({alias, name, price, lastPrice}) => {
 
     const getPriceChange = (price, lastPrice) => {
         if (lastPrice === undefined) {
-            return 0;
+            return '0';
         }
-        return price - lastPrice;
+        const diff = price - lastPrice;
+        return (diff > 0) ? `+${diff}` : `${diff}`;
     };
 
     return (
