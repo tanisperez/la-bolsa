@@ -2,19 +2,26 @@ import React, { useEffect, useState } from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
-import './Market.module.css';
-
 import MarketClient from '@clients/MarketClient';
 import Drink from '@components/Drink/Drink';
+
+import { CLIENT_MARKET_REFRESH_TIME_IN_MILLIS } from '@config/LaBolsa';
+
+import './Market.module.css';
 
 const Market = () => {
     const [drinks, setDrinks] = useState([]);
 
-    useEffect(() => {
+    const loadMarket = () => {
         const marketClient = new MarketClient();
         marketClient.getMarket()
-            .then((result) => setDrinks(result))
-            .catch((error) => console.error(error));
+        .then((result) => setDrinks(result))
+        .catch((error) => console.error(error));
+    }
+
+    useEffect(() => {
+        loadMarket();
+        setInterval(loadMarket, CLIENT_MARKET_REFRESH_TIME_IN_MILLIS);
     }, []);
 
     return (
