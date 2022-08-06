@@ -103,8 +103,8 @@ const Admin = () => {
                                     <td>{drink.drink_id}</td>
                                     <td>{drink.alias}</td>
                                     <td>{drink.name}</td>
-                                    <td>{drink.min_price}</td>
-                                    <td>{drink.max_price}</td>
+                                    <td>{drink.min_price} €</td>
+                                    <td>{drink.max_price} €</td>
                                     <td><Pencil size={20} onClick={() => openEditDrinkModal(drink.drink_id)}/></td>
                                     <td><XLg size={20} onClick={() => openDeleteDrinkModal(drink.drink_id)}/></td>
                                 </tr>
