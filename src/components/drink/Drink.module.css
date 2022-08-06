@@ -21,8 +21,32 @@
     align-items: center;
 }
 
-.drinkGraph > img {
-    border-radius: 5px;
+.drinkGraph img {
+    animation: fade-in-move-up 0.5s;
+}
+
+@keyframes fade-in-move-down {
+    0% {
+        opacity: 0;
+        transform: translateY(-3rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fade-in-move-up {
+    0% {
+        opacity: 0;
+        transform: translateY(+3rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .drinkPrice {
