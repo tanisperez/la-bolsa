@@ -106,7 +106,7 @@ const EditDrink = (props) => {
     };
 
     return (
-        <Modal show={props.show} onHide={handleHide} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+        <Modal show={props.show} onHide={handleHide} size="lg" fullscreen="lg-down" aria-labelledby="contained-modal-title-vcenter" centered>
             <Modal.Header closeButton>
                 <Modal.Title>Editar una bebida</Modal.Title>
             </Modal.Header>
