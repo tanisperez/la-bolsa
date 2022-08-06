@@ -80,7 +80,7 @@ class MarketService {
 
     editDrink(drink) {
         const currentDrinkIndex = this.market.findIndex((marketDrink) => {
-            return marketDrink.drink_id == drink.drink_id
+            return marketDrink.drink_id == drink.drink_id;
         });
         if (currentDrinkIndex >= 0) {
             drink['price'] = this.getInitialRandomPrice(drink.min_price, drink.max_price);
@@ -89,6 +89,18 @@ class MarketService {
             logger.info(`Bebida modificada en el mercado {id_bebida: ${drink.drink_id}, nombre: '${drink.name}', precio_minimo: ${drink.min_price}, precio_maximo: ${drink.max_price}, precio_actual: ${drink.price}}`);
         } else {
             logger.error(`No se encontró la bebida {id_bebida: ${drink.drink_id}, nombre: '${drink.name}'} en el mercado`);
+        }
+    }
+
+    deleteDrink(drinkId) {
+        const currentDrinkIndex = this.market.findIndex((marketDrink) => {
+            return marketDrink.drink_id == drinkId;
+        });
+        if (currentDrinkIndex >= 0) {
+            this.market.splice(currentDrinkIndex, 1);
+            logger.info(`Se ha eliminado del mercado la bebida con el drink_id = ${drinkId}`);
+        } else {
+            logger.error(`No se encontró la bebida con el drink_id = ${drinkId}`);
         }
     }
 }

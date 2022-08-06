@@ -38,6 +38,8 @@ async function deleteDrink(request, response) {
     const deletedDrinkId = await drinkService.deleteDrink(drinkId);
     logger.info(`La bebida con el id ${deletedDrinkId} fue eliminada`);
 
+    marketService.deleteDrink(drinkId);
+
     response.status('200')
         .json({
             drink_id: drinkId
