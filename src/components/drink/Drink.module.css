@@ -18,14 +18,10 @@
 /* xs */
 @media (min-width: 300px) {
     .drinkName {
-        font-size: 28px;
+        font-size: 22px;
     }
     .drinkPrice {
-        font-size: 20px;
-    }
-    .drinkPrices > span:last-child {
-        width: 100%;
-        font-size: 16px;
+        font-size: 18px;
     }
 }
 
@@ -37,10 +33,6 @@
     .drinkPrice {
         font-size: 22px;
     }
-    .drinkPrices > span:last-child {
-        width: 100%;
-        font-size: 16px;
-    }
 }
 
 /* md */
@@ -50,10 +42,6 @@
     }
     .drinkPrice {
         font-size: 18px;
-    }
-    .drinkPrices > span:last-child {
-        width: 100%;
-        font-size: 16px;
     }
 }
 
@@ -65,10 +53,6 @@
     .drinkPrice {
         font-size: 22px;
     }
-    .drinkPrices > span:last-child {
-        width: 100%;
-        font-size: 16px;
-    }
 }
 
 /* xl */
@@ -79,10 +63,6 @@
     .drinkPrice {
         font-size: 22px;
     }
-    .drinkPrices > span:last-child {
-        width: 100%;
-        font-size: 16px;
-    }
 }
 
 /* xxl */
@@ -92,10 +72,6 @@
     }
     .drinkPrice {
         font-size: 22px;
-    }
-    .drinkPrices > span:last-child {
-        width: 100%;
-        font-size: 16px;
     }
 }
 
@@ -115,6 +91,11 @@
     align-items: center;
     padding: 0 !important;
     height: 100%;
+}
+
+.drinkPrices > span:last-child {
+    width: 100%;
+    font-size: 16px;
 }
 
 @keyframes fade-in-move-down {
