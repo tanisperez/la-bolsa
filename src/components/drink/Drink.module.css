@@ -13,7 +13,27 @@
 .drinkName {
     color: #FFFFFF;
     font-weight: bold;
-    font-size: 6vw;
+}
+
+/* xs */
+@media (min-width: 544px) {
+    .drinkName {
+        font-size: 20px;
+    }
+}
+
+/* md */
+@media (min-width: 768px) {
+    .drinkName {
+        font-size: 20px;
+    }
+}
+
+/* lg */
+@media (min-width: 992px) {
+    .drinkName {
+        font-size: 30px;
+    }
 }
 
 .drinkGraph {
@@ -34,7 +54,7 @@
     height: 100%;
 }
 
-.drinkPrices > span:last-child {
+.drinkPrices>span:last-child {
     width: 100%;
 }
 
@@ -66,7 +86,7 @@
     color: #FFFFFF;
     text-align: center;
     font-weight: bold;
-    font-size: 6vw;
+    font-size: 1.5vw;
     padding: 0 5px;
 }
 
