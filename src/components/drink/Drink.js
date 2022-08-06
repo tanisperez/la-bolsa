@@ -26,6 +26,13 @@ const Drink = ({alias, name, price, lastPrice}) => {
         return '/market-down.png';
     }
 
+    const getMarketGraphClassName = (price, lastPrice) => {
+        if (price > lastPrice) {
+            return styles.drinkGraphMoveUp;
+        }
+        return styles.drinkGraphMoveDown;
+    }
+
     const getPriceChange = (price, lastPrice) => {
         if (lastPrice === undefined) {
             return '0';
@@ -46,7 +53,7 @@ const Drink = ({alias, name, price, lastPrice}) => {
                     </Row>
                 </Col>
                 <Col xs="auto" sm="auto" md="auto" lg="auto" xxl="auto" className={styles.drinkGraph}>
-                    <Image src={getMarketGraph(price, lastPrice)} alt="Gráfica de precio" width={90} height={60}/>
+                    <Image src={getMarketGraph(price, lastPrice)} className={getMarketGraphClassName(price, lastPrice)} alt="Gráfica de precio" width={90} height={60}/>
                 </Col>
                 <Col xs={2} sm={2} md={2} lg={2} xxl={2} className={styles.drinkPrices}>
                     <span className={styles.drinkPrice}>{price} €</span>
