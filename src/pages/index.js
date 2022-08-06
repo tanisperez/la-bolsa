@@ -6,7 +6,7 @@ import Market from '@components/Market/Market';
 
 const LaBolsa = () => {
     return (
-        <Container fluid="md">
+        <Container fluid className="px-5">
             <Row>
                 <Col className="logo-container">
                     <Image src="/la-bolsa.png" alt="La Bolsa" width={532} height={285} />
