@@ -18,6 +18,18 @@ class DrinkService {
         });
     }
 
+    selectFirst(query, params) {
+        return new Promise((resolve, reject) => {
+            this.db.get(query, params, (error, row) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(row);
+                }
+            });
+        });
+    }
+
     executeQuery(query, values) {
         return new Promise((resolve, reject) => {
             this.db.run(query, values, function (error) {
@@ -31,7 +43,7 @@ class DrinkService {
     }
 
     async getDrinks() {
-        const rows = await this.select('SELECT drink_id, alias, name, min_price, max_price FROM drink')
+        const rows = await this.select('SELECT drink_id, alias, name, min_price, max_price FROM drink');
         return rows.map(row => {
             return {
                 drink_id: row.drink_id,
@@ -41,6 +53,27 @@ class DrinkService {
                 max_price: row.max_price
             };
         });
+    }
+
+    async getDrink(drinkId) {
+        const row = await this.selectFirst(`
+            SELECT 
+                drink_id, 
+                alias, 
+                name, 
+                min_price, 
+                max_price 
+            FROM drink
+            WHERE
+                drink_id = ?`, 
+            [drinkId]);
+        return {
+            drink_id: row.drink_id,
+            alias: row.alias,
+            name: row.name,
+            min_price: row.min_price,
+            max_price: row.max_price
+        };
     }
 
     async addDrink(drink) {

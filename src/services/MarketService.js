@@ -70,6 +70,13 @@ class MarketService {
         const randomUp = Math.floor(Math.random() * 2);
         return randomUp == 1;
     }
+
+    addDrink(drink) {
+        drink['price'] = this.getInitialRandomPrice(drink.min_price, drink.max_price);
+        drink['last_price'] = drink['price'];
+        this.market.push(drink);
+        logger.info(`Bebida añadida al mercado {id_bebida: ${drink.drink_id}, nombre: '${drink.name}', precio_minimo: ${drink.min_price}, precio_maximo: ${drink.max_price}, precio_actual: ${drink.price}}`);
+    }
 }
 
 export default new MarketService(drinkService);
