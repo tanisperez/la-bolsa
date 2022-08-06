@@ -37,7 +37,7 @@ const Drink = ({alias, name, price, lastPrice}) => {
     return (
         <div className={styles.drink}>
             <Row className="m-2">
-                <Col className="p-0">
+                <Col className="p-0" xs>
                     <Row>
                         <span className={styles.drinkMarketAlias}>{alias}</span>
                     </Row>
@@ -45,16 +45,12 @@ const Drink = ({alias, name, price, lastPrice}) => {
                         <span className={styles.drinkName}>{name}</span>
                     </Row>
                 </Col>
-                <Col md="auto" className={styles.drinkGraph}>
+                <Col xs={4} lg="auto" className={styles.drinkGraph}>
                     <Image src={getMarketGraph(price, lastPrice)} alt="Gráfica de precio" width={90} height={60}/>
                 </Col>
-                <Col md={2} className="p-0">
-                    <Row className="m-0">
-                        <span className={styles.drinkPrice}>{price} €</span>
-                    </Row>
-                    <Row className="m-0">
-                        <span className={getPriceChangeClass(price, lastPrice)}>{getPriceChange(price, lastPrice)} €</span>
-                    </Row>
+                <Col xs={3} lg={2} className={styles.drinkPrices}>
+                    <span className={styles.drinkPrice}>{price} €</span>
+                    <span className={getPriceChangeClass(price, lastPrice)}>{getPriceChange(price, lastPrice)} €</span>
                 </Col>
             </Row>
         </div>
