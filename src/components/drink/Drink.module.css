@@ -81,11 +81,17 @@
     padding-left: 0 !important;
 }
 
+.drinkGraphHidden {
+    visibility: hidden;
+}
+
 .drinkGraphMoveUp {
+    visibility: visible;
     animation: fade-in-move-up 1s;
 }
 
 .drinkGraphMoveDown {
+    visibility: visible;
     animation: fade-in-move-down 1s;
 }
 

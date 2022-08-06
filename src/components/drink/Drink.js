@@ -27,6 +27,9 @@ const Drink = ({alias, name, price, lastPrice}) => {
     }
 
     const getMarketGraphClassName = (price, lastPrice) => {
+        if (price == lastPrice) {
+            return styles.drinkGraphHidden;
+        }
         if (price > lastPrice) {
             return styles.drinkGraphMoveUp;
         }
@@ -34,7 +37,7 @@ const Drink = ({alias, name, price, lastPrice}) => {
     }
 
     const getPriceChange = (price, lastPrice) => {
-        if (lastPrice === undefined) {
+        if (lastPrice === price) {
             return '0';
         }
         const diff = price - lastPrice;
