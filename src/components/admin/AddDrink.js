@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Alert, Button, Form, InputGroup, Modal } from 'react-bootstrap';
 
 import drinkClient from '@clients/DrinkClient';
+import { PRICE_STEP } from '@config/LaBolsa';
 
 const AddDrink = (props) => {
     const onHide = props.onHide;
@@ -120,20 +121,20 @@ const AddDrink = (props) => {
                     <Form.Group className="mb-3" controlId="formMinDrinkPrice">
                         <Form.Label>Precio mínimo</Form.Label>
                         <InputGroup>
-                            <Form.Control type="number" required min={1} placeholder="4,5" step={0.5} onChange={handleMinPriceChange} />
+                            <Form.Control type="number" required min={1} placeholder="4,5" step={PRICE_STEP} onChange={handleMinPriceChange} />
                             <InputGroup.Text>€</InputGroup.Text>
                             <Form.Control.Feedback type="invalid">
-                                Introduce un precio mínimo mayor que 1€ y múltiplo de 0,5€.
+                                Introduce un precio mínimo mayor que 1€ y múltiplo de {PRICE_STEP}€.
                             </Form.Control.Feedback>
                         </InputGroup>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formMaxDrinkPrice">
                         <Form.Label>Precio máximo</Form.Label>
                         <InputGroup>
-                            <Form.Control type="number" required min={1} placeholder="6,0" step={0.5} onChange={handleMaxPriceChange}/>
+                            <Form.Control type="number" required min={1} placeholder="6,0" step={PRICE_STEP} onChange={handleMaxPriceChange}/>
                             <InputGroup.Text>€</InputGroup.Text>
                             <Form.Control.Feedback type="invalid">
-                                Introduce un precio máximo mayor que el precio mínimo y múltiplo de 0,5€.
+                                Introduce un precio máximo mayor que el precio mínimo y múltiplo de {PRICE_STEP}€.
                             </Form.Control.Feedback>
                         </InputGroup>
                     </Form.Group>
