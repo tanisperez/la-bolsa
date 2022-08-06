@@ -26,7 +26,7 @@ const Market = () => {
 
     return (
         <div>
-            <Row className="mt-4 mb-4" xs={1} md={3}>
+            <Row className="mt-4 mb-4" xs={1} md={2} lg={3}>
                 {
                     drinks.map(drink => 
                         <Col key={drink.drink_id}>
