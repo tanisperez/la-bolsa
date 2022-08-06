@@ -75,10 +75,10 @@ const Admin = () => {
     return (
         <Container className="admin-page">
             <Row className="admin-navbar">
-                <Col>
-                    <h1>Página de administración</h1>
+                <Col xs className="px-0">
+                    <span>Página de administración</span>
                 </Col>
-                <Col md="auto" className="px-0">
+                <Col xs="auto" className="px-0">
                     <Button className="add-drink" onClick={() => setAddDrinkShow(true)}>Añadir bebida</Button>
                 </Col>
             </Row>
