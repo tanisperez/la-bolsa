@@ -1,4 +1,5 @@
-import drinkService from '@services/DrinkService'
+import drinkService from '@services/DrinkService';
+import logger from '@utils/Logger';
 import { PRICE_STEP, MARKET_REFRESH_PRICES_IN_MINUTES, MARKET_REFRESH_PRICES_IN_MILLIS } from '@config/LaBolsa';
 
 class MarketService {
@@ -6,7 +7,7 @@ class MarketService {
     constructor(drinkService) {
         this.market = [];
         this.drinkService = drinkService;
-        console.log(`La actualización de precios se producirá cada ${MARKET_REFRESH_PRICES_IN_MINUTES} minutos`);
+        logger.info(`La actualización de precios se producirá cada ${MARKET_REFRESH_PRICES_IN_MINUTES} minutos`);
         setInterval(this.updateMarketPrices.bind(this), MARKET_REFRESH_PRICES_IN_MILLIS);
     }
 
@@ -14,10 +15,10 @@ class MarketService {
         if (this.market.length == 0) {
             this.initMarket();
         }
-        console.log('Actualización de precios');
+        logger.info('Actualización de precios');
         for (let drink of this.market) {
             this.updateDrinkPrice(drink);
-            console.log(`{id_bebida: ${drink.drink_id}, nombre: '${drink.name}', precio_minimo: ${drink.min_price}, precio_maximo: ${drink.max_price}, precio_actual: ${drink.price}, precio_anterior: ${drink.last_price}}`);
+            logger.info(`{id_bebida: ${drink.drink_id}, nombre: '${drink.name}', precio_minimo: ${drink.min_price}, precio_maximo: ${drink.max_price}, precio_actual: ${drink.price}, precio_anterior: ${drink.last_price}}`);
         }
     }
 
@@ -30,11 +31,11 @@ class MarketService {
 
     async initMarket() {
         this.market = await this.drinkService.getDrinks();
-        console.log('Generación inicial de precios');
+        logger.info('Generación inicial de precios');
         for (let drink of this.market) {
             drink['price'] = this.getInitialRandomPrice(drink.min_price, drink.max_price);
             drink['last_price'] = drink['price'];
-            console.log(`{id_bebida: ${drink.drink_id}, nombre: '${drink.name}', precio_minimo: ${drink.min_price}, precio_maximo: ${drink.max_price}, precio_actual: ${drink.price}}`);
+            logger.info(`{id_bebida: ${drink.drink_id}, nombre: '${drink.name}', precio_minimo: ${drink.min_price}, precio_maximo: ${drink.max_price}, precio_actual: ${drink.price}}`);
         }
     }
 

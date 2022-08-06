@@ -50,7 +50,6 @@ class DrinkService {
     }
 
     async editDrink(drink) {
-        console.log(JSON.stringify(drink));
         await this.executeQuery(`
             UPDATE drink
             SET

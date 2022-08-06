@@ -1,4 +1,5 @@
 import drinkService from '@services/DrinkService'
+import logger from '@utils/Logger';
 
 export default async function handler(request, response) {
     switch (request.method) {
@@ -7,7 +8,7 @@ export default async function handler(request, response) {
         case 'POST':
             return addDrink(request, response);
         default:
-            console.log(`Method ${request.method} is not implemented`);
+            logger.info(`Method ${request.method} is not implemented`);
             return response.status(400).send('');
     }
 }
@@ -20,10 +21,10 @@ async function getDrinks(response) {
 
 async function addDrink(request, response) {
     const drink = request.body;
-    console.log('Add drink request: ' + JSON.stringify(drink));
+    logger.info('Add drink request: ' + JSON.stringify(drink));
 
     drink.drink_id = await drinkService.addDrink(drink);
-    console.log('Drink added: ' + JSON.stringify(drink));
+    logger.info('Drink added: ' + JSON.stringify(drink));
 
     response.status('201')
         .json(drink);
