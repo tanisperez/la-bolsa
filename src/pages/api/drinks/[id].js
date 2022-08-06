@@ -1,4 +1,6 @@
 import drinkService from '@services/DrinkService';
+import marketService from '@services/MarketService';
+
 import logger from '@utils/Logger';
 
 export default async function handler(request, response) {
@@ -20,6 +22,9 @@ async function editDrink(request, response) {
 
     const modifiedDrink = await drinkService.editDrink(drink);
     logger.info('Bebida modificada: ' + JSON.stringify(modifiedDrink));
+
+    const drinkDB = await drinkService.getDrink(drink.drink_id);
+    marketService.editDrink(drinkDB);
 
     response.status('200')
         .json(modifiedDrink);

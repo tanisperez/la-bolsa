@@ -1,5 +1,6 @@
 import drinkService from '@services/DrinkService';
 import marketService from '@services/MarketService';
+
 import logger from '@utils/Logger';
 
 export default async function handler(request, response) {
@@ -30,7 +31,7 @@ async function addDrink(request, response) {
 
     const drinkDB = await drinkService.getDrink(drink.drink_id);
     marketService.addDrink(drinkDB);
-    
+
     response.status('201')
         .json(drink);
 }
