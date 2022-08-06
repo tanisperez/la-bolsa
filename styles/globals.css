@@ -23,7 +23,7 @@ a {
 
 .logo-container img {
     border-radius: 10px;
-    animation: fadeIn 1.5s ease;
+    animation: fadeIn 500ms ease;
 }
 
 .admin-navbar {
