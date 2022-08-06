@@ -6,7 +6,7 @@
         "dev": "next dev",
         "test": "jest",
         "build": "next build",
-        "start": "next start",
+        "start": "next start -p 8080",
         "lint": "next lint",
         "create-db": "node src/utils/create-db.js"
     },

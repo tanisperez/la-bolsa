@@ -16,5 +16,5 @@ yarn dev
 ## Construcción del proyecto y arranque
 ```bash
 npm run build
-npm run start -p 8080
+npm run start
 ```
