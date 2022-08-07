@@ -7,7 +7,7 @@ import Drink from '@components/Drink/Drink';
 
 import { CLIENT_MARKET_REFRESH_TIME_IN_MILLIS } from '@config/LaBolsa';
 
-import './Market.module.css';
+import styles from './Market.module.css';
 
 const Market = () => {
     const [drinks, setDrinks] = useState([]);
@@ -24,10 +24,19 @@ const Market = () => {
         setInterval(loadMarket, CLIENT_MARKET_REFRESH_TIME_IN_MILLIS);
     }, []);
 
+    if (drinks.length == 0) {
+        return (
+            <div>
+                <Row className="mt-5 mb-4">
+                    <h1 className={styles.emptyMarket}>No hay bebidas en el mercado</h1>
+                </Row>
+            </div>
+        )
+    }
     return (
         <div>
             <Row className="mt-4 mb-4" xs={1} sm={1} md={2} lg={2} xl={2} xxl={3}>
-                {
+                { 
                     drinks.map(drink => 
                         <Col key={drink.drink_id}>
                             <Drink key={drink.drink_id} alias={drink.alias} name={drink.name} price={drink.price} lastPrice={drink.last_price} />
