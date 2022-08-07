@@ -1,0 +1,13 @@
+En Windows es necesario tener instalado Node.js v16.15.1, estos son los enlaces de descarga:
+- Versión de 32-bit: https://nodejs.org/dist/v16.16.0/node-v16.16.0-x86.msi
+- Versión de 64-bit: https://nodejs.org/dist/v16.16.0/node-v16.16.0-x64.msi
+
+Una vez instalado Node.js, hay que construir el proyecto, para ello ejecutaremos el fichero build.bat.
+
+Tras finalizar la compilación del proyecto, podemos arrancar el proyecto mediante el fichero run.bat. Este
+script ejecutará el servidor y podremos acceder a la página a través de la URL http://localhost:8080
+
+La página de administración se encuentra en la URL http://localhost:8080/admin
+
+Una vez arrancado el servidor, hay que dejar abierta la ventana de la consola. Para finalizar el servidor,
+podríamos cerrar la ventana o pulsar Ctrl + C.
