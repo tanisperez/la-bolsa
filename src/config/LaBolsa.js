@@ -2,7 +2,7 @@
 export const PRICE_STEP = 0.5;
 
 // Backend market refresh time in minutes
-export const MARKET_REFRESH_PRICES_IN_MINUTES = 0.2;
+export const MARKET_REFRESH_PRICES_IN_MINUTES = 20;
 
 // Backend market refresh time in milliseconds
 export const MARKET_REFRESH_PRICES_IN_MILLIS = MARKET_REFRESH_PRICES_IN_MINUTES * 60 * 1000;
