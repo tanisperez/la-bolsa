@@ -68,6 +68,10 @@ const Admin = () => {
         setDeleteDrinkMessage(message);
     };
 
+    const isMarketEmpty = () => {
+        return drinks.length == 0;
+    }
+
     useEffect(() => {
         loadDrinks();
     }, []);
@@ -97,18 +101,22 @@ const Admin = () => {
                     </thead>
                     <tbody>
                         { 
-                            drinks.map(drink => (
-                                // eslint-disable-next-line react/jsx-key
-                                <tr key={drink.drink_id}>
-                                    <td>{drink.drink_id}</td>
-                                    <td>{drink.alias}</td>
-                                    <td>{drink.name}</td>
-                                    <td>{drink.min_price} €</td>
-                                    <td>{drink.max_price} €</td>
-                                    <td><Pencil size={20} onClick={() => openEditDrinkModal(drink.drink_id)}/></td>
-                                    <td><XLg size={20} onClick={() => openDeleteDrinkModal(drink.drink_id)}/></td>
+                            isMarketEmpty() ? 
+                                <tr>
+                                    <td style={{textAlign: "center"}} colSpan={7}>No hay bebidas en el mercado</td>
                                 </tr>
-                            )) 
+                            :
+                                drinks.map(drink => (
+                                    <tr key={drink.drink_id}>
+                                        <td>{drink.drink_id}</td>
+                                        <td>{drink.alias}</td>
+                                        <td>{drink.name}</td>
+                                        <td>{drink.min_price} €</td>
+                                        <td>{drink.max_price} €</td>
+                                        <td><Pencil size={20} onClick={() => openEditDrinkModal(drink.drink_id)}/></td>
+                                        <td><XLg size={20} onClick={() => openDeleteDrinkModal(drink.drink_id)}/></td>
+                                    </tr>
+                                )) 
                         }
                     </tbody>
                 </Table>
