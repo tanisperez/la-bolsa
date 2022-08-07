@@ -26,6 +26,7 @@ db.serialize(async () => {
                 )`, 'run');
 });
 
+/*
 console.log('Inserting drink...');
 db.serialize(async () => {
   await query(`INSERT INTO drink(alias, name, min_price, max_price)
@@ -36,6 +37,7 @@ db.serialize(async () => {
     await query(`INSERT INTO drink(alias, name, min_price, max_price)
                  VALUES ('ABS', 'Absolut', 4.50, 6.00)`, 'run');
 });
+*/
 console.log('Done');
 
 db.close();
