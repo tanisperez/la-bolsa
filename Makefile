@@ -1,3 +1,6 @@
+test:
+	npm test
+
 run-dev:
 	npm run dev
 
