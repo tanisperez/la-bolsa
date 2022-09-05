@@ -22,7 +22,8 @@ db.serialize(async () => {
                     alias TEXT NOT NULL, 
                     name TEXT NOT NULL, 
                     min_price NUMERIC NOT NULL, 
-                    max_price NUMERIC NOT NULL
+                    max_price NUMERIC NOT NULL,
+                    crack_price NUMERIC NOT NULL
                 )`, 'run');
 });
 
