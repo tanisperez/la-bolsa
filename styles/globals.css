@@ -26,24 +26,25 @@ a {
     animation: fadeIn 500ms ease;
 }
 
-.admin-navbar {
-    align-items: center;
-    padding: 15px 0;
+.admin-page {
+    background-color: #FFF;
+    height: 100vh;
+    width: 100%;
 }
 
-.admin-navbar span {
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.admin-page table tbody {
-    cursor: pointer;
+.drinks-table-container {
+    max-height: 600px;
+    overflow-y: auto;
 }
 
 .admin-page table thead tr th.edit-drink,
 .admin-page table thead tr th.delete-drink {
     width: 20px;
+}
+
+.admin-page table tbody td:nth-child(6),
+.admin-page table tbody td:last-child {
+    cursor: pointer;
 }
 
 @keyframes fadeIn {
