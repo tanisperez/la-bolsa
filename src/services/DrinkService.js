@@ -96,7 +96,7 @@ class DrinkService {
                 crack_price = ?
             WHERE
                 drink_id = ?`, 
-            [drink.alias, drink.name, drink.min_price, drink.max_price, drink.drink_id, drink.crack_price]);
+            [drink.alias, drink.name, drink.min_price, drink.max_price, drink.crack_price, drink.drink_id]);
         return drink;
     }
 
