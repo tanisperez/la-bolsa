@@ -163,7 +163,7 @@ const EditDrink = (props) => {
                     <Form.Group className="mb-3" controlId="formCrackDrinkPrice">
                         <Form.Label className="text-danger fw-bold">Precio crack</Form.Label>
                         <InputGroup>
-                            <Form.Control className="text-danger fw-bold" type="number" required min={1} placeholder="4,0" step={PRICE_STEP} onChange={handleCrackPriceChange}/>
+                            <Form.Control className="text-danger fw-bold" type="number" required min={1} placeholder="4,0" step={PRICE_STEP} defaultValue={drink?.crack_price} onChange={handleCrackPriceChange}/>
                             <InputGroup.Text>€</InputGroup.Text>
                             <Form.Control.Feedback type="invalid">
                                 Introduce un precio crack menor que el precio mínimo y múltiplo de {PRICE_STEP}€.
