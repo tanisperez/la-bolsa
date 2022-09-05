@@ -15,7 +15,7 @@ const Admin = () => {
                 </Container>
             </Navbar>
             <Container>
-                <Tabs activeKey={key} onSelect={(k) => setKey(k)} className="mb-3">
+                <Tabs id="admin-tab" activeKey={key} onSelect={(k) => setKey(k)} className="mb-3">
                     <Tab eventKey="home" title="General">
                         <AdminHome />
                     </Tab>
