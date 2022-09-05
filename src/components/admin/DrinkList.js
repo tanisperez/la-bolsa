@@ -87,6 +87,7 @@ const DrinkList = () => {
                             <th>Nombre</th>
                             <th>Precio mínimo</th>
                             <th>Precio máximo</th>
+                            <th>Precio crack</th>
                             <th className="edit-drink"></th>
                             <th className="delete-drink"></th>
                         </tr>
@@ -95,7 +96,7 @@ const DrinkList = () => {
                         {
                             isMarketEmpty() ?
                                 <tr>
-                                    <td style={{ textAlign: "center" }} colSpan={7}>No hay bebidas en el mercado</td>
+                                    <td className="text-center" colSpan={8}>No hay bebidas en el mercado</td>
                                 </tr>
                                 :
                                 drinks.map(drink => (
@@ -105,6 +106,7 @@ const DrinkList = () => {
                                         <td>{drink.name}</td>
                                         <td>{drink.min_price} €</td>
                                         <td>{drink.max_price} €</td>
+                                        <td>{drink.crack_price} €</td>
                                         <td><Pencil size={20} onClick={() => openEditDrinkModal(drink.drink_id)} /></td>
                                         <td><XLg size={20} onClick={() => openDeleteDrinkModal(drink.drink_id)} /></td>
                                     </tr>
@@ -115,7 +117,7 @@ const DrinkList = () => {
             </div>
 
             <div className="d-flex justify-content-end">
-                <Button className="add-drink" onClick={() => setAddDrinkShow(true)}>Añadir bebida</Button>
+                <Button onClick={() => setAddDrinkShow(true)}>Añadir bebida</Button>
             </div>
             <AddDrink show={addDrinkShow} onHide={onHideAddDrinkModal} />
             <EditDrink show={editDrinkShow} onHide={onHideEditDrinkModal} drink={editDrink} />

@@ -42,7 +42,7 @@ a {
     width: 20px;
 }
 
-.admin-page table tbody td:nth-child(6),
+.admin-page table tbody td:nth-child(7),
 .admin-page table tbody td:last-child {
     cursor: pointer;
 }

@@ -15,6 +15,7 @@ const EditDrink = (props) => {
     const [drinkName, setDrinkName] = useState("");
     const [minPrice, setMinPrice] = useState(undefined);
     const [maxPrice, setMaxPrice] = useState(undefined);
+    const [crackPrice, setCrackPrice] = useState(undefined);
 
     useEffect(() => {
         if (drink) {
@@ -22,18 +23,19 @@ const EditDrink = (props) => {
             setDrinkName(drink.name);
             setMinPrice(drink.min_price);
             setMaxPrice(drink.max_price);
+            setCrackPrice(drink.crack_price);
         }
     }, [drink]);
 
     useEffect(() => {
-        const validation = validatePrices(minPrice, maxPrice);
+        const validation = validatePrices(minPrice, maxPrice, crackPrice);
         if (!validation.isValid) {
             setAlertMessage(validation.error);
         }
         setShowAlert(!validation.isValid);
-    }, [minPrice, maxPrice]);
+    }, [minPrice, maxPrice, crackPrice]);
 
-    const validatePrices = (minPrice, maxPrice) => {
+    const validatePrices = (minPrice, maxPrice, crackPrice) => {
         let error = '';
         if (minPrice && minPrice <= 0) {
             error = 'El precio mínimo no puede ser menor o igual que 0€';
@@ -41,6 +43,8 @@ const EditDrink = (props) => {
             error = 'El precio máximo no puede ser menor o igual que 0€';
         } else if ((maxPrice && minPrice) && maxPrice <= minPrice) {
             error = 'El precio máximo debe ser mayor que el precio mínimo';
+        } else if (crackPrice >= minPrice) {
+            error = 'El precio crack debe ser menor que el precio mínimo';
         }
         return {
             'isValid': error === '',
@@ -56,6 +60,7 @@ const EditDrink = (props) => {
         setDrinkName('');
         setMinPrice(undefined);
         setMaxPrice(undefined);
+        setCrackPrice(undefined);
     };
 
     const handleHide = (refresh) => {
@@ -83,6 +88,11 @@ const EditDrink = (props) => {
         setMaxPrice(maxPrice);
     };
 
+    const handleCrackPriceChange = (event) => {
+        const maxPrice = parseFloat(event.target.value);
+        setCrackPrice(maxPrice);
+    };
+
     const editDrink = (event) => {
         if (form.current.checkValidity() === false) {
             setValidated(true);
@@ -94,7 +104,8 @@ const EditDrink = (props) => {
                 alias: drinkAlias,
                 name: drinkName,
                 min_price: minPrice,
-                max_price: maxPrice
+                max_price: maxPrice,
+                crack_price: crackPrice
             };
             drinkClient.editDrink(modifiedDrink)
                 .then((result) => {
@@ -146,6 +157,16 @@ const EditDrink = (props) => {
                             <InputGroup.Text>€</InputGroup.Text>
                             <Form.Control.Feedback type="invalid">
                                 Introduce un precio máximo mayor que el precio mínimo y múltiplo de {PRICE_STEP}€.
+                            </Form.Control.Feedback>
+                        </InputGroup>
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formCrackDrinkPrice">
+                        <Form.Label className="text-danger fw-bold">Precio crack</Form.Label>
+                        <InputGroup>
+                            <Form.Control className="text-danger fw-bold" type="number" required min={1} placeholder="4,0" step={PRICE_STEP} onChange={handleCrackPriceChange}/>
+                            <InputGroup.Text>€</InputGroup.Text>
+                            <Form.Control.Feedback type="invalid">
+                                Introduce un precio crack menor que el precio mínimo y múltiplo de {PRICE_STEP}€.
                             </Form.Control.Feedback>
                         </InputGroup>
                     </Form.Group>
