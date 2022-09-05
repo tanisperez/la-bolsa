@@ -47,6 +47,28 @@ a {
     cursor: pointer;
 }
 
+
+.crack-button {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 2px solid #000;
+    box-shadow: 1px 1px 5px 5px #5c5c5c;
+    background-color: #F32424;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFF;
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+}
+
+.crack-button:hover {
+    filter: brightness(150%);
+}
+
 @keyframes fadeIn {
     0% {
         opacity: 0;

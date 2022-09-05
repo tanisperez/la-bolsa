@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Table, Button, Navbar, Tabs, Tab } from 'react-bootstrap';
 
 import DrinkList from '@components/Admin/DrinkList';
+import AdminHome from '@components/Admin/AdminHome';
 
 const Admin = () => {
-    const [key, setKey] = useState('drinks');
+    const [key, setKey] = useState('home');
 
     return (
         <div className="admin-page">
@@ -14,7 +15,10 @@ const Admin = () => {
                 </Container>
             </Navbar>
             <Container>
-                <Tabs id="controlled-tab-example" activeKey={key} onSelect={(k) => setKey(k)} className="mb-3">
+                <Tabs activeKey={key} onSelect={(k) => setKey(k)} className="mb-3">
+                    <Tab eventKey="home" title="General">
+                        <AdminHome />
+                    </Tab>
                     <Tab eventKey="drinks" title="Bebidas">
                         <DrinkList />
                     </Tab>
