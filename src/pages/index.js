@@ -7,10 +7,8 @@ import Market from '@components/Market/Market';
 const LaBolsa = () => {
     return (
         <Container fluid>
-            <Row>
-                <Col className="logo-container">
-                    <Image src="/la-bolsa.png" alt="La Bolsa" width={532} height={285} />
-                </Col>
+            <Row className="mt-4 d-flex justify-content-center">
+                <Image id="la-bolsa-logo" src="/la-bolsa.png" alt="La Bolsa" width={532} height={285} />
             </Row>
             <Row>
                 <Market />

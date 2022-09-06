@@ -15,13 +15,7 @@ a {
     text-decoration: none;
 }
 
-.logo-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
-}
-
-.logo-container img {
+#la-bolsa-logo {
     border-radius: 10px;
     animation: fadeIn 500ms ease;
 }
@@ -46,7 +40,6 @@ a {
 .admin-page table tbody td:last-child {
     cursor: pointer;
 }
-
 
 .crack-button {
     width: 250px;
