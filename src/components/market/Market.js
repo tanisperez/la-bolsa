@@ -34,17 +34,15 @@ const Market = () => {
         )
     }
     return (
-        <div>
-            <Row className="mt-4 mb-4" xs={1} sm={1} md={2} lg={2} xl={2} xxl={4}>
-                { 
-                    drinks.map(drink => 
-                        <Col key={drink.drink_id}>
-                            <Drink key={drink.drink_id} alias={drink.alias} name={drink.name} price={drink.price} lastPrice={drink.last_price} />
-                        </Col>
-                    )
-                }
-            </Row>
-        </div>
+        <Row className="mt-4 mb-4" xs={1} sm={1} md={2} lg={2} xl={2} xxl={4}>
+            { 
+                drinks.map(drink => 
+                    <Col key={drink.drink_id}>
+                        <Drink key={drink.drink_id} alias={drink.alias} name={drink.name} price={drink.price} lastPrice={drink.last_price} />
+                    </Col>
+                )
+            }
+        </Row>
     );
 };
 
