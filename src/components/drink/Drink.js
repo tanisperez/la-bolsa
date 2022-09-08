@@ -46,16 +46,16 @@ const Drink = ({ alias, name, price, lastPrice }) => {
 
     return (
         <div className={styles.drink}>
-            <Row className="m-2">
+            <Row className="m-2 align-items-center">
                 <Col className="p-0">
-                    <Row>
-                        <Col className={styles.drinkNameContainer}>
-                            <Row>
-                                <span className={styles.drinkAlias}>{alias}</span>
-                                <span className={styles.drinkName}>{name}</span>
+                    <Row className={`${styles.drinkNameGraphContainer} mx-0`}>
+                        <Col className={`${styles.drinkNameContainer} px-0`}>
+                            <Row className="mx-0">
+                                <span className={`${styles.drinkAlias} px-0`}>{alias}</span>
+                                <span className={`${styles.drinkName} px-0`}>{name}</span>
                             </Row>
                         </Col>
-                        <Col xs="auto">
+                        <Col xs="auto" className="px-0 d-flex align-items-center me-1">
                             <Image src={getMarketGraph(price, lastPrice)} className={getMarketGraphClassName(price, lastPrice)} alt="Gráfica de precio" width={90} height={60} />
                         </Col>
                     </Row>

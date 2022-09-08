@@ -5,6 +5,10 @@
     margin: 0.75rem 0;
 }
 
+.drinkNameGraphContainer {
+    width: 100%;
+}
+
 .drinkNameContainer {
     min-width: 0;
 }
