@@ -3,8 +3,7 @@ import { NextResponse } from 'next/server';
 export const config = {
     matcher: [
         '/admin',
-        '/api/drinks',
-        '/api/drinks/:path*'
+        '/api/admin/:path*'
     ]
 };
 

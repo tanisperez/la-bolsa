@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Table, Button, Navbar, Tabs, Tab } from 'react-bootstrap';
+import { Container, Navbar, Tabs, Tab } from 'react-bootstrap';
 
 import DrinkList from '@components/Admin/DrinkList';
 import AdminHome from '@components/Admin/AdminHome';
