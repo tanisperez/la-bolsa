@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import styles from './Drink.module.css';
 
-const Drink = ({alias, name, price, lastPrice}) => {
+const Drink = ({ alias, name, price, lastPrice }) => {
 
     const getPriceChangeClass = (price, lastPrice) => {
         if (lastPrice === price) {
@@ -49,14 +49,16 @@ const Drink = ({alias, name, price, lastPrice}) => {
             <Row className="m-2">
                 <Col className="p-0">
                     <Row>
-                        <span className={styles.drinkMarketAlias}>{alias}</span>
+                        <Col className={styles.drinkNameContainer}>
+                            <Row>
+                                <span className={styles.drinkAlias}>{alias}</span>
+                                <span className={styles.drinkName}>{name}</span>
+                            </Row>
+                        </Col>
+                        <Col xs="auto">
+                            <Image src={getMarketGraph(price, lastPrice)} className={getMarketGraphClassName(price, lastPrice)} alt="Gráfica de precio" width={90} height={60} />
+                        </Col>
                     </Row>
-                    <Row>
-                        <span className={styles.drinkName}>{name}</span>
-                    </Row>
-                </Col>
-                <Col xs="auto" sm="auto" md="auto" lg="auto" xxl="auto" className={styles.drinkGraph}>
-                    <Image src={getMarketGraph(price, lastPrice)} className={getMarketGraphClassName(price, lastPrice)} alt="Gráfica de precio" width={90} height={60}/>
                 </Col>
                 <Col xs={2} sm={2} md={2} lg={2} xxl={2} className={styles.drinkPrices}>
                     <span className={`${styles.drinkPrice} px-0`}>{price} €</span>
