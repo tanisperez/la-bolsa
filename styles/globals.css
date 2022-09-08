@@ -47,7 +47,7 @@ a {
     border-radius: 50%;
     border: 2px solid #000;
     box-shadow: 1px 1px 5px 5px #5c5c5c;
-    background-color: #F32424;
+    background-color: #e2004b;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -59,7 +59,11 @@ a {
 }
 
 .crack-button:hover {
-    filter: brightness(150%);
+    filter: brightness(125%);
+}
+
+.crack-button:active {
+    filter: brightness(75%);
 }
 
 @keyframes fadeIn {
