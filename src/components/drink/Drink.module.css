@@ -32,7 +32,7 @@
         font-size: 22px;
     }
     .drinkPrice {
-        font-size: 18px;
+        font-size: 22px;
     }
 }
 
@@ -78,6 +78,16 @@
 
 /* xxl */
 @media (min-width: 1400px) {
+    .drinkName {
+        font-size: 22px;
+    }
+    .drinkPrice {
+        font-size: 18px;
+    }
+}
+
+/* xxxl */
+@media (min-width: 1700px) {
     .drinkName {
         font-size: 28px;
     }
