@@ -17,7 +17,7 @@ jobs:
     steps:
     - name: Checkout the source code
       uses: actions/checkout@v3
-    - name: Setupt Node.js ${{ matrix.node-version }}
+    - name: Setup Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
@@ -26,5 +26,5 @@ jobs:
       run: npm install
     - name: Run tests
       run: make test
-    - name: Build the project
-      run: make build
+    #- name: Build the project
+    #  run: make build
