@@ -1,12 +1,14 @@
 import logger from '@utils/Logger';
 
-import { PRICE_STEP, MARKET_REFRESH_PRICES_IN_MINUTES, MARKET_REFRESH_PRICES_IN_MILLIS } from '@config/LaBolsa';
+import { PRICE_STEP, MARKET_REFRESH_PRICES_IN_MINUTES, MARKET_REFRESH_PRICES_IN_MILLIS, MARKET_CRACK_DURATION_IN_MILLIS } from '@config/LaBolsa';
 
 class MarketService {
 
     constructor(drinkService) {
         this.market = [];
         this.drinkService = drinkService;
+        this.crackModeEnabled = false;
+
         logger.info(`La actualización de precios se producirá cada ${MARKET_REFRESH_PRICES_IN_MINUTES} minutos`);
         setInterval(this.updateMarketPrices.bind(this), MARKET_REFRESH_PRICES_IN_MILLIS);
     }
@@ -104,6 +106,29 @@ class MarketService {
             logger.info(`Se ha eliminado del mercado la bebida con el drink_id = ${drinkId}`);
         } else {
             logger.error(`No se encontró la bebida con el drink_id = ${drinkId}`);
+        }
+    }
+
+    enableCrackMode() {
+        this.crackModeEnabled = true;
+        this.startTimestamp = new Date();
+        this.endTimestamp = new Date(Date.now() + MARKET_CRACK_DURATION_IN_MILLIS);
+        setTimeout(this.disableCrackMode.bind(this), MARKET_CRACK_DURATION_IN_MILLIS);
+        // Update prices to crack mode
+    }
+
+    disableCrackMode() {
+        this.crackModeEnabled = false;
+        this.startTimestamp = undefined;
+        this.endTimestamp = undefined;
+        // Restore prices
+    }
+
+    getCrackModeStatus() {
+        return {
+            crack_mode_start: this.startTimestamp.toLocaleString().replace(',', ''),
+            crack_mode_end: this.endTimestamp.toLocaleString().replace(',', ''),
+            status: this.crackModeEnabled
         }
     }
 }
