@@ -14,6 +14,10 @@ export default function handler(request, response) {
 
 function enableCrackMode(response) {
     marketService.enableCrackMode();
+    const status = marketService.getCrackModeStatus();
+
+    logger.info(JSON.stringify(status));
+
     response.status(200)
-        .send();
+        .json(status);
 }
