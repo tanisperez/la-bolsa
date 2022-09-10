@@ -126,9 +126,9 @@ class MarketService {
 
     getCrackModeStatus() {
         return {
-            crack_mode_start: this.startTimestamp.toLocaleString().replace(',', ''),
-            crack_mode_end: this.endTimestamp.toLocaleString().replace(',', ''),
-            status: this.crackModeEnabled
+            crack_mode_start: this.startTimestamp?.toLocaleString().replace(',', ''),
+            crack_mode_end: this.endTimestamp?.toLocaleString().replace(',', ''),
+            enabled: this.crackModeEnabled
         }
     }
 }
