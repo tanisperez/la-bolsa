@@ -17,10 +17,14 @@ class MarketService {
         if (this.market.length == 0) {
             this.initMarket();
         }
-        logger.info('Actualización de precios');
-        for (let drink of this.market) {
-            this.updateDrinkPrice(drink);
-            logger.info(`{id_bebida: ${drink.drink_id}, nombre: '${drink.name}', precio_minimo: ${drink.min_price}, precio_maximo: ${drink.max_price}, precio_actual: ${drink.price}, precio_anterior: ${drink.last_price}}`);
+        if (!this.crackModeEnabled) {
+            logger.info('Actualización de precios');
+            for (let drink of this.market) {
+                this.updateDrinkPrice(drink);
+                logger.info(`{id_bebida: ${drink.drink_id}, nombre: '${drink.name}', precio_minimo: ${drink.min_price}, precio_maximo: ${drink.max_price}, precio_actual: ${drink.price}, precio_anterior: ${drink.last_price}}`);
+            }
+        } else {
+            logger.info(`La actualización de precios está desactivada por el modo crack hasta las ${this.endTimestamp.toLocaleString().replace(',', '')}`);
         }
     }
 
@@ -116,15 +120,28 @@ class MarketService {
         this.crackModeEnabled = true;
         this.startTimestamp = new Date();
         this.endTimestamp = new Date(Date.now() + MARKET_CRACK_DURATION_IN_MILLIS);
+        
+        logger.info(`Se ha habilitado el modo crack hasta las ${this.endTimestamp.toLocaleString().replace(',', '')}`);
+        for (let drink of this.market) {
+            drink['last_price'] = drink['price'];
+            drink['price'] = drink.crack_price;
+            logger.info(`{id_bebida: ${drink.drink_id}, nombre: '${drink.name}', precio_minimo: ${drink.min_price}, precio_maximo: ${drink.max_price}, precio_actual: ${drink.price}}`);
+        }
+
         setTimeout(this.disableCrackMode.bind(this), MARKET_CRACK_DURATION_IN_MILLIS);
-        // Update prices to crack mode
     }
 
     disableCrackMode() {
         this.crackModeEnabled = false;
         this.startTimestamp = undefined;
         this.endTimestamp = undefined;
-        // Restore prices
+        
+        logger.info('El modo crack ha finalizado');
+        for (let drink of this.market) {
+            drink['last_price'] = drink['price'];
+            drink['price'] = this.getInitialRandomPrice(drink.min_price, drink.max_price);
+            logger.info(`{id_bebida: ${drink.drink_id}, nombre: '${drink.name}', precio_minimo: ${drink.min_price}, precio_maximo: ${drink.max_price}, precio_actual: ${drink.price}}`);
+        }
     }
 
     getCrackModeStatus() {
