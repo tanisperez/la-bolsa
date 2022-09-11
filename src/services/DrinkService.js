@@ -1,3 +1,4 @@
 import DrinkService from '@services/Drink/DrinkService';
 
-export default new DrinkService();
+const drinkService = new DrinkService();
+export default drinkService;

@@ -1,4 +1,5 @@
 import drinkService from '@services/DrinkService';
 import MarketService from '@services/Market/MarketService';
 
-export default new MarketService(drinkService);
+const marketService = new MarketService(drinkService);
+export default marketService;
