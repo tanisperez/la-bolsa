@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import styles from './Drink.module.css';
 
-const Drink = ({ alias, name, price, lastPrice }) => {
+const Drink = ({ alias, name, price, lastPrice, crackModeEnabled }) => {
 
     const getPriceChangeClass = (price, lastPrice) => {
         if (lastPrice === price) {

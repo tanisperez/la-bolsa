@@ -28,7 +28,10 @@ class MarketService {
         if (this.market.length == 0) {
             await this.initMarket();
         }
-        return this.market;
+        return {
+            drinks: this.market,
+            crack_mode_status: this.getCrackModeStatus()
+        };
     }
 
     async initMarket() {

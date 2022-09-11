@@ -11,12 +11,20 @@ import styles from './Market.module.css';
 
 const Market = () => {
     const [drinks, setDrinks] = useState([]);
+    const [crackStatus, setCrackStatus] = useState({
+        crack_mode_start: undefined,
+        crack_mode_end: undefined,
+        enabled: false
+    });
 
     const loadMarket = () => {
         const marketClient = new MarketClient();
         marketClient.getMarket()
-        .then((result) => setDrinks(result))
-        .catch((error) => console.error(error));
+            .then((result) => {
+                setDrinks(result.drinks);
+                setCrackStatus(result.crack_mode_status);
+            })
+            .catch((error) => console.error(error));
     }
 
     useEffect(() => {
@@ -38,7 +46,7 @@ const Market = () => {
             { 
                 drinks.map(drink => 
                     <Col key={drink.drink_id}>
-                        <Drink key={drink.drink_id} alias={drink.alias} name={drink.name} price={drink.price} lastPrice={drink.last_price} />
+                        <Drink key={drink.drink_id} alias={drink.alias} name={drink.name} price={drink.price} lastPrice={drink.last_price} crackModeEnabled={crackStatus.enabled}/>
                     </Col>
                 )
             }
