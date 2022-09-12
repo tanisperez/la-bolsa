@@ -6,7 +6,8 @@
 }
 
 .drinkAlert {
-    animation: alert 4s linear infinite;
+    transition: all 100ms ease-out 200ms;
+    animation: alert 5s linear infinite;
 }
 
 .drinkNameGraphContainer {
@@ -192,13 +193,13 @@
 }
 
 @keyframes alert {
-    0% {
-        background-color: rgba(255, 59, 47, 0.4);
+    25% {
+        background-color: rgba(255, 59, 47, 0.5);
     }
     50% {
         background-color: rgba(28, 28, 28, 0.8);
     }
-    100% {
-        background-color: rgba(255, 59, 47, 0.4);
+    75% {
+        background-color: rgba(255, 59, 47, 0.5);
     }
 }
