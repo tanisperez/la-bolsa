@@ -10,6 +10,9 @@ import styles from './Drink.module.css';
 const Drink = ({ alias, name, price, lastPrice, crackModeEnabled }) => {
 
     const getPriceChangeClass = (price, lastPrice) => {
+        if (crackModeEnabled) {
+            return [styles.drinkPriceChange, styles.drinkPriceCrack];
+        }
         if (lastPrice === price) {
             return [styles.drinkPriceChange, styles.drinkNoLastPrice];
         }
