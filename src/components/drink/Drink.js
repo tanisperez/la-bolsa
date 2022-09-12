@@ -30,7 +30,7 @@ const Drink = ({ alias, name, price, lastPrice, crackModeEnabled }) => {
     }
 
     const getMarketGraphClassName = (price, lastPrice) => {
-        if (price == lastPrice) {
+        if ((price == lastPrice) || crackModeEnabled) {
             return styles.drinkGraphHidden;
         }
         if (price > lastPrice) {
