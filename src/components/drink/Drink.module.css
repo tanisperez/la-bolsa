@@ -164,30 +164,26 @@
     padding: 0 5px;
 }
 
-.drinkNoLastPrice {
+.drinkPriceChange {
     border-radius: 10px;
-    background-color: rgb(53, 53, 58);
-    color: rgb(70, 70, 75);
-    text-align: center;
-    padding: 0;
-}
-
-.drinkPriceChangeNegative {
-    border-radius: 10px;
-    background-color: #ff3b2f;
-    color: #FFFFFF;
     text-align: center;
     padding: 0;
     transition: all 300ms ease-out 800ms;
 }
 
+.drinkNoLastPrice {
+    background-color: rgb(53, 53, 58);
+    color: rgb(70, 70, 75);
+}
+
+.drinkPriceChangeNegative {
+    background-color: #ff3b2f;
+    color: #FFFFFF;
+}
+
 .drinkPriceChangePositive {
-    border-radius: 10px;
     background-color: #35c759;
     color: #FFFFFF;
-    text-align: center;
-    padding: 0;
-    transition: all 300ms ease-in 800ms;
 }
 
 @keyframes alert {

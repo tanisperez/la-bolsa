@@ -11,12 +11,12 @@ const Drink = ({ alias, name, price, lastPrice, crackModeEnabled }) => {
 
     const getPriceChangeClass = (price, lastPrice) => {
         if (lastPrice === price) {
-            return styles.drinkNoLastPrice;
+            return [styles.drinkPriceChange, styles.drinkNoLastPrice];
         }
         if (price > lastPrice) {
-            return styles.drinkPriceChangePositive;
+            return [styles.drinkPriceChange, styles.drinkPriceChangePositive];
         }
-        return styles.drinkPriceChangeNegative;
+        return [styles.drinkPriceChange, styles.drinkPriceChangeNegative];
     };
 
     const getMarketGraph = (price, lastPrice) => {
@@ -69,7 +69,7 @@ const Drink = ({ alias, name, price, lastPrice, crackModeEnabled }) => {
                 </Col>
                 <Col xs={2} sm={2} md={2} lg={2} xxl={2} className={styles.drinkPrices}>
                     <span className={`${styles.drinkPrice} px-0`}>{price} €</span>
-                    <span className={getPriceChangeClass(price, lastPrice)}>{getPriceChange(price, lastPrice)} €</span>
+                    <span className={getPriceChangeClass(price, lastPrice).join(' ')}>{getPriceChange(price, lastPrice)} €</span>
                 </Col>
             </Row>
         </div>
