@@ -5,6 +5,10 @@
     margin: 0.75rem 0;
 }
 
+.drinkAlert {
+    animation: alert 5s linear infinite;
+}
+
 .drinkNameGraphContainer {
     width: 100%;
 }
@@ -184,4 +188,19 @@
     text-align: center;
     padding: 0;
     transition: all 300ms ease-in 800ms;
+}
+
+@keyframes alert {
+    0% {
+        opacity: 0.4;
+        background-color: #ff3b2f;
+    }
+    50% {
+        opacity: 0.8;
+        background-color: #1C1C1C;
+    }
+    100% {
+        opacity: 0.4;
+        background-color: #ff3b2f;
+    }
 }

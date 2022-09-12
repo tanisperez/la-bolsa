@@ -36,6 +36,13 @@ const Drink = ({ alias, name, price, lastPrice, crackModeEnabled }) => {
         return styles.drinkGraphMoveDown;
     }
 
+    const getDrinkClassName = () => {
+        if (crackModeEnabled) {
+            return [styles.drink, styles.drinkAlert];
+        }
+        return [styles.drink];
+    }
+
     const getPriceChange = (price, lastPrice) => {
         if (lastPrice === price) {
             return '0';
@@ -45,7 +52,7 @@ const Drink = ({ alias, name, price, lastPrice, crackModeEnabled }) => {
     };
 
     return (
-        <div className={styles.drink}>
+        <div className={getDrinkClassName().join(' ')}>
             <Row className="m-2 align-items-center">
                 <Col className="p-0">
                     <Row className={`${styles.drinkNameGraphContainer} mx-0`}>
