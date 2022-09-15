@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
@@ -9,6 +9,14 @@ import { CLIENT_MARKET_REFRESH_TIME_IN_MILLIS } from '@config/LaBolsa';
 
 import styles from './Market.module.css';
 
+const usePrevious = (value) => {
+    const reference = useRef();
+    useEffect(() => {
+        reference.current = value;
+    });
+    return reference.current;
+};
+
 const Market = () => {
     const [drinks, setDrinks] = useState([]);
     const [crackStatus, setCrackStatus] = useState({
@@ -16,6 +24,7 @@ const Market = () => {
         crack_mode_end: undefined,
         enabled: false
     });
+    const previousCrackStatus = usePrevious(crackStatus);
 
     const loadMarket = () => {
         const marketClient = new MarketClient();
@@ -31,6 +40,15 @@ const Market = () => {
         loadMarket();
         setInterval(loadMarket, CLIENT_MARKET_REFRESH_TIME_IN_MILLIS);
     }, []);
+
+    useEffect(() => {
+        // @ts-ignore
+        if (previousCrackStatus && previousCrackStatus.enabled == false && crackStatus.enabled == true) {
+            console.log('Crack mode enabled!');
+            const audio = new Audio('market-crash.mp3');
+            audio.play();
+        }
+    }, [crackStatus, previousCrackStatus]);
 
     if (drinks.length == 0) {
         return (
