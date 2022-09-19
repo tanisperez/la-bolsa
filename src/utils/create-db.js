@@ -35,6 +35,20 @@ db.serialize(async () => {
               )`, 'run');
 });
 
+console.log('Inserting default config...');
+db.serialize(async () => {
+    await query(`INSERT INTO config(key, value)
+                 VALUES ('MARKET_REFRESH_PRICES_IN_MINUTES', '1')`, 'run');
+});
+db.serialize(async () => {
+    await query(`INSERT INTO config(key, value)
+                 VALUES ('MARKET_CRACK_DURATION_IN_MINUTES', '5')`, 'run');
+});
+db.serialize(async () => {
+    await query(`INSERT INTO config(key, value)
+                 VALUES ('ADMIN_PASSWORD', 'admin')`, 'run');
+});
+
 console.log('Done');
 
 db.close();
