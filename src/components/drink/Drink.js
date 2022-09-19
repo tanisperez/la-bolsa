@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import styles from './Drink.module.css';
 
-const Drink = ({ alias, name, price, lastPrice, crackModeEnabled }) => {
+const Drink = ({ alias, name, price, lastPrice, priceChange, crackModeEnabled }) => {
 
     const getPriceChangeClass = (price, lastPrice) => {
         if (crackModeEnabled) {
@@ -46,14 +46,6 @@ const Drink = ({ alias, name, price, lastPrice, crackModeEnabled }) => {
         return [styles.drink];
     }
 
-    const getPriceChange = (price, lastPrice) => {
-        if (lastPrice === price) {
-            return '0';
-        }
-        const diff = price - lastPrice;
-        return (diff > 0) ? `+${diff}` : `${diff}`;
-    };
-
     return (
         <div className={getDrinkClassName().join(' ')}>
             <Row className="m-2 align-items-center">
@@ -72,7 +64,7 @@ const Drink = ({ alias, name, price, lastPrice, crackModeEnabled }) => {
                 </Col>
                 <Col xs={2} sm={2} md={2} lg={2} xxl={2} className={styles.drinkPrices}>
                     <span className={`${styles.drinkPrice} px-0`}>{price} €</span>
-                    <span className={getPriceChangeClass(price, lastPrice).join(' ')}>{getPriceChange(price, lastPrice)} €</span>
+                    <span className={getPriceChangeClass(price, lastPrice).join(' ')}>{(priceChange > 0) ? `+${priceChange}` : `${priceChange}`} €</span>
                 </Col>
             </Row>
         </div>
@@ -83,7 +75,8 @@ Drink.propTypes = {
     alias: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    lastPrice: PropTypes.number
+    lastPrice: PropTypes.number.isRequired,
+    priceChange: PropTypes.number.isRequired
 }
 
 export default Drink;

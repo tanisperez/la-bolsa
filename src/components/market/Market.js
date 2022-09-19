@@ -64,7 +64,9 @@ const Market = () => {
             { 
                 drinks.map(drink => 
                     <Col key={drink.drink_id}>
-                        <Drink key={drink.drink_id} alias={drink.alias} name={drink.name} price={drink.price} lastPrice={drink.last_price} crackModeEnabled={crackStatus.enabled}/>
+                        <Drink key={drink.drink_id} alias={drink.alias} 
+                               name={drink.name} price={drink.price} lastPrice={drink.last_price} 
+                               priceChange={drink.price_change} crackModeEnabled={crackStatus.enabled}/>
                     </Col>
                 )
             }

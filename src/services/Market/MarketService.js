@@ -42,8 +42,9 @@ class MarketService {
         this.market = await this.drinkService.getDrinks();
         logger.info('Generación inicial de precios');
         for (let drink of this.market) {
-            drink['price'] = this.getInitialRandomPrice(drink.min_price, drink.max_price);
-            drink['last_price'] = drink['price'];
+            drink.price = this.getInitialRandomPrice(drink.min_price, drink.max_price);
+            drink.last_price = drink.price;
+            drink.price_change = drink.price - drink.last_price;
             logger.info(`{id_bebida: ${drink.drink_id}, nombre: '${drink.name}', precio_minimo: ${drink.min_price}, precio_maximo: ${drink.max_price}, precio_actual: ${drink.price}}`);
         }
     }
@@ -73,6 +74,7 @@ class MarketService {
         } else {
             drink.price -= PRICE_STEP;
         }
+        drink.price_change = drink.price - drink.last_price;
     }
 
     isRandomUp() {
@@ -82,8 +84,9 @@ class MarketService {
 
     async addDrink(drink) {
         await this.getMarket();
-        drink['price'] = this.getInitialRandomPrice(drink.min_price, drink.max_price);
-        drink['last_price'] = drink['price'];
+        drink.price = this.getInitialRandomPrice(drink.min_price, drink.max_price);
+        drink.last_price = drink.price;
+        drink.price_change = drink.price - drink.last_price;
         this.market.push(drink);
         logger.info(`Bebida añadida al mercado {id_bebida: ${drink.drink_id}, nombre: '${drink.name}', precio_minimo: ${drink.min_price}, precio_maximo: ${drink.max_price}, precio_actual: ${drink.price}}`);
     }
@@ -94,8 +97,9 @@ class MarketService {
             return marketDrink.drink_id == drink.drink_id;
         });
         if (currentDrinkIndex >= 0) {
-            drink['price'] = this.getInitialRandomPrice(drink.min_price, drink.max_price);
-            drink['last_price'] = drink['price'];
+            drink.price = this.getInitialRandomPrice(drink.min_price, drink.max_price);
+            drink.last_price = drink.price;
+            drink.price_change = drink.price - drink.last_price;
             this.market[currentDrinkIndex] = drink;
             logger.info(`Bebida modificada en el mercado {id_bebida: ${drink.drink_id}, nombre: '${drink.name}', precio_minimo: ${drink.min_price}, precio_maximo: ${drink.max_price}, precio_actual: ${drink.price}}`);
         } else {
@@ -123,8 +127,9 @@ class MarketService {
         
         logger.info(`Se ha habilitado el modo crack hasta las ${this.endTimestamp.toLocaleString().replace(',', '')}`);
         for (let drink of this.market) {
-            drink['last_price'] = drink['price'];
-            drink['price'] = drink.crack_price;
+            drink.last_price = drink.price;
+            drink.price = drink.crack_price;
+            drink.price_change = drink.price - drink.last_price;
             logger.info(`{id_bebida: ${drink.drink_id}, nombre: '${drink.name}', precio_minimo: ${drink.min_price}, precio_maximo: ${drink.max_price}, precio_actual: ${drink.price}}`);
         }
 
@@ -138,8 +143,10 @@ class MarketService {
         
         logger.info('El modo crack ha finalizado');
         for (let drink of this.market) {
-            drink['last_price'] = drink['price'];
-            drink['price'] = this.getInitialRandomPrice(drink.min_price, drink.max_price);
+            const newPrice = this.getInitialRandomPrice(drink.min_price, drink.max_price);
+            drink.price_change = newPrice - drink.price;
+            drink.last_price = drink.price;
+            drink.price = newPrice;
             logger.info(`{id_bebida: ${drink.drink_id}, nombre: '${drink.name}', precio_minimo: ${drink.min_price}, precio_maximo: ${drink.max_price}, precio_actual: ${drink.price}}`);
         }
     }
