@@ -27,18 +27,14 @@ db.serialize(async () => {
                 )`, 'run');
 });
 
-/*
-console.log('Inserting drink...');
+console.log('Create table config...');
 db.serialize(async () => {
-  await query(`INSERT INTO drink(alias, name, min_price, max_price)
-               VALUES ('BRUG', 'Brugal', 4.00, 5.50)`, 'run');
+  await query(`CREATE TABLE IF NOT EXISTS config (
+                  key TEXT PRIMARY KEY, 
+                  value TEXT NOT NULL
+              )`, 'run');
 });
-console.log('Inserting drink...');
-db.serialize(async () => {
-    await query(`INSERT INTO drink(alias, name, min_price, max_price)
-                 VALUES ('ABS', 'Absolut', 4.50, 6.00)`, 'run');
-});
-*/
+
 console.log('Done');
 
 db.close();
