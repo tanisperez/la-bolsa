@@ -1,47 +1,7 @@
-import sqlite3 from 'sqlite3';
+import BaseService from '@services/Base/BaseService';
 
-class DrinkService {
-    constructor() {
-        const SQLite3 = sqlite3.verbose();
-        this.db = new SQLite3.Database('public/labolsa.db');
-    }
-
-    select(query) {
-        return new Promise((resolve, reject) => {
-            this.db.all(query, (error, rows) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    resolve(rows);
-                }
-            });
-        });
-    }
-
-    selectFirst(query, params) {
-        return new Promise((resolve, reject) => {
-            this.db.get(query, params, (error, row) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    resolve(row);
-                }
-            });
-        });
-    }
-
-    executeQuery(query, values) {
-        return new Promise((resolve, reject) => {
-            this.db.run(query, values, function (error) {
-                if (error) {
-                    reject(error);
-                } else {
-                    resolve(this.lastID);
-                }
-            });
-        });
-    }
-
+class DrinkService extends BaseService {
+    
     async getDrinks() {
         const rows = await this.select('SELECT drink_id, alias, name, min_price, max_price, crack_price FROM drink');
         return rows.map(row => {
