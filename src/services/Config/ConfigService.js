@@ -34,6 +34,10 @@ class DrinkService extends BaseService {
         return this.getValueAsInt('MARKET_CRACK_DURATION_IN_MINUTES');
     }
 
+    async getClientMarketRefreshTimeInSeconds() {
+        return this.getValueAsInt('CLIENT_MARKET_REFRESH_TIME_IN_SECONDS');
+    }
+
     async getAdminPassword() {
         return this.getValueAsString('ADMIN_PASSWORD');
     }
@@ -42,9 +46,11 @@ class DrinkService extends BaseService {
         if (this.config == undefined) {
             const marketRefresTimeInMinutes = await this.getMarketCrackDurationInMinutes();
             const marketCrackDurationInMinutes = await this.getMarketCrackDurationInMinutes();
+            const clientMarketRefreshTimeInSeconds = await this.getClientMarketRefreshTimeInSeconds();
             this.config = {
                 market_refresh_time_in_minutes: marketRefresTimeInMinutes,
-                market_crack_duration_in_minutes: marketCrackDurationInMinutes
+                market_crack_duration_in_minutes: marketCrackDurationInMinutes,
+                client_market_refresh_time_in_seconds: clientMarketRefreshTimeInSeconds
             }
         }
         return this.config;
