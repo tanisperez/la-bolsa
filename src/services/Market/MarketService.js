@@ -2,7 +2,7 @@ import logger from '@utils/Logger';
 
 import configService from '@services/ConfigService';
 
-import { PRICE_STEP, MARKET_CRACK_DURATION_IN_MILLIS } from '@config/LaBolsa';
+import { PRICE_STEP } from '@config/LaBolsa';
 
 class MarketService {
 
@@ -10,9 +10,11 @@ class MarketService {
         this.market = [];
         this.drinkService = drinkService;
         this.crackModeEnabled = false;
+        this.config = undefined;
 
         configService.getConfig()
             .then((config) => {
+                this.config = config;
                 const marketRefreshTimeInMillis = config.market_refresh_time_in_minutes * 60 * 10_000;
                 logger.info(`La actualización de precios se producirá cada ${config.market_refresh_time_in_minutes} minutos`);
                 setInterval(this.updateMarketPrices.bind(this), marketRefreshTimeInMillis);
@@ -128,9 +130,10 @@ class MarketService {
     }
 
     enableCrackMode() {
+        const marketCrackDurationInMillis = this.config.market_crack_duration_in_minutes * 60 * 10_000;
         this.crackModeEnabled = true;
         this.startTimestamp = new Date();
-        this.endTimestamp = new Date(Date.now() + MARKET_CRACK_DURATION_IN_MILLIS);
+        this.endTimestamp = new Date(Date.now() + marketCrackDurationInMillis);
         
         logger.info(`Se ha habilitado el modo crack hasta las ${this.endTimestamp.toLocaleString().replace(',', '')}`);
         for (let drink of this.market) {
@@ -140,7 +143,7 @@ class MarketService {
             logger.info(`{id_bebida: ${drink.drink_id}, nombre: '${drink.name}', precio_minimo: ${drink.min_price}, precio_maximo: ${drink.max_price}, precio_actual: ${drink.price}}`);
         }
 
-        setTimeout(this.disableCrackMode.bind(this), MARKET_CRACK_DURATION_IN_MILLIS);
+        setTimeout(this.disableCrackMode.bind(this), marketCrackDurationInMillis);
     }
 
     disableCrackMode() {
