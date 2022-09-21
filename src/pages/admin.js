@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Container, Navbar, Tabs, Tab } from 'react-bootstrap';
 
-import DrinkList from '@components/Admin/DrinkList';
 import AdminHome from '@components/Admin/AdminHome';
+import DrinkList from '@components/Admin/DrinkList';
+import ConfigPage from '@components/Admin/ConfigPage';
 
 const Admin = () => {
     const [key, setKey] = useState('home');
@@ -23,7 +24,7 @@ const Admin = () => {
                         <DrinkList />
                     </Tab>
                     <Tab eventKey="config" title="Configuración">
-                        Configuración
+                        <ConfigPage />
                     </Tab>
                 </Tabs>
             </Container>
