@@ -45,6 +45,10 @@ db.serialize(async () => {
                  VALUES ('MARKET_CRACK_DURATION_IN_MINUTES', '5')`, 'run');
 });
 db.serialize(async () => {
+  await query(`INSERT INTO config(key, value)
+               VALUES ('CLIENT_MARKET_REFRESH_TIME_IN_SECONDS', '10')`, 'run');
+});
+db.serialize(async () => {
     await query(`INSERT INTO config(key, value)
                  VALUES ('ADMIN_PASSWORD', 'admin')`, 'run');
 });
