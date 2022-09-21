@@ -1,6 +1,8 @@
 import logger from '@utils/Logger';
 
-import { PRICE_STEP, MARKET_REFRESH_PRICES_IN_MINUTES, MARKET_REFRESH_PRICES_IN_MILLIS, MARKET_CRACK_DURATION_IN_MILLIS } from '@config/LaBolsa';
+import configService from '@services/ConfigService';
+
+import { PRICE_STEP, MARKET_CRACK_DURATION_IN_MILLIS } from '@config/LaBolsa';
 
 class MarketService {
 
@@ -9,8 +11,13 @@ class MarketService {
         this.drinkService = drinkService;
         this.crackModeEnabled = false;
 
-        logger.info(`La actualización de precios se producirá cada ${MARKET_REFRESH_PRICES_IN_MINUTES} minutos`);
-        setInterval(this.updateMarketPrices.bind(this), MARKET_REFRESH_PRICES_IN_MILLIS);
+        configService.getConfig()
+            .then((config) => {
+                const marketRefreshTimeInMillis = config.market_refresh_time_in_minutes * 60 * 10_000;
+                logger.info(`La actualización de precios se producirá cada ${config.market_refresh_time_in_minutes} minutos`);
+                setInterval(this.updateMarketPrices.bind(this), marketRefreshTimeInMillis);
+            })
+            .catch((error) => logger.error(error));
     }
 
     async updateMarketPrices() {
