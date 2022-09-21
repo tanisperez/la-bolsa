@@ -15,7 +15,7 @@ class MarketService {
         configService.getConfig()
             .then((config) => {
                 this.config = config;
-                const marketRefreshTimeInMillis = config.market_refresh_time_in_minutes * 60 * 10_000;
+                const marketRefreshTimeInMillis = config.market_refresh_time_in_minutes * 60 * 1_000;
                 logger.info(`La actualización de precios se producirá cada ${config.market_refresh_time_in_minutes} minutos`);
                 setInterval(this.updateMarketPrices.bind(this), marketRefreshTimeInMillis);
             })
@@ -130,7 +130,7 @@ class MarketService {
     }
 
     enableCrackMode() {
-        const marketCrackDurationInMillis = this.config.market_crack_duration_in_minutes * 60 * 10_000;
+        const marketCrackDurationInMillis = this.config.market_crack_duration_in_minutes * 60 * 1_000;
         this.crackModeEnabled = true;
         this.startTimestamp = new Date();
         this.endTimestamp = new Date(Date.now() + marketCrackDurationInMillis);
