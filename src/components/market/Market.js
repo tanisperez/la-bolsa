@@ -3,9 +3,9 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
 import MarketClient from '@clients/MarketClient';
-import Drink from '@components/Drink/Drink';
+import ConfigClient from '@clients/ConfigClient';
 
-import { CLIENT_MARKET_REFRESH_TIME_IN_MILLIS } from '@config/LaBolsa';
+import Drink from '@components/Drink/Drink';
 
 import styles from './Market.module.css';
 
@@ -38,7 +38,14 @@ const Market = () => {
 
     useEffect(() => {
         loadMarket();
-        setInterval(loadMarket, CLIENT_MARKET_REFRESH_TIME_IN_MILLIS);
+
+        const configClient = new ConfigClient();
+        configClient.getConfig()
+            .then((config) => {
+                console.log(`El mercado se refrescará cada ${config.client_market_refresh_time_in_seconds} segundos`);
+                setInterval(loadMarket, config.client_market_refresh_time_in_seconds * 1_000);
+            })
+            .catch((error) => console.error(error));
     }, []);
 
     useEffect(() => {
