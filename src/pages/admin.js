@@ -23,7 +23,7 @@ const Admin = () => {
                     <Tab eventKey="drinks" title="Bebidas">
                         <DrinkList />
                     </Tab>
-                    <Tab eventKey="config" title="Configuración" className="d-flex flex-column align-items-center">
+                    <Tab eventKey="config" title="Configuración">
                         <ConfigPage />
                     </Tab>
                 </Tabs>
