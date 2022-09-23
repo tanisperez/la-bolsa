@@ -33,7 +33,7 @@ class DrinkService extends BaseService {
                 value = ?
             WHERE
                 key = ?`, 
-            [key, value]);
+            [value, key]);
         return value;
     }
 
