@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 
+import styles from './ConfigPage.module.css';
+
 const ConfigPage = () => {
     const form = useRef(null);
     const [validated, setValidated] = useState(false);
@@ -10,7 +12,8 @@ const ConfigPage = () => {
     }
 
     return (
-        <>
+        <div className={styles.configPageContainer}>
+            <span className="text-danger fw-bold mb-3">Para que los cambios surjan efecto, hay que reiniciar el servidor.</span>
             <Form ref={form} noValidate validated={validated} className="media-breakpoint-down-sm">
                 <Form.Group className="mb-3" controlId="formMinDrinkPrice">
                     <Form.Label>Tiempo de actualización de los precios del mercado (en minutos)</Form.Label>
@@ -46,7 +49,7 @@ const ConfigPage = () => {
             <div className="d-flex justify-content-end">
                 <Button onClick={saveChanges}>Guardar cambios</Button>
             </div>
-        </>
+        </div>
     )
 };
 
