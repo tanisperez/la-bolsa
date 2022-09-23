@@ -21,8 +21,46 @@ const ConfigPage = () => {
             .catch((error) => console.error(error));
     }, []);
 
-    const saveChanges = () => {
+    const handleMarketRefreshTimeInMinutesChange = (event) => {
+        const marketRefreshTimeInMinutes = parseInt(event.target.value);
+        setConfig({
+            market_refresh_time_in_minutes: marketRefreshTimeInMinutes,
+            market_crack_duration_in_minutes: config.market_crack_duration_in_minutes,
+            client_market_refresh_time_in_seconds: config.client_market_refresh_time_in_seconds
+        });
+    };
 
+    const handleMarketCrackDurationInMinutes = (event) => {
+        const marketCrackDurationInMinutes = parseInt(event.target.value);
+        setConfig({
+            market_refresh_time_in_minutes: config.market_refresh_time_in_minutes,
+            market_crack_duration_in_minutes: marketCrackDurationInMinutes,
+            client_market_refresh_time_in_seconds: config.client_market_refresh_time_in_seconds
+        });
+    };
+    
+    const handleClientMarketRefreshTimeInSeconds = (event) => {
+        const clientMarketRefreshTimeInSeconds = parseInt(event.target.value);
+        setConfig({
+            market_refresh_time_in_minutes: config.market_refresh_time_in_minutes,
+            market_crack_duration_in_minutes: config.market_crack_duration_in_minutes,
+            client_market_refresh_time_in_seconds: clientMarketRefreshTimeInSeconds
+        });
+    };
+
+    const saveChanges = (event) => {
+        if (form.current.checkValidity() === false) {
+            setValidated(true);
+            event.preventDefault();
+            event.stopPropagation();
+        } else {
+            const configClient = new ConfigClient();
+            configClient.editConfig(config)
+                .then((result) => {
+                    console.log('Config modified: ' + JSON.stringify(result));
+                })
+                .catch((error) => console.error(error));
+        }
     }
 
     return (
@@ -32,7 +70,7 @@ const ConfigPage = () => {
                 <Form.Group className="mb-3" controlId="formMinDrinkPrice">
                     <Form.Label>Tiempo de actualización de los precios del mercado (en minutos)</Form.Label>
                     <InputGroup>
-                        <Form.Control type="number" required min={1} placeholder="20" step={1} defaultValue={config?.market_refresh_time_in_minutes}/>
+                        <Form.Control type="number" required min={1} placeholder="20" step={1} defaultValue={config?.market_refresh_time_in_minutes} onChange={handleMarketRefreshTimeInMinutesChange}/>
                         <InputGroup.Text>minutos</InputGroup.Text>
                         <Form.Control.Feedback type="invalid">
                             Introduce el tiempo de actualización de los precios del mercado (mínimo 1 minuto).
@@ -42,7 +80,7 @@ const ConfigPage = () => {
                 <Form.Group className="mb-3" controlId="formMaxDrinkPrice">
                     <Form.Label>Duración del modo crack (en minutos)</Form.Label>
                     <InputGroup>
-                        <Form.Control type="number" required min={1} placeholder="10" step={1} defaultValue={config?.market_crack_duration_in_minutes}/>
+                        <Form.Control type="number" required min={1} placeholder="10" step={1} defaultValue={config?.market_crack_duration_in_minutes} onChange={handleMarketCrackDurationInMinutes}/>
                         <InputGroup.Text>minutos</InputGroup.Text>
                         <Form.Control.Feedback type="invalid">
                             Introduce la duración del modo crack (mínimo 1 minuto).
@@ -52,7 +90,7 @@ const ConfigPage = () => {
                 <Form.Group className="mb-3" controlId="formCrackDrinkPrice">
                     <Form.Label>Tiempo de actualización de los precios en el navegador (en segundos)</Form.Label>
                     <InputGroup>
-                        <Form.Control type="number" required min={3} placeholder="10" step={1} defaultValue={config?.client_market_refresh_time_in_seconds}/>
+                        <Form.Control type="number" required min={3} placeholder="10" step={1} defaultValue={config?.client_market_refresh_time_in_seconds} onChange={handleClientMarketRefreshTimeInSeconds}/>
                         <InputGroup.Text>segundos</InputGroup.Text>
                         <Form.Control.Feedback type="invalid">
                             Introduce el tiempo de actualización de los precios en el navegador (mínimo 3 segundos).
