@@ -44,7 +44,7 @@ class DrinkService extends BaseService {
 
     async getConfig() {
         if (this.config == undefined) {
-            const marketRefresTimeInMinutes = await this.getMarketCrackDurationInMinutes();
+            const marketRefresTimeInMinutes = await this.getMarketRefreshPricesInMinutes();
             const marketCrackDurationInMinutes = await this.getMarketCrackDurationInMinutes();
             const clientMarketRefreshTimeInSeconds = await this.getClientMarketRefreshTimeInSeconds();
             this.config = {
