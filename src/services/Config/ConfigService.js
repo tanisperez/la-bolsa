@@ -26,6 +26,17 @@ class DrinkService extends BaseService {
         return row.value;
     }
 
+    async updateConfigValue(key, value) {
+        await this.executeQuery(`
+            UPDATE config
+            SET
+                value = ?
+            WHERE
+                key = ?`, 
+            [key, value]);
+        return value;
+    }
+
     async getMarketRefreshPricesInMinutes() {
         return this.getValueAsInt('MARKET_REFRESH_PRICES_IN_MINUTES');
     }
@@ -54,6 +65,14 @@ class DrinkService extends BaseService {
             }
         }
         return this.config;
+    }
+
+    async editConfig(config) {
+        await this.updateConfigValue('MARKET_REFRESH_PRICES_IN_MINUTES', config.market_refresh_time_in_minutes);
+        await this.updateConfigValue('MARKET_CRACK_DURATION_IN_MINUTES', config.market_crack_duration_in_minutes);
+        await this.updateConfigValue('CLIENT_MARKET_REFRESH_TIME_IN_SECONDS', config.client_market_refresh_time_in_seconds);
+        this.config = undefined;
+        return config;
     }
 }
 
