@@ -6,9 +6,9 @@ import MarketClient from '@clients/MarketClient';
 import ConfigClient from '@clients/ConfigClient';
 
 import Drink from '@components/Drink/Drink';
+import AlertMessage from '@components/Alert/AlertMessage';
 
 import styles from './Market.module.css';
-import AlertMessage from '../Alert/AlertMessage';
 
 const usePrevious = (value) => {
     const reference = useRef();
@@ -57,7 +57,7 @@ const Market = () => {
                 setAlertMessage({
                     show: true,
                     variant: 'danger',
-                    title: 'Se produjo un error al recuperar la configuración del mercado',
+                    title: 'Se produjo un error al recuperar la configuración',
                     body: error.message
                 });
             });
