@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Table, Button } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 import { Pencil, XLg } from 'react-bootstrap-icons';
 
 import drinkClient from '@clients/DrinkClient';
