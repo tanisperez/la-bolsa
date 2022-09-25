@@ -53,11 +53,11 @@ const Market = () => {
                 setInterval(loadMarket, config.client_market_refresh_time_in_seconds * 1_000);
             })
             .catch((error) => {
-                console.error(error);
+                console.error(error.message);
                 setAlertMessage({
                     show: true,
                     variant: 'danger',
-                    title: 'Ups, se produjo un error',
+                    title: 'Se produjo un error al recuperar la configuración del mercado',
                     body: error.message
                 });
             });
