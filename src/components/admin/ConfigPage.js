@@ -96,7 +96,7 @@ const ConfigPage = () => {
         <div className={styles.configPageContainer}>
             <AlertMessage message={alertMessage} autoCloseTimeOut={7_000}/>
             <Form ref={form} noValidate validated={validated} className="media-breakpoint-down-sm">
-                <Form.Group className="mb-3" controlId="formMinDrinkPrice">
+                <Form.Group className="mb-3">
                     <Form.Label>Tiempo de actualización de los precios del mercado (en minutos)</Form.Label>
                     <InputGroup>
                         <Form.Control type="number" required min={1} placeholder="20" step={1} defaultValue={config?.market_refresh_time_in_minutes} onChange={handleMarketRefreshTimeInMinutesChange} />
@@ -106,7 +106,7 @@ const ConfigPage = () => {
                         </Form.Control.Feedback>
                     </InputGroup>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formMaxDrinkPrice">
+                <Form.Group className="mb-3">
                     <Form.Label>Duración del modo crack (en minutos)</Form.Label>
                     <InputGroup>
                         <Form.Control type="number" required min={1} placeholder="10" step={1} defaultValue={config?.market_crack_duration_in_minutes} onChange={handleMarketCrackDurationInMinutes} />
@@ -116,7 +116,7 @@ const ConfigPage = () => {
                         </Form.Control.Feedback>
                     </InputGroup>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formCrackDrinkPrice">
+                <Form.Group className="mb-3">
                     <Form.Label>Tiempo de actualización de los precios en el navegador (en segundos)</Form.Label>
                     <InputGroup>
                         <Form.Control type="number" required min={3} placeholder="10" step={1} defaultValue={config?.client_market_refresh_time_in_seconds} onChange={handleClientMarketRefreshTimeInSeconds} />
