@@ -40,7 +40,15 @@ const Market = () => {
                 setDrinks(result.drinks);
                 setCrackStatus(result.crack_mode_status);
             })
-            .catch((error) => console.error(error));
+            .catch((error) => {
+                console.error(error.message);
+                setAlertMessage({
+                    show: true,
+                    variant: 'danger',
+                    title: 'Se produjo un error al recuperar las bebidas del mercado',
+                    body: error.message
+                });
+            });
     }
 
     useEffect(() => {
