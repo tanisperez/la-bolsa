@@ -15,7 +15,7 @@ const AlertMessage = ({ message, autoCloseTimeOut }) => {
 
     useEffect(() => {
         setCustomMessage(message);
-        if (message.show) {
+        if (message.show && autoCloseTimeOut) {
             setTimeout(() => closeAlert(), autoCloseTimeOut);
         }
     }, [message, autoCloseTimeOut]);
@@ -35,7 +35,7 @@ AlertMessage.propTypes = {
         title: PropTypes.string,
         body: PropTypes.string,
     }),
-    autoCloseTimeOut: PropTypes.number.isRequired
+    autoCloseTimeOut: PropTypes.number
 }
 
 export default AlertMessage;
