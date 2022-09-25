@@ -1,4 +1,4 @@
-class MarketClient {
+class ConfigClient {
     async getConfig() {
         const response = await fetch('/api/config');
         if (!response.ok) {
@@ -24,4 +24,4 @@ class MarketClient {
     }
 }
 
-export default MarketClient;
+export default ConfigClient;
