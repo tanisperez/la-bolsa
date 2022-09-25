@@ -16,8 +16,11 @@ class DrinkClient {
                 'Content-Type': 'application/json'
             }
         });
-        const addedDrink = await response.json();
-        return addedDrink;
+        if (!response.ok) {
+            const text = await response.text();
+            throw new Error(`Se produjo un error con el código ${response.status} y el mensaje ${text}`);
+        }
+        return await response.json();
     }
 
     async editDrink(drink) {
@@ -28,8 +31,11 @@ class DrinkClient {
                 'Content-Type': 'application/json'
             }
         });
-        const addedDrink = await response.json();
-        return addedDrink;
+        if (!response.ok) {
+            const text = await response.text();
+            throw new Error(`Se produjo un error con el código ${response.status} y el mensaje ${text}`);
+        }
+        return await response.json();
     }
 
     async deleteDrink(drink_id) {
