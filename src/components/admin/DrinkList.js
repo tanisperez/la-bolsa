@@ -6,6 +6,7 @@ import drinkClient from '@clients/DrinkClient';
 import AddDrink from '@components/Admin/AddDrink';
 import EditDrink from '@components/Admin/EditDrink';
 import MessageDialog from '@components/MessageDialog/MessageDialog';
+import AlertMessage from '@components/Alert/AlertMessage';
 
 const DrinkList = () => {
     const [drinks, setDrinks] = useState([]);
@@ -20,11 +21,25 @@ const DrinkList = () => {
             acceptTitle: 'Eliminar'
         }
     });
+    const [alertMessage, setAlertMessage] = useState({
+        show: false,
+        variant: 'danger',
+        title: '',
+        body: ''
+    });
 
     const loadDrinks = () => {
         drinkClient.getDrinks()
             .then((result) => setDrinks(result))
-            .catch((error) => console.error(error));
+            .catch((error) => {
+                console.error(error);
+                setAlertMessage({
+                    show: true,
+                    variant: 'danger',
+                    title: 'Se produjo un error al recuperar las bebidas',
+                    body: error.message
+                });
+            });
     };
 
     const onHideAddDrinkModal = ((refresh) => {
@@ -78,6 +93,7 @@ const DrinkList = () => {
 
     return (
         <>
+            <AlertMessage message={alertMessage} autoCloseTimeOut={7_000}/>
             <div className="drinks-table-container mb-3">
                 <Table striped hover size="sm">
                     <thead>
