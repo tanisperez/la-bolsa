@@ -61,7 +61,15 @@ const DrinkList = () => {
     const onDeleteDrink = ((data) => {
         drinkClient.deleteDrink(data.drink_id)
             .then(() => loadDrinks())
-            .catch((error) => console.error(error));
+            .catch((error) => {
+                console.error(error);
+                setAlertMessage({
+                    show: true,
+                    variant: 'danger',
+                    title: `Se produjo un error al eliminar la bebida con el id = ${data.drink_id}`,
+                    body: error.message
+                });
+            });
     });
 
     const openEditDrinkModal = (drinkId) => {
