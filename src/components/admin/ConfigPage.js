@@ -76,7 +76,7 @@ const ConfigPage = () => {
                     setAlertMessage({
                         show: true,
                         variant: 'danger',
-                        title: 'Ups, se produjo un error',
+                        title: 'Se produjo un error guardando los cambios de configuración',
                         body: error.message
                     });
                 });
