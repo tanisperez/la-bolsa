@@ -112,7 +112,7 @@ const EditDrink = (props) => {
                     console.log('Drink modified: ' + JSON.stringify(result));
                     handleHide(true);
                 })
-                .catch((error) => console.error(error));
+                .catch((error) => console.error(error.message));
         }
     };
 
