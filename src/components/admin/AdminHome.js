@@ -55,8 +55,17 @@ const AdminHome = () => {
 
     const crackMode = async () => {
         const marketClient = new MarketClient();
-        const status = await marketClient.enableCrackMode();
-        setCrackStatus(status);
+        marketClient.enableCrackMode()
+            .then((status) => setCrackStatus(status))
+            .catch((error) => {
+                console.error(error.message);
+                setAlertMessage({
+                    show: true,
+                    variant: 'danger',
+                    title: 'Se produjo un error al activar el modo crack',
+                    body: error.message
+                });
+            });
     };
 
     return (
