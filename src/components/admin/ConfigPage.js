@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Alert, Button, Form, InputGroup } from "react-bootstrap";
+import { Button, Form, InputGroup } from "react-bootstrap";
 
 import ConfigClient from '@clients/ConfigClient';
 
+import AlertMessage from "@components/Alert/AlertMessage";
+
 import styles from './ConfigPage.module.css';
-import AlertMessage from "../Alert/AlertMessage";
 
 const ConfigPage = () => {
     const form = useRef(null);
@@ -25,7 +26,15 @@ const ConfigPage = () => {
         const configClient = new ConfigClient();
         configClient.getConfig()
             .then((config) => setConfig(config))
-            .catch((error) => console.error(error));
+            .catch((error) => {
+                console.error(error.message);
+                setAlertMessage({
+                    show: true,
+                    variant: 'danger',
+                    title: 'Se produjo un error al recuperar la configuración',
+                    body: error.message
+                });
+            });
     }, []);
 
     const handleMarketRefreshTimeInMinutesChange = (event) => {
