@@ -4,6 +4,7 @@ import MarketClient from '@clients/MarketClient';
 import ConfigClient from '@clients/ConfigClient';
 
 import styles from './AdminHome.module.css';
+import AlertMessage from '../Alert/AlertMessage';
 
 const AdminHome = () => {
     const [crackStatus, setCrackStatus] = useState({
@@ -15,17 +16,39 @@ const AdminHome = () => {
         market_refresh_time_in_minutes: undefined,
         market_crack_duration_in_minutes: undefined
     });
+    const [alertMessage, setAlertMessage] = useState({
+        show: false,
+        variant: 'danger',
+        title: '',
+        body: ''
+    });
 
     useEffect(() => {
         const marketClient = new MarketClient();
         marketClient.getCrackModeStatus()
             .then((status) => setCrackStatus(status))
-            .catch((error) => console.error(error));
+            .catch((error) => {
+                console.error(error.message);
+                setAlertMessage({
+                    show: true,
+                    variant: 'danger',
+                    title: 'Se produjo un error al recuperar el estado del modo crack',
+                    body: error.message
+                });
+            });
 
         const configClient = new ConfigClient();
         configClient.getConfig()
             .then((config) => setConfig(config))
-            .catch((error) => console.error(error));
+            .catch((error) => {
+                console.error(error);
+                setAlertMessage({
+                    show: true,
+                    variant: 'danger',
+                    title: 'Se produjo un error al recuperar la configuración del mercado',
+                    body: error.message
+                });
+            });
     }, []);
 
 
@@ -37,6 +60,7 @@ const AdminHome = () => {
 
     return (
         <div className="d-flex flex-column align-items-center mt-4">
+            <AlertMessage message={alertMessage} autoCloseTimeOut={7_000}/>
             {
                 crackStatus.enabled ?
                     <span className="mb-4">El modo crack está habilitado, finalizará a las {crackStatus.crack_mode_end}</span>
