@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Form, InputGroup } from "react-bootstrap";
+import { Alert, Button, Form, InputGroup } from "react-bootstrap";
 
 import ConfigClient from '@clients/ConfigClient';
 
 import styles from './ConfigPage.module.css';
+import AlertMessage from "../Alert/AlertMessage";
 
 const ConfigPage = () => {
     const form = useRef(null);
@@ -12,6 +13,12 @@ const ConfigPage = () => {
         market_refresh_time_in_minutes: undefined,
         market_crack_duration_in_minutes: undefined,
         client_market_refresh_time_in_seconds: undefined
+    });
+    const [alertMessage, setAlertMessage] = useState({
+        show: false,
+        variant: 'danger',
+        title: '',
+        body: ''
     });
 
     useEffect(() => {
@@ -38,7 +45,7 @@ const ConfigPage = () => {
             client_market_refresh_time_in_seconds: config.client_market_refresh_time_in_seconds
         });
     };
-    
+
     const handleClientMarketRefreshTimeInSeconds = (event) => {
         const clientMarketRefreshTimeInSeconds = parseInt(event.target.value);
         setConfig({
@@ -56,21 +63,34 @@ const ConfigPage = () => {
         } else {
             const configClient = new ConfigClient();
             configClient.editConfig(config)
-                .then((result) => {
-                    console.log('Config modified: ' + JSON.stringify(result));
+                .then(() => {
+                    setAlertMessage({
+                        show: true,
+                        variant: 'success',
+                        title: 'Se han actualizado los parámetros de configuración',
+                        body: 'Para que los cambios surjan efecto, hay que reiniciar el servidor.'
+                    });
                 })
-                .catch((error) => console.error(error));
+                .catch((error) => {
+                    console.error(error.message);
+                    setAlertMessage({
+                        show: true,
+                        variant: 'danger',
+                        title: 'Ups, se produjo un error',
+                        body: error.message
+                    });
+                });
         }
     }
 
     return (
         <div className={styles.configPageContainer}>
-            <span className="text-danger fw-bold mb-3">Para que los cambios surjan efecto, hay que reiniciar el servidor.</span>
+            <AlertMessage message={alertMessage} autoCloseTimeOut={7_000}/>
             <Form ref={form} noValidate validated={validated} className="media-breakpoint-down-sm">
                 <Form.Group className="mb-3" controlId="formMinDrinkPrice">
                     <Form.Label>Tiempo de actualización de los precios del mercado (en minutos)</Form.Label>
                     <InputGroup>
-                        <Form.Control type="number" required min={1} placeholder="20" step={1} defaultValue={config?.market_refresh_time_in_minutes} onChange={handleMarketRefreshTimeInMinutesChange}/>
+                        <Form.Control type="number" required min={1} placeholder="20" step={1} defaultValue={config?.market_refresh_time_in_minutes} onChange={handleMarketRefreshTimeInMinutesChange} />
                         <InputGroup.Text>minutos</InputGroup.Text>
                         <Form.Control.Feedback type="invalid">
                             Introduce el tiempo de actualización de los precios del mercado (mínimo 1 minuto).
@@ -80,7 +100,7 @@ const ConfigPage = () => {
                 <Form.Group className="mb-3" controlId="formMaxDrinkPrice">
                     <Form.Label>Duración del modo crack (en minutos)</Form.Label>
                     <InputGroup>
-                        <Form.Control type="number" required min={1} placeholder="10" step={1} defaultValue={config?.market_crack_duration_in_minutes} onChange={handleMarketCrackDurationInMinutes}/>
+                        <Form.Control type="number" required min={1} placeholder="10" step={1} defaultValue={config?.market_crack_duration_in_minutes} onChange={handleMarketCrackDurationInMinutes} />
                         <InputGroup.Text>minutos</InputGroup.Text>
                         <Form.Control.Feedback type="invalid">
                             Introduce la duración del modo crack (mínimo 1 minuto).
@@ -90,7 +110,7 @@ const ConfigPage = () => {
                 <Form.Group className="mb-3" controlId="formCrackDrinkPrice">
                     <Form.Label>Tiempo de actualización de los precios en el navegador (en segundos)</Form.Label>
                     <InputGroup>
-                        <Form.Control type="number" required min={3} placeholder="10" step={1} defaultValue={config?.client_market_refresh_time_in_seconds} onChange={handleClientMarketRefreshTimeInSeconds}/>
+                        <Form.Control type="number" required min={3} placeholder="10" step={1} defaultValue={config?.client_market_refresh_time_in_seconds} onChange={handleClientMarketRefreshTimeInSeconds} />
                         <InputGroup.Text>segundos</InputGroup.Text>
                         <Form.Control.Feedback type="invalid">
                             Introduce el tiempo de actualización de los precios en el navegador (mínimo 3 segundos).
