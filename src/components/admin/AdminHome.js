@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react';
 import MarketClient from '@clients/MarketClient';
 import ConfigClient from '@clients/ConfigClient';
 
+import AlertMessage from '@components/Alert/AlertMessage';
+
 import styles from './AdminHome.module.css';
-import AlertMessage from '../Alert/AlertMessage';
 
 const AdminHome = () => {
     const [crackStatus, setCrackStatus] = useState({
@@ -45,7 +46,7 @@ const AdminHome = () => {
                 setAlertMessage({
                     show: true,
                     variant: 'danger',
-                    title: 'Se produjo un error al recuperar la configuración del mercado',
+                    title: 'Se produjo un error al recuperar la configuración',
                     body: error.message
                 });
             });
