@@ -40,7 +40,42 @@ const UserPage = () => {
     }
 
     const saveChanges = (event) => {
-        alert(JSON.stringify(password));
+        if (form.current.checkValidity() === false) {
+            setPassword({
+                ...password,
+                validated: true
+            });
+            event.preventDefault();
+            event.stopPropagation();
+        } else {
+            if (password.newPassword !== password.repeatNewPassword) {
+                setAlertMessage({
+                    show: true,
+                    variant: 'danger',
+                    title: 'Se produjo un error actualizando la contraseña',
+                    body: 'Las contraseñas nuevas no coinciden'
+                });
+            } else {
+                // Validar que la contraseña vieja coincide.
+
+                // Guardar la nueva contraseña...
+                alert(JSON.stringify(password));
+            }
+            /* const modifiedDrink = {
+                drink_id: drink.drink_id,
+                alias: drinkAlias,
+                name: drinkName,
+                min_price: minPrice,
+                max_price: maxPrice,
+                crack_price: crackPrice
+            };
+            drinkClient.editDrink(modifiedDrink)
+                .then((result) => {
+                    console.log('Drink modified: ' + JSON.stringify(result));
+                    handleHide(true);
+                })
+                .catch((error) => console.error(error.message)); */
+        }
     }
 
     return (
@@ -57,13 +92,19 @@ const UserPage = () => {
                 <Form.Group className="mb-3" controlId="formMaxDrinkPrice">
                     <Form.Label>Nueva contraseña</Form.Label>
                     <InputGroup>
-                        <Form.Control type="password" required onChange={handleNewPasswordChange}/>
+                        <Form.Control type="password" required minLength={5} maxLength={10} onChange={handleNewPasswordChange}/>
+                        <Form.Control.Feedback type="invalid">
+                            La contraseña debe de tener entre 5 y 10 caracteres.
+                        </Form.Control.Feedback>
                     </InputGroup>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formCrackDrinkPrice">
                     <Form.Label>Repite la nueva contraseña</Form.Label>
                     <InputGroup>
-                        <Form.Control type="password" required onChange={handleRepeatNewPasswordChange}/>
+                        <Form.Control type="password" required minLength={5} maxLength={10} onChange={handleRepeatNewPasswordChange}/>
+                        <Form.Control.Feedback type="invalid">
+                            La contraseña debe de tener entre 5 y 10 caracteres.
+                        </Form.Control.Feedback>
                     </InputGroup>
                 </Form.Group>
             </Form>
