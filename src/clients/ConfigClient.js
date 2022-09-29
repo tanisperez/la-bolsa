@@ -3,7 +3,7 @@ class ConfigClient {
         const response = await fetch('/api/config');
         if (!response.ok) {
             const text = await response.text();
-            throw new Error(`Se produjo un error con el código ${response.status} y el mensaje ${text}`);
+            throw new Error(`Se produjo un error con el código ${response.status} y el mensaje "${text}"`);
         }
         return await response.json();
     }
@@ -18,7 +18,22 @@ class ConfigClient {
         });
         if (!response.ok) {
             const text = await response.text();
-            throw new Error(`Se produjo un error con el código ${response.status} y el mensaje ${text}`);
+            throw new Error(`Se produjo un error con el código ${response.status} y el mensaje "${text}"`);
+        }
+        return await response.json();
+    }
+
+    async updateAdminPassword(adminPasswords) {
+        const response = await fetch(`/api/admin/password`, {
+            method: 'PUT',
+            body: JSON.stringify(adminPasswords),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if (!response.ok) {
+            const text = await response.text();
+            throw new Error(`Se produjo un error con el código ${response.status} y el mensaje "${text}"`);
         }
         return await response.json();
     }

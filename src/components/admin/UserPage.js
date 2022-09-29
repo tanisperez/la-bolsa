@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 
+import ConfigClient from "@clients/ConfigClient";
+
 import AlertMessage from "@components/Alert/AlertMessage";
 
 const UserPage = () => {
@@ -49,33 +51,41 @@ const UserPage = () => {
             event.stopPropagation();
         } else {
             if (password.newPassword !== password.repeatNewPassword) {
-                setAlertMessage({
-                    show: true,
-                    variant: 'danger',
-                    title: 'Se produjo un error actualizando la contraseña',
-                    body: 'Las contraseñas nuevas no coinciden'
-                });
+                showErrorMessage('Se produjo un error actualizando la contraseña', 'Las contraseñas nuevas no coinciden');
             } else {
-                // Validar que la contraseña vieja coincide.
-
-                // Guardar la nueva contraseña...
-                alert(JSON.stringify(password));
+                const adminPasswords = {
+                    password: password.oldPassword,
+                    newPassword: password.newPassword
+                }
+                const configClient = new ConfigClient();
+                configClient.updateAdminPassword(adminPasswords)
+                    .then(() => {
+                        showSuccessMessage('Se ha actualizado la contraseña de administrador', 'Para que los cambios surjan efecto, hay que reiniciar el servidor.');
+                    })
+                    .catch((error) => {
+                        console.error(error.message);
+                        showErrorMessage('Se produjo un error actualizando la contraseña de administrador', error.message);
+                    });
             }
-            /* const modifiedDrink = {
-                drink_id: drink.drink_id,
-                alias: drinkAlias,
-                name: drinkName,
-                min_price: minPrice,
-                max_price: maxPrice,
-                crack_price: crackPrice
-            };
-            drinkClient.editDrink(modifiedDrink)
-                .then((result) => {
-                    console.log('Drink modified: ' + JSON.stringify(result));
-                    handleHide(true);
-                })
-                .catch((error) => console.error(error.message)); */
         }
+    }
+
+    const showErrorMessage = (title, body) => {
+        setAlertMessage({
+            show: true,
+            variant: 'danger',
+            title: title,
+            body: body
+        });
+    }
+
+    const showSuccessMessage = (title, body) => {
+        setAlertMessage({
+            show: true,
+            variant: 'success',
+            title: title,
+            body: body
+        });
     }
 
     return (

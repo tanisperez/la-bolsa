@@ -74,6 +74,22 @@ class DrinkService extends BaseService {
         this.config = undefined;
         return config;
     }
+
+    async updateAdminPassword(adminPasswords) {
+        const currentAdminPassword = await this.getAdminPassword();
+        if (currentAdminPassword !== adminPasswords.password) {
+            return {
+                success: false,
+                message: 'La contraseña anterior no es correcta'
+            }
+        }
+
+        await this.updateConfigValue('ADMIN_PASSWORD', adminPasswords.newPassword);
+        return {
+            success: true,
+            message: 'La contraseña de administrador fue actualizada correctamente'
+        }
+    }
 }
 
 export default DrinkService;
