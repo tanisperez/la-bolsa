@@ -7,11 +7,24 @@ export const config = {
     ]
 };
 
-export function middleware(request) {
+export async function middleware(request) {
     const basicAuth = request.headers.get('authorization');
     if (basicAuth) {
         const [user, password] = getAuthentication(basicAuth);
-        if (user === 'admin' && password === 'admin') {
+        const response = await fetch('http://localhost:3000/api/login', {
+            method: 'POST',
+            body: JSON.stringify({
+                user: user,
+                password: password
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).catch((error) => {
+            console.error(error.message);
+            throw error;
+        })
+        if (response.ok) {
             return NextResponse.next();
         }
     }
