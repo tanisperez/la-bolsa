@@ -11,7 +11,7 @@ export async function middleware(request) {
     const basicAuth = request.headers.get('authorization');
     if (basicAuth) {
         const [user, password] = getAuthentication(basicAuth);
-        const response = await fetch('http://localhost:3000/api/login', {
+        const response = await fetch('http://localhost:8080/api/login', {
             method: 'POST',
             body: JSON.stringify({
                 user: user,
