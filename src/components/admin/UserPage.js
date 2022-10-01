@@ -60,7 +60,7 @@ const UserPage = () => {
                 const configClient = new ConfigClient();
                 configClient.updateAdminPassword(adminPasswords)
                     .then(() => {
-                        showSuccessMessage('Se ha actualizado la contraseña de administrador', 'Para que los cambios surjan efecto, hay que reiniciar el servidor.');
+                        showSuccessMessage('Se ha actualizado la contraseña de administrador', 'La próxima vez que accedas al panel de administrador, deberás utilizar la nueva contraseña.');
                     })
                     .catch((error) => {
                         console.error(error.message);
