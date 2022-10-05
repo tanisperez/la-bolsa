@@ -126,6 +126,12 @@ const DrinkList = () => {
         setDeleteDrinkMessage(message);
     };
 
+    const onRowDragEnd = (event) => {
+        const newDrinksOrder = event.api.rowModel.rowsToDisplay
+            .map((row => row.data));
+        alert(JSON.stringify(newDrinksOrder));
+    }
+
     useEffect(() => {
         loadDrinks();
     }, []);
@@ -142,6 +148,7 @@ const DrinkList = () => {
                         suppressMoveWhenRowDragging={true}
                         animateRows={true}
                         overlayNoRowsTemplate={'No hay bebidas'}
+                        onRowDragEnd={onRowDragEnd}
                         context={{
                             openEditDrinkModal,
                             openDeleteDrinkModal,
