@@ -26,21 +26,6 @@ a {
     width: 100%;
 }
 
-.drinks-table-container {
-    max-height: 500px;
-    overflow-y: auto;
-}
-
-.admin-page table thead tr th.edit-drink,
-.admin-page table thead tr th.delete-drink {
-    width: 20px;
-}
-
-.admin-page table tbody td:nth-child(7),
-.admin-page table tbody td:last-child {
-    cursor: pointer;
-}
-
 @keyframes fadeIn {
     0% {
         opacity: 0;

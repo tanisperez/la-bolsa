@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { Pencil, XLg } from 'react-bootstrap-icons';
 
 import drinkClient from '@clients/DrinkClient';
@@ -7,12 +7,30 @@ import AddDrink from '@components/Admin/AddDrink';
 import EditDrink from '@components/Admin/EditDrink';
 import MessageDialog from '@components/MessageDialog/MessageDialog';
 import AlertMessage from '@components/Alert/AlertMessage';
+import { AgGridReact } from 'ag-grid-react';
+
+import 'ag-grid-community/styles/ag-grid.css';
+import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 const DrinkList = () => {
-    const [drinks, setDrinks] = useState([]);
     const [addDrinkShow, setAddDrinkShow] = useState(false);
     const [editDrinkShow, setEditDrinkShow] = useState(false);
     const [editDrink, setEditDrink] = useState(undefined);
+    const [columnsDefinition] = useState([
+        { field: 'drink_id', rowDrag: true, headerName: 'Id', width: 100},
+        { field: 'alias', headerName: 'Alias', width: 90 },
+        { field: 'name', headerName: 'Nombre', flex: 1, minWidth: 150},
+        { field: 'min_price', headerName: 'Precio mínimo', width: 140 },
+        { field: 'max_price', headerName: 'Precio máximo', width: 140 },
+        { field: 'crack_price', headerName: 'Precio crack', width: 140 },
+        { field: 'edit_drink', headerName: '', width: 60, cellRenderer: (props) => (
+            <Pencil size={20} onClick={() => openEditDrinkModal(props)} />
+        )},
+        { field: 'delete_drink', headerName: '', width: 60, cellRenderer: (props) => (
+            <XLg size={20} onClick={() => openDeleteDrinkModal(props)} />
+        )}
+    ]);
+    const [rowData, setRowData] = useState([]);
     const [deleteDrinkMessage, setDeleteDrinkMessage] = useState({
         show: false,
         title: 'Eliminar una bebida',
@@ -30,7 +48,21 @@ const DrinkList = () => {
 
     const loadDrinks = () => {
         drinkClient.getDrinks()
-            .then((result) => setDrinks(result))
+            .then((drinks) => {
+                const rows = drinks.map((drink) => {
+                    return {
+                        drink_id: drink.drink_id,
+                        alias: drink.alias,
+                        name: drink.name,
+                        min_price: drink.min_price,
+                        max_price: drink.max_price,
+                        crack_price: drink.crack_price,
+                        edit_drink: drink.drink_id,
+                        delete_drink: drink.drink_id
+                    }
+                });
+                setRowData(rows);
+            })
             .catch((error) => {
                 console.error(error);
                 setAlertMessage({
@@ -72,15 +104,18 @@ const DrinkList = () => {
             });
     });
 
-    const openEditDrinkModal = (drinkId) => {
-        const drink = drinks.find((drink) => drink.drink_id == drinkId);
+    const openEditDrinkModal = (props) => {
+        const drinkId = props.value;
+        const drink = props.context.rowData.find((drink) => drink.drink_id == drinkId);
         setEditDrink(drink);
         setEditDrinkShow(true);
     };
 
-    const openDeleteDrinkModal = (drinkId) => {
-        const drink = drinks.find((drink) => drink.drink_id == drinkId);
-        const { title, buttons } = deleteDrinkMessage;
+    const openDeleteDrinkModal = (props) => {
+        const drinkId = props.value;
+        const context = props.context;
+        const drink = context.rowData.find((drink) => drink.drink_id == drinkId);
+        const { title, buttons } = context.deleteDrinkMessage;
         const message = {
             show: true,
             title: title,
@@ -91,55 +126,34 @@ const DrinkList = () => {
         setDeleteDrinkMessage(message);
     };
 
-    const isMarketEmpty = () => {
-        return drinks.length == 0;
-    }
-
     useEffect(() => {
         loadDrinks();
     }, []);
 
     return (
         <>
-            <AlertMessage message={alertMessage} autoCloseTimeOut={7_000}/>
+            <AlertMessage message={alertMessage} autoCloseTimeOut={7_000} />
             <div className="drinks-table-container mb-3">
-                <Table striped hover size="sm">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Alias</th>
-                            <th>Nombre</th>
-                            <th>Precio mínimo</th>
-                            <th>Precio máximo</th>
-                            <th>Precio crack</th>
-                            <th className="edit-drink"></th>
-                            <th className="delete-drink"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            isMarketEmpty() ?
-                                <tr>
-                                    <td className="text-center" colSpan={8}>No hay bebidas en el mercado</td>
-                                </tr>
-                                :
-                                drinks.map(drink => (
-                                    <tr key={drink.drink_id}>
-                                        <td>{drink.drink_id}</td>
-                                        <td>{drink.alias}</td>
-                                        <td>{drink.name}</td>
-                                        <td>{drink.min_price} €</td>
-                                        <td>{drink.max_price} €</td>
-                                        <td>{drink.crack_price} €</td>
-                                        <td><Pencil size={20} onClick={() => openEditDrinkModal(drink.drink_id)} /></td>
-                                        <td><XLg size={20} onClick={() => openDeleteDrinkModal(drink.drink_id)} /></td>
-                                    </tr>
-                                ))
-                        }
-                    </tbody>
-                </Table>
+                <div className="ag-theme-alpine" style={{ height: 500 }}>
+                    <AgGridReact
+                        rowData={rowData}
+                        columnDefs={columnsDefinition}
+                        rowDragManaged={true}
+                        suppressMoveWhenRowDragging={true}
+                        animateRows={true}
+                        overlayNoRowsTemplate={'No hay bebidas'}
+                        context={{
+                            openEditDrinkModal,
+                            openDeleteDrinkModal,
+                            setEditDrink,
+                            setEditDrinkShow,
+                            setDeleteDrinkMessage,
+                            deleteDrinkMessage,
+                            rowData
+                        }}>
+                    </AgGridReact>
+                </div>
             </div>
-
             <div className="d-flex justify-content-end">
                 <Button onClick={() => setAddDrinkShow(true)}>Añadir bebida</Button>
             </div>
