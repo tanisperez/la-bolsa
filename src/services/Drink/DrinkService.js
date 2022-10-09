@@ -72,6 +72,18 @@ class DrinkService extends BaseService {
         return drink;
     }
 
+    async editDrinksOrder(drinks) {
+        for (let drink in drinks) {
+            await this.executeQuery(`
+                UPDATE drink
+                SET
+                    drink_order = ?
+                WHERE
+                    drink_id = ?`, 
+                [drinks[drink].drink_order, drinks[drink].drink_id]);
+        }
+    }
+
     async deleteDrink(drinkId) {
         await this.executeQuery(`
             DELETE FROM drink
