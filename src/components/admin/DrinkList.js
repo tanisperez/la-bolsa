@@ -127,10 +127,32 @@ const DrinkList = () => {
     };
 
     const onRowDragEnd = (event) => {
-        const newDrinksOrder = event.api.rowModel.rowsToDisplay
-            .map((row => row.data));
-        alert(JSON.stringify(newDrinksOrder));
-    }
+        const drinks = generateNewDrinksOrder(event.api.rowModel.rowsToDisplay);
+        drinkClient.editDrinksOrder(drinks)
+            .then(() => loadDrinks())
+            .catch((error) => {
+                console.error(error);
+                setAlertMessage({
+                    show: true,
+                    variant: 'danger',
+                    title: 'Se produjo un error ordenando las bebidas',
+                    body: error.message
+                });
+            });
+    };
+
+    const generateNewDrinksOrder = (rows) => {
+        const drinks = [];
+        let drinkOrder = 1;
+        for (let row in rows) {
+            const drink = {
+                drink_id: rows[row].data.drink_id,
+                drink_order: drinkOrder++
+            };
+            drinks.push(drink);
+        }
+        return drinks;
+    };
 
     useEffect(() => {
         loadDrinks();
