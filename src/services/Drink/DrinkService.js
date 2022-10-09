@@ -3,7 +3,17 @@ import BaseService from '@services/Base/BaseService';
 class DrinkService extends BaseService {
     
     async getDrinks() {
-        const rows = await this.select('SELECT drink_id, alias, name, min_price, max_price, crack_price FROM drink');
+        const rows = await this.select(`
+            SELECT 
+                drink_id, 
+                alias, 
+                name, 
+                min_price, 
+                max_price, 
+                crack_price 
+            FROM drink
+            ORDER BY 
+                drink_order ASC`);
         return rows.map(row => {
             return {
                 drink_id: row.drink_id,
@@ -40,7 +50,9 @@ class DrinkService extends BaseService {
     }
 
     async addDrink(drink) {
-        const drinkId = await this.executeQuery('INSERT INTO drink(alias, name, min_price, max_price, crack_price) VALUES(?, ?, ?, ?, ?)', 
+        const drinkId = await this.executeQuery(`
+            INSERT INTO drink(alias, drink_order, name, min_price, max_price, crack_price) 
+            VALUES(?, (SELECT COALESCE(MAX(drink_order), 0) + 1 FROM drink), ?, ?, ?, ?)`, 
             [drink.alias, drink.name, drink.min_price, drink.max_price, drink.crack_price]);
         return drinkId;
     }
