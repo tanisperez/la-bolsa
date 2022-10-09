@@ -116,6 +116,18 @@ class MarketService {
         }
     }
 
+    async editDrinksOrder(drinks) {
+        await this.getMarket();
+
+        for (let drink in drinks) {
+            const currentDrinkIndex = this.market.findIndex((marketDrink) => {
+                return marketDrink.drink_id == drinks[drink].drink_id;
+            });
+            this.market[currentDrinkIndex].drink_order = drinks[drink].drink_order;
+        }
+        this.market = this.market.sort((a, b) => a.drink_order - b.drink_order);
+    }
+
     async deleteDrink(drinkId) {
         await this.getMarket();
         const currentDrinkIndex = this.market.findIndex((marketDrink) => {
