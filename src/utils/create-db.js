@@ -19,7 +19,7 @@ console.log('Creating table drink...');
 db.serialize(async () => {
     await query(`CREATE TABLE IF NOT EXISTS drink (
                     drink_id INTEGER PRIMARY KEY, 
-                    order INTEGER NOT NULL,
+                    drink_order INTEGER NOT NULL,
                     alias TEXT NOT NULL, 
                     name TEXT NOT NULL, 
                     min_price NUMERIC NOT NULL, 
