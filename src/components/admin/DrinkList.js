@@ -17,7 +17,8 @@ const DrinkList = () => {
     const [editDrinkShow, setEditDrinkShow] = useState(false);
     const [editDrink, setEditDrink] = useState(undefined);
     const [columnsDefinition] = useState([
-        { field: 'drink_id', rowDrag: true, headerName: 'Id', width: 100},
+        { field: 'drink_order', rowDrag: true, headerName: '#', width: 100},
+        { field: 'drink_id', headerName: 'Id', hide: true},
         { field: 'alias', headerName: 'Alias', width: 90 },
         { field: 'name', headerName: 'Nombre', flex: 1, minWidth: 150},
         { field: 'min_price', headerName: 'Precio mínimo', width: 140 },
@@ -51,6 +52,7 @@ const DrinkList = () => {
             .then((drinks) => {
                 const rows = drinks.map((drink) => {
                     return {
+                        drink_order: drink.drink_order,
                         drink_id: drink.drink_id,
                         alias: drink.alias,
                         name: drink.name,
