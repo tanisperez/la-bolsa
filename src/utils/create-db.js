@@ -19,6 +19,7 @@ console.log('Creating table drink...');
 db.serialize(async () => {
     await query(`CREATE TABLE IF NOT EXISTS drink (
                     drink_id INTEGER PRIMARY KEY, 
+                    order INTEGER NOT NULL,
                     alias TEXT NOT NULL, 
                     name TEXT NOT NULL, 
                     min_price NUMERIC NOT NULL, 
@@ -38,11 +39,11 @@ db.serialize(async () => {
 console.log('Inserting default config...');
 db.serialize(async () => {
     await query(`INSERT INTO config(key, value)
-                 VALUES ('MARKET_REFRESH_PRICES_IN_MINUTES', '1')`, 'run');
+                 VALUES ('MARKET_REFRESH_PRICES_IN_MINUTES', '20')`, 'run');
 });
 db.serialize(async () => {
     await query(`INSERT INTO config(key, value)
-                 VALUES ('MARKET_CRACK_DURATION_IN_MINUTES', '5')`, 'run');
+                 VALUES ('MARKET_CRACK_DURATION_IN_MINUTES', '10')`, 'run');
 });
 db.serialize(async () => {
   await query(`INSERT INTO config(key, value)
