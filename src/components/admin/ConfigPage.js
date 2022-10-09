@@ -94,7 +94,7 @@ const ConfigPage = () => {
 
     return (
         <div className={styles.configPageContainer}>
-            <AlertMessage message={alertMessage} autoCloseTimeOut={7_000}/>
+            <AlertMessage message={alertMessage}/>
             <Form ref={form} noValidate validated={validated} className="media-breakpoint-down-sm">
                 <Form.Group className="mb-3">
                     <Form.Label>Tiempo de actualización de los precios del mercado (en minutos)</Form.Label>

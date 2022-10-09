@@ -162,7 +162,7 @@ const DrinkList = () => {
 
     return (
         <>
-            <AlertMessage message={alertMessage} autoCloseTimeOut={7_000} />
+            <AlertMessage message={alertMessage}/>
             <div className="drinks-table-container mb-3">
                 <div className="ag-theme-alpine" style={{ height: 500 }}>
                     <AgGridReact

@@ -90,7 +90,7 @@ const UserPage = () => {
 
     return (
         <>
-            <AlertMessage message={alertMessage} autoCloseTimeOut={7_000}/>
+            <AlertMessage message={alertMessage}/>
             <Form ref={form} noValidate validated={password.validated} className="media-breakpoint-down-sm">
                 <Form.Group className="mb-3" controlId="formMinDrinkPrice">
                     <Form.Label>Contraseña anterior</Form.Label>

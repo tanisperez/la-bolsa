@@ -70,7 +70,7 @@ const AdminHome = () => {
 
     return (
         <div className="d-flex flex-column align-items-center mt-4">
-            <AlertMessage message={alertMessage} autoCloseTimeOut={7_000}/>
+            <AlertMessage message={alertMessage}/>
             {
                 crackStatus.enabled ?
                     <span className="mb-4">El modo crack está habilitado, finalizará a las {crackStatus.crack_mode_end}</span>
