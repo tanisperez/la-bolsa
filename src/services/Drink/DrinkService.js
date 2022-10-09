@@ -5,7 +5,8 @@ class DrinkService extends BaseService {
     async getDrinks() {
         const rows = await this.select(`
             SELECT 
-                drink_id, 
+                drink_id,
+                drink_order,
                 alias, 
                 name, 
                 min_price, 
@@ -17,6 +18,7 @@ class DrinkService extends BaseService {
         return rows.map(row => {
             return {
                 drink_id: row.drink_id,
+                drink_order: row.drink_order,
                 alias: row.alias,
                 name: row.name,
                 min_price: row.min_price,
@@ -30,6 +32,7 @@ class DrinkService extends BaseService {
         const row = await this.selectFirst(`
             SELECT 
                 drink_id, 
+                drink_order,
                 alias, 
                 name, 
                 min_price, 
@@ -41,6 +44,7 @@ class DrinkService extends BaseService {
             [drinkId]);
         return {
             drink_id: row.drink_id,
+            drink_order: row.drink_order,
             alias: row.alias,
             name: row.name,
             min_price: row.min_price,
