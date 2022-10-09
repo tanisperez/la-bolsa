@@ -26,10 +26,10 @@ const DrinkList = () => {
         { field: 'crack_price', headerName: 'Precio crack', width: 140 },
         { field: 'edit_drink', headerName: '', width: 60, cellRenderer: (props) => (
             <Pencil size={20} onClick={() => openEditDrinkModal(props)} />
-        )},
+        ), cellStyle: {cursor: 'pointer'}},
         { field: 'delete_drink', headerName: '', width: 60, cellRenderer: (props) => (
             <XLg size={20} onClick={() => openDeleteDrinkModal(props)} />
-        )}
+        ), cellStyle: {cursor: 'pointer'}}
     ]);
     const [rowData, setRowData] = useState([]);
     const [deleteDrinkMessage, setDeleteDrinkMessage] = useState({
