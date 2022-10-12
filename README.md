@@ -17,12 +17,12 @@ The App uses SQLite3 to store and fetch the drink prices from a database. The up
 
 La Bolsa App is built with a responsive layout using bootstrap.
 
-![XXL desktop layout](doc/3-columns.png)
+![XXL desktop layout](doc/4-columns.png)
 <p align = "center">
 XXL desktop layout
 </p>
 
-![MD desktop layout](doc/2-columns.png)
+![MD desktop layout](doc/3-columns.png)
 <p align = "center">
 MD desktop layout
 </p>
@@ -39,35 +39,52 @@ Mobile layout
 
 ## Admin App Design
 
-![XXL desktop layout](doc/admin-page.png)
+![Admin Page](doc/admin-page.png)
 <p align = "center">
 Admin Page
 </p>
 
-![XXL desktop layout](doc/add-drink.png)
+![Drink list](doc/drink-list.png)
+<p align = "center">
+Drink list
+</p>
+
+![Add drink modal](doc/add-drink.png)
 <p align = "center">
 Add drink modal
 </p>
 
-![XXL desktop layout](doc/edit-drink.png)
+![Edit drink modal](doc/edit-drink.png)
 <p align = "center">
 Edit drink modal
 </p>
 
-![XXL desktop layout](doc/delete-drink.png)
+![Delete drink modal](doc/delete-drink.png)
 <p align = "center">
 Delete drink modal
 </p>
 
-## Download the dependencies and run the development server
+![Admin config](doc/admin-config.png)
+<p align = "center">
+Admin config page
+</p>
+
+![Update admin password](doc/admin-user.png)
+<p align = "center">
+Update admin password
+</p>
+
+
+## Download the dependencies, create the database and run the development server
 ```bash
 npm install
+npm run create-db
 npm run dev
 ```
 
-The server will be started in the port 3000. This will be the URL: http://localhost:3000
+The server will be started in the port 8080. This will be the URL: http://localhost:8080
 
-The admin server page will be hosted on http://localhost:3000/admin
+The admin server page will be hosted on http://localhost:8080/admin
 
 ## Run tests
 There are some test that could be run using the following command:
@@ -81,10 +98,4 @@ npm run build
 npm run start
 ```
 
-The server will be started in the port 8080. These are the URLs:
-
-http://localhost:8080
-
-
-http://localhost:8080/admin
-
+The server will be started in the port 8080. The URLs are the same as in development mode.
