@@ -84,7 +84,7 @@ npm run dev
 
 The server will be started in the port 8080. This will be the URL: http://localhost:8080
 
-The admin server page will be hosted on http://localhost:8080/admin
+The admin server page will be hosted on http://localhost:8080/admin. The user is **admin** and the default password is **admin**. The password can be changed in the admin dashboard.
 
 ## Run tests
 There are some test that could be run using the following command:
