@@ -4,7 +4,7 @@ La Bolsa is a web application used in a pub called **La Bolsa** (_The Stock Chan
 
 ## Technical details
 This proyect is built using the following technologies:
-* Node.js v16.15.1.
+* Node.js v12.22.12.
 * React v18.2.0.
 * Next.js v12.2.0.
 * React-Bootstrap v2.4.0.

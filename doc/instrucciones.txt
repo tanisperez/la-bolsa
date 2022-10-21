@@ -1,6 +1,6 @@
 En Windows es necesario tener instalado Node.js v16.15.1, estos son los enlaces de descarga:
-- Versión de 32-bit: https://nodejs.org/dist/v16.16.0/node-v16.16.0-x86.msi
-- Versión de 64-bit: https://nodejs.org/dist/v16.16.0/node-v16.16.0-x64.msi
+- Versión de 32-bit: https://nodejs.org/download/release/v12.22.12/node-v12.22.12-x86.msi
+- Versión de 64-bit: https://nodejs.org/download/release/v12.22.12/node-v12.22.12-x64.msi
 
 Una vez instalado Node.js, hay que construir el proyecto, para ello ejecutaremos el fichero build.bat.
 
