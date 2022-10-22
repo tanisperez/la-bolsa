@@ -32,8 +32,8 @@ const AddDrink = (props) => {
             error = 'El precio máximo no puede ser menor o igual que 0€';
         } else if ((maxPrice && minPrice) && maxPrice <= minPrice) {
             error = 'El precio máximo debe ser mayor que el precio mínimo';
-        } else if (crackPrice >= minPrice) {
-            error = 'El precio crack debe ser menor que el precio mínimo';
+        } else if (crackPrice > minPrice) {
+            error = 'El precio crack debe ser menor o igual que el precio mínimo';
         }
         return {
             'isValid': error === '',
