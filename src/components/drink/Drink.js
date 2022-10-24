@@ -48,26 +48,24 @@ const Drink = ({ alias, name, price, lastPrice, priceChange, crackModeEnabled })
 
     return (
         <div className={getDrinkClassName().join(' ')}>
-            <Row className="m-2 align-items-center">
+            <div className="d-flex align-items-center">
                 <Col className="p-0">
                     <Row className={`${styles.drinkNameGraphContainer} mx-0`}>
-                        <Col className={`${styles.drinkNameContainer} px-0`}>
-                            <Row className="mx-0">
+                        <Col className={`${styles.drinkNameContainer} px-0 d-flex flex-column`}>
+                            <div className='d-flex align-items-center'>
                                 <span className={`${styles.drinkAlias} px-0`}>{alias}</span>
-                                <span className={`${styles.drinkName} px-0`}>{name}</span>
-                            </Row>
-                        </Col>
-                        <Col xs="auto" className="px-0 d-flex align-items-center me-1">
-                            <Image src={getMarketGraph(price, lastPrice)} className={getMarketGraphClassName(price, lastPrice)} alt="Gráfica de precio" width={90} height={60} />
+                                <Image src={getMarketGraph(price, lastPrice)} className={getMarketGraphClassName(price, lastPrice)} alt="Gráfica de precio" width={67} height={45} />
+                            </div>
+                            <span className={`${styles.drinkName} px-0`}>{name}</span>
                         </Col>
                     </Row>
                 </Col>
-                <Col xs={2} sm={2} md={2} lg={2} xxl={2} className={styles.drinkPrices}>
+                <Col xs="auto" className={styles.drinkPrices}>
                     <span className={`${styles.drinkPrice} px-0`}>{price} €</span>
                     <span className={getPriceChangeClass(price, lastPrice).join(' ')}>{(priceChange > 0) ? `+${priceChange}` : `${priceChange}`} €</span>
                 </Col>
-            </Row>
-        </div>
+            </div >
+        </div >
     );
 };
 

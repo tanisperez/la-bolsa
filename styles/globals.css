@@ -10,9 +10,20 @@ body {
     background-color: #22252c !important;
 }
 
+@font-face {
+    font-family: 'MonospaceTypewriter';
+    font-style: normal;
+    font-weight: normal;
+    src: local('/fonts/MonospaceTypewriter'), url('/fonts/MonospaceTypewriter.woff') format('woff');
+}
+
 a {
     color: inherit;
     text-decoration: none;
+}
+
+#la-bolsa-container {
+    margin-top: 2rem;
 }
 
 #la-bolsa-logo {

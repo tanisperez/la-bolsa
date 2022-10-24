@@ -92,7 +92,7 @@ const Market = () => {
     return (
         <>
             <AlertMessage message={alertMessage} />
-            <Row className="mt-4 mb-4" xs={1} sm={1} md={2} lg={2} xl={3} xxl={4}>
+            <Row className="mt-3" xs={1} sm={1} md={2} lg={2} xl={3} xxl={4}>
                 {
                     drinks.map(drink =>
                         <Col key={drink.drink_id}>
